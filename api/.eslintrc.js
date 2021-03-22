@@ -30,11 +30,12 @@ module.exports = {
             'off'
         ],
         '@typescript-eslint/no-explicit-any': [
-            'error'
-        ],
-        '@typescript-eslint/no-return-await': [
             'off'
         ],
+        '@typescript-eslint/no-return-await': [
+            'error'
+        ],
+        'no-return-await': 'error',
         '@typescript-eslint/no-unused-vars': [
             'warn'
         ],
