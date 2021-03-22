@@ -3,20 +3,20 @@ import { Injectable } from '@nestjs/common';
 import { createHash } from 'crypto';
 
 export type Digest = 'base64' | 'hex';
-export type HashAlgorithm = 'sha256' | 'md5' | 'RSA-SHA256';
+export type HashAlgorithm = 'sha256' | 'sha512' | 'md5' | 'RSA-SHA256';
 
 import { Id } from '@api/core/types/id.type';
 
 @Injectable()
 export class EntityService<T> {
     private digest: Digest = 'base64';
-    private hashAlgorithm: HashAlgorithm = 'sha256';
+    private hashAlgorithm: HashAlgorithm = 'sha512';
 
-    public createId(identifiers: string[], length: number = 6): Id {
+    public createId(identifiers: string[], length: number = 64): Id {
         return this.createStringHashId(identifiers.join(' '), length);
     }
 
-    private createStringHashId(identifier: string, length: number = 6): Id {
+    private createStringHashId(identifier: string, length: number = 64): Id {
         const now: string = new Date().toString();
 
         return <Id>createHash(this.hashAlgorithm)

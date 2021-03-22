@@ -33,9 +33,8 @@ module.exports = {
             'off'
         ],
         '@typescript-eslint/no-return-await': [
-            'error'
+            'off'
         ],
-        'no-return-await': 'error',
         '@typescript-eslint/no-unused-vars': [
             'warn'
         ],
