@@ -5,12 +5,13 @@ import { API, composeAPI, GetNodeInfoResponse, Transaction } from '@iota/core';
 import { asciiToTrytes } from '@iota/converter';
 
 import { ExtendedLogger } from '@api/core/utils/extended-logger';
-import { MessageAddress, MessageContent } from '@api/core/message/message.entity';
+import { MessageAddress, MessageContent } from '@api/core/message/message.types';
+
 import {
     UnableToBroadcastToTangleException,
     UnableToConnectToTangleNodeException,
     UnableToPrepareTangleTransferArrayException
-} from '@api/core/iota/iota.exception';
+} from './iota.exception';
 
 export type IotaNet = 'mainnet' | 'devnet';
 export type IotaTransfer = { value: number, address: string, message: string };

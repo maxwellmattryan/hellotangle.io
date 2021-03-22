@@ -14,10 +14,9 @@
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-        "test": "jest",
-        "test:watch": "jest --watch",
-        "test:cov": "jest --coverage",
-        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+        "test": "jest --force-exit --detectOpenHandles",
+        "test:watch": "jest --watch --detectOpenHandles",
+        "test:cov": "jest --coverage --force-exit --detectOpenHandles",
         "test:e2e": "jest --config ./test/jest-e2e.json"
     },
     "dependencies": {
@@ -86,11 +85,11 @@
         },
         "collectCoverage": true,
         "collectCoverageFrom": [
-            "<rootDir>/src/**/*.(service|command|query).ts"
+            "<rootDir>/src/**/*.(service|repository|util|command|query).ts"
         ],
         "coverageDirectory": "./coverage",
         "testMatch": [
-            "<rootDir>/test/**/*.(service|command|query).(test|spec).ts"
+            "<rootDir>/test/**/*.(service|repository|util|command|query).(test|spec).ts"
         ],
         "testEnvironment": "node"
     }

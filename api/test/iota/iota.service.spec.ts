@@ -31,20 +31,15 @@ describe('IotaService', () => {
         expect(service).toBeDefined();
     });
 
-    describe('connectToNode', () => {
-        it('should return appropriate node information', () => {
-            expect(service.connectToNode()).resolves.toHaveProperty('time');
-        });
+    it('can connect to a node and gather information', () => {
+        expect(service.connectToNode()).resolves.toHaveProperty('time');
     });
 
-    
-    describe('sendMessage', () => {
-        it('should broadcast message to Tangle and return Transaction array', () => {
-            service.sendMessage(fakeMessage.content, fakeMessage.address)
-            .then((data: readonly Transaction[]) => {
-                expect(data.length).toBeGreaterThanOrEqual(1);
-            })
-            .catch((error) => { });
-        });
+    it('can broadcast message to Tangle and return a non-empty Transaction array', () => {
+        service.sendMessage(fakeMessage.content, fakeMessage.address)
+        .then((data: readonly Transaction[]) => {
+            expect(data.length).toBeGreaterThanOrEqual(1);
+        })
+        .catch((error) => { });
     });
 });

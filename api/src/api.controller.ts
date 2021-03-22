@@ -25,6 +25,6 @@ export class ApiController {
     public async createMessage(
         @Body() messageDto: MessageDto
     ): Promise<Message> {
-        return this.messageService.send(messageDto.content, messageDto.address);
+        return this.messageService.sendMessage(messageDto.content, messageDto.address);
     }
 }

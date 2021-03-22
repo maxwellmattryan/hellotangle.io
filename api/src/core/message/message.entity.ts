@@ -2,9 +2,7 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } fro
 
 import { Id } from '@api/core/types/id.type';
 
-export type MessageContent = string | object;
-export type MessageAddress = string;
-export type MessageBundleHash = string;
+import { MessageBundleHash, MessageContent } from './message.types';
 
 @Entity('message')
 export class Message {
