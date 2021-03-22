@@ -17,7 +17,8 @@
         "test": "jest --force-exit --detectOpenHandles",
         "test:watch": "jest --watch --detectOpenHandles",
         "test:cov": "jest --coverage --force-exit --detectOpenHandles",
-        "test:e2e": "jest --config ./test/jest-e2e.json"
+        "test:e2e": "jest --config ./test/jest-e2e.json",
+        "test:ci": "jest --ci --reporters='default' --reporters='./test/utils/github-action.reporter'"
     },
     "dependencies": {
         "@hapi/joi": "^17.1.1",
