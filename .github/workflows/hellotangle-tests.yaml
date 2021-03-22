@@ -5,6 +5,10 @@ on: push
 jobs:
   ci:
     runs-on: ubuntu-latest
+    env:
+      IOTA_NET: devnet
+      IOTA_NODE_URL: https://nodes.devnet.iota.org:443
+      IOTA_WALLET_SEED: VQJFEQZ9CWTKCZXRQSPMTVWZMITCC9WJYNUQRBQRODKKXBFXVQSHIESNAYGCCWDHUBHG9QHGEWSMCLJRO
     steps:
       - uses: actions/checkout@v2
       - name: NodeJS / NPM Installation
