@@ -1,4 +1,5 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { ApiResponse } from '@nestjs/swagger';
 
 import { Message } from '@api/core/message/message.entity';
 import { MessageService } from '@api/core/message/message.service';
@@ -11,14 +12,16 @@ export class ApiController {
         private readonly messageService: MessageService
     ) { }
 
+    @ApiResponse({ status: HttpStatus.OK, description: 'Welcome to the HelloTangle API!' })
     @Get('')
-    @HttpCode(200)
+    @HttpCode(HttpStatus.OK)
     public async getHome(): Promise<string> {
         return 'Hello, Tangle!';
     }
 
+    @ApiResponse({ status: HttpStatus.CREATED, description: 'Send a message to the Tangle.' })
     @Post('send')
-    @HttpCode(201)
+    @HttpCode(HttpStatus.CREATED)
     public async createMessage(
         @Body() messageDto: MessageDto
     ): Promise<Message> {

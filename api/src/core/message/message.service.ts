@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { Transaction } from '@iota/core';
+
 import { Repository } from 'typeorm';
 
 import { EntityService } from '@api/core/database/entity.service';
+import { IotaService } from '@api/core/iota/iota.service';
 
 import { Message, MessageAddress, MessageBundleHash, MessageContent } from './message.entity';
-import { IotaService } from '@api/core/iota/iota.service';
-import { Transaction } from '@iota/core';
+import { UnableToCreateMessageException } from './message.exception';
 
 @Injectable()
 export class MessageService extends EntityService<Message> {
@@ -28,20 +30,23 @@ export class MessageService extends EntityService<Message> {
     }
 
     public async send(content: MessageContent, address: MessageAddress): Promise<Message> {
-        const message = await this.create(content, address);
+        let message = await this.create(content, address);
         const messageResult = await this.iotaService.sendMessage(content, address);
 
         const bundleHash: MessageBundleHash = (messageResult as readonly Transaction[])[0].hash;
         const attachedAt: Date = new Date((messageResult as readonly Transaction[])[0].attachmentTimestamp);
 
-        return new Message({
+        return this.save(new Message({
             ...message,
             bundle_hash: bundleHash,
             attached_at: attachedAt
-        });
+        }));
     }
 
     public async save(message: Message): Promise<Message> {
-        return new Message({ ...message });
+        return this.messageRepo.save(message)
+        .catch((error) => {
+            throw new UnableToCreateMessageException();
+        })
     }
 }

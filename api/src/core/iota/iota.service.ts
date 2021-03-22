@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { API, composeAPI, GetNodeInfoResponse, Transaction } from '@iota/core';
@@ -13,6 +13,7 @@ import {
 } from '@api/core/iota/iota.exception';
 
 export type IotaNet = 'mainnet' | 'devnet';
+export type IotaTransfer = { value: number, address: string, message: string };
 
 @Injectable()
 export class IotaService {
@@ -24,7 +25,14 @@ export class IotaService {
         this.connectToNode();
     }
 
-    public async connectToNode(): Promise<void | GetNodeInfoResponse> {
+    private composeIotaApi(): API {
+        const nodeUrl = this.configService.get('IOTA_NODE_URL');
+        return composeAPI({
+            provider: nodeUrl
+        });
+    }
+
+    public async connectToNode(): Promise<GetNodeInfoResponse> {
         return this.composeIotaApi().getNodeInfo()
             .then((data: GetNodeInfoResponse) => {
                 this.logger.info(`Connected to IOTA node at ${data.time} with ${data.neighbors} neighbor(s)`);
@@ -36,12 +44,12 @@ export class IotaService {
             });
     }
 
-    public async sendMessage(content: MessageContent, address: MessageAddress): Promise<void | readonly Transaction[]> {
+    public async sendMessage(content: MessageContent, address: MessageAddress): Promise<readonly Transaction[]> {
         const trytes = await this.prepareMessage(content, address);
         return this.broadcastMessage(trytes);
     }
 
-    private async prepareMessage(content: MessageContent, address: MessageAddress) {
+    private async prepareMessage(content: MessageContent, address: MessageAddress): Promise<readonly string[]> {
         const iota: API = this.composeIotaApi();
         return iota.prepareTransfers(
             String(this.configService.get('IOTA_WALLET_SEED')),
@@ -51,7 +59,17 @@ export class IotaService {
         });
     }
 
-    private async broadcastMessage(trytes: readonly string[]): Promise<void | readonly Transaction[]> {
+    private prepareTransfers(content: MessageContent, address: MessageAddress): IotaTransfer[] {
+        const message = JSON.stringify({ 'message': content });
+        const messageInTrytes = asciiToTrytes(message);
+        return [{
+            value: 0.0,
+            message: messageInTrytes,
+            address: address
+        }];
+    }
+
+    private async broadcastMessage(trytes: readonly string[]): Promise<readonly Transaction[]> {
         const iota: API = this.composeIotaApi();
         return iota.sendTrytes(
             trytes,
@@ -66,23 +84,6 @@ export class IotaService {
             .catch((error) => {
                 throw new UnableToBroadcastToTangleException();
             });
-    }
-
-    private composeIotaApi(): API {
-        const nodeUrl = this.configService.get('IOTA_NODE_URL');
-        return composeAPI({
-            provider: nodeUrl
-        });
-    }
-
-    private prepareTransfers(content: MessageContent, address: MessageAddress) {
-        const message = JSON.stringify({ 'message': content });
-        const messageInTrytes = asciiToTrytes(message);
-        return [{
-            value: 0.0,
-            message: messageInTrytes,
-            address: address
-        }];
     }
 
     private getDepth(): number {

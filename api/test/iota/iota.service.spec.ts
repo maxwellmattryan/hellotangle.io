@@ -33,7 +33,7 @@ describe('IotaService', () => {
 
     describe('connectToNode', () => {
         it('should return appropriate node information', () => {
-            expect(service.connectToNode()).resolves.toBeDefined();
+            expect(service.connectToNode()).resolves.toHaveProperty('time');
         });
     });
 
@@ -41,11 +41,10 @@ describe('IotaService', () => {
     describe('sendMessage', () => {
         it('should broadcast message to Tangle and return Transaction array', () => {
             service.sendMessage(fakeMessage.content, fakeMessage.address)
-                .then((data: void | readonly Transaction[]) => {
-                    console.log("DATA: ", data);
-                    expect(data).toBeDefined();
-                })
-                .catch((error: unknown) => console.log("ERROR: ", error));
+            .then((data: readonly Transaction[]) => {
+                expect(data.length).toBeGreaterThanOrEqual(1);
+            })
+            .catch((error) => { });
         });
     });
 });

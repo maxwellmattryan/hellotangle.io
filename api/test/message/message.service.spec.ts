@@ -44,7 +44,15 @@ describe('MessageService', () => {
     describe('create', () => {
         it('should create a message to be sent to the Tangle', () => {
             const message = service.create(fakeMessage.content, fakeMessage.address);
+
             expect(message.content).toEqual(fakeMessage.content);
+        });
+    });
+
+    describe('save', () => {
+        it('should save a message to the database', () => {
+            const message = service.save(new Message({ ...fakeMessage }))
+            expect(message).resolves.toBeDefined();
         });
     });
 });
