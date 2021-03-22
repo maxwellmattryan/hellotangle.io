@@ -21,7 +21,6 @@
         "test:ci": "jest --ci --reporters='default' --reporters='./test/utils/github-action.reporter'"
     },
     "dependencies": {
-        "@hapi/joi": "^17.1.1",
         "@iota/core": "^1.0.0-beta.30",
         "@nestjs/common": "^7.6.13",
         "@nestjs/config": "^0.6.3",
@@ -30,6 +29,9 @@
         "@nestjs/swagger": "^4.8.0",
         "@nestjs/throttler": "^1.1.1",
         "@nestjs/typeorm": "^7.1.5",
+        "@sideway/address": "^4.1.1",
+        "@sideway/formula": "^3.0.0",
+        "@sideway/pinpoint": "^2.0.0",
         "@types/hapi__joi": "^17.1.6",
         "cache-manager": "^3.4.1",
         "class-validator": "^0.13.1",
