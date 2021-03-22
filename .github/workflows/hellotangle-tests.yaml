@@ -1,4 +1,4 @@
-name: HelloTangle CI
+name: hellotangle-tests
 
 on: [push, pull_request]
 
