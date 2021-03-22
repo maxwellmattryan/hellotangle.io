@@ -3,6 +3,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsAlphanumeric, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class MessageDto {
+    constructor(partial: Partial<MessageDto>) {
+        Object.assign(this, partial);
+    }
+
     @ApiProperty({
         example: 'Hello, Tangle!',
         description: 'Content to put inside message'

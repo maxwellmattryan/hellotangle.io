@@ -1,8 +1,8 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
 import { Id } from '@api/core/types/id.type';
 
-export type MessageContent = string;
+export type MessageContent = string | object;
 export type MessageAddress = string;
 export type MessageBundleHash = string;
 
@@ -21,6 +21,9 @@ export class Message {
     @Column({ type: 'varchar', length:  81, unique: true, nullable: true })
     public bundle_hash?: MessageBundleHash;
 
-    @CreateDateColumn({ type: 'timestamp', default: () => 'now()' })
+    @CreateDateColumn({ type: 'timestamp', default: () => 'now()', nullable: false })
+    public initiated_at?: Date;
+
+    @UpdateDateColumn({ type: 'timestamp', nullable: false })
     public attached_at?: Date;
 }

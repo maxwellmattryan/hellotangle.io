@@ -1,17 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { ApiModule } from './api.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 
+import { ExtendedLogger } from '@api/core/utils/extended-logger';
 import { HttpRequestLogger } from '@api/core/http/http-request.logger';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { HttpExceptionLogger } from '@api/core/http/http-exception.logger';
 
 async function bootstrap() {
-    const app = await NestFactory.create<NestExpressApplication>(ApiModule, {
-        logger: ['debug', 'log', 'warn', 'error']
-    });
+    const app = await NestFactory.create<NestExpressApplication>(ApiModule);
+    app.useLogger(app.get(ExtendedLogger));
 
     const config = new DocumentBuilder()
         .setTitle('HelloTangle API')
@@ -33,6 +34,7 @@ async function bootstrap() {
     app.use(compression());
     app.use(helmet());
 
+    app.useGlobalFilters(new HttpExceptionLogger());
     app.useGlobalInterceptors(new HttpRequestLogger());
 
     const PORT = process.env.PORT || 3000;

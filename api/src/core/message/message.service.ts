@@ -5,8 +5,9 @@ import { Repository } from 'typeorm';
 
 import { EntityService } from '@api/core/database/entity.service';
 
-import { Message, MessageAddress, MessageContent } from './message.entity';
+import { Message, MessageAddress, MessageBundleHash, MessageContent } from './message.entity';
 import { IotaService } from '@api/core/iota/iota.service';
+import { Transaction } from '@iota/core';
 
 @Injectable()
 export class MessageService extends EntityService<Message> {
@@ -18,13 +19,29 @@ export class MessageService extends EntityService<Message> {
         super();
     }
 
-    public async create(content: MessageContent, address: MessageAddress): Promise<Message> {
-        const messageResult = await this.iotaService.sendMessage(content, address);
+    public create(content: MessageContent, address: MessageAddress): Message {
         return new Message({
-            id: this.createId([content, address]),
+            id: this.createId([String(content), address]),
             content: content,
-            bundle_hash: messageResult[0].hash,
-            attached_at: new Date(messageResult[0].attachmentTimestamp)
+            initiated_at: new Date(Date.now())
         });
+    }
+
+    public async send(content: MessageContent, address: MessageAddress): Promise<Message> {
+        const message = await this.create(content, address);
+        const messageResult = await this.iotaService.sendMessage(content, address);
+
+        const bundleHash: MessageBundleHash = (messageResult as readonly Transaction[])[0].hash;
+        const attachedAt: Date = new Date((messageResult as readonly Transaction[])[0].attachmentTimestamp);
+
+        return new Message({
+            ...message,
+            bundle_hash: bundleHash,
+            attached_at: attachedAt
+        });
+    }
+
+    public async save(message: Message): Promise<Message> {
+        return new Message({ ...message });
     }
 }
