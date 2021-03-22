@@ -1,16 +1,26 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { ApiModule } from './api.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 
 import { HttpRequestLogger } from '@api/core/http/http-request.logger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-    const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    const app = await NestFactory.create<NestExpressApplication>(ApiModule, {
         logger: ['debug', 'log', 'warn', 'error']
     });
+
+    const config = new DocumentBuilder()
+        .setTitle('HelloTangle API')
+        .setDescription('The documentation for HelloTangle\'s API')
+        .setVersion('0.0.1')
+        .addTag('hellotangle')
+        .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api', app, document);
 
     app.enableCors({
         origin: true,

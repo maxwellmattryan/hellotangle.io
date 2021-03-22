@@ -8,6 +8,8 @@ import * as Joi from '@hapi/joi';
 import { DatabaseModule } from '@api/core/database/database.module';
 import { MessageModule } from '@api/core/message/message.module';
 
+import { ApiController } from '@api/api.controller';
+
 @Module({
     imports: [
         CacheModule.register({
@@ -15,6 +17,7 @@ import { MessageModule } from '@api/core/message/message.module';
         }),
         ConfigModule.forRoot({
             validationSchema: Joi.object({
+                IOTA_NET: Joi.string(),
                 IOTA_NODE_URL: Joi.string().required(),
                 IOTA_WALLET_SEED: Joi.string().required(),
 
@@ -37,6 +40,9 @@ import { MessageModule } from '@api/core/message/message.module';
         DatabaseModule,
         MessageModule
     ],
+    controllers: [
+        ApiController
+    ],
     providers: [
         {
             provide: APP_INTERCEPTOR,
@@ -48,4 +54,4 @@ import { MessageModule } from '@api/core/message/message.module';
         }
     ],
 })
-export class AppModule { }
+export class ApiModule { }
