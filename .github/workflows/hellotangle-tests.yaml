@@ -11,7 +11,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '15'
-      - run: npm install jest --save-dev && npm install
+      - run: npm install jest ts-jest @types/jest --save-dev && npm install
 
       - name: Tests
         if: ${{ success() }}
