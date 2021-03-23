@@ -1,25 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
-import { Repository } from 'typeorm';
+import { Transaction } from '@iota/core';
 
-import { EntityService } from '@api/core/database/entity.service';
+import { IotaService } from '@api/core/iota/iota.service';
 
-import { Message, MessageContent } from './message.entity';
+import { Message } from './message.entity';
+import { MessageRepository } from './message.repository';
+import { MessageAddress, MessageHash, MessageContent } from './message.types';
 
 @Injectable()
-export class MessageService extends EntityService<Message> {
+export class MessageService {
     constructor(
-        @InjectRepository(Message)
-        private readonly messageRepo: Repository<Message>
-    ) {
-        super();
-    }
+        private readonly iotaService: IotaService,
+        private readonly messageRepository: MessageRepository
+    ) { }
 
-    public async create(content: MessageContent): Promise<Message> {
-        return new Message({
-            id: this.createId([content]),
-            content: content
-        });
+    public async sendMessage(content: MessageContent, address: MessageAddress): Promise<Message> {
+        let message = await this.messageRepository.createMessage(content, address);
+        const messageResult = await this.iotaService.sendMessage(content, address);
+
+        const hash: MessageHash = (messageResult as readonly Transaction[])[0].hash;
+        const attachedAt: Date = new Date((messageResult as readonly Transaction[])[0].attachmentTimestamp);
+
+        return this.messageRepository.saveMessage(new Message({
+            ...message,
+            hash: hash,
+            attached_at: attachedAt
+        }));
     }
 }

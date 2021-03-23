@@ -1,0 +1,22 @@
+name: hellotangle-api
+
+on: push
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      IOTA_NET: devnet
+      IOTA_NODE_URL: https://nodes.devnet.iota.org:443
+      IOTA_WALLET_SEED: ${{ secrets.IotaWalletSeed }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: NodeJS / NPM Installation
+        uses: actions/setup-node@v1
+        with:
+          node-version: '15'
+      - run: cd ${{ runner.workspace }}/hellotangle/api && npm install
+
+      - name: Tests
+        if: ${{ success() }}
+        run: cd ${{ runner.workspace }}/hellotangle/api && npm test

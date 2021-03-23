@@ -1,20 +1,21 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Message } from './message.entity';
-import { MessageController } from './message.controller';
+import { IotaModule } from '@api/core/iota/iota.module';
+
 import { MessageService } from './message.service';
+import { MessageRepository } from '@api/core/message/message.repository';
 
 @Module({
   imports: [
-      TypeOrmModule.forFeature([Message])
+      TypeOrmModule.forFeature([MessageRepository]),
+
+      IotaModule
   ],
   exports: [
       MessageService
   ],
-  controllers: [
-      MessageController
-  ],
+  controllers: [],
   providers: [
       MessageService
   ]

@@ -6,7 +6,12 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import * as Joi from '@hapi/joi';
 
 import { DatabaseModule } from '@api/core/database/database.module';
+import { HttpModule } from '@api/core/http/http.module';
+import { IotaModule } from '@api/core/iota/iota.module';
 import { MessageModule } from '@api/core/message/message.module';
+import { UtilsModule } from '@api/core/utils/utils.module';
+
+import { ApiController } from '@api/api.controller';
 
 @Module({
     imports: [
@@ -15,6 +20,7 @@ import { MessageModule } from '@api/core/message/message.module';
         }),
         ConfigModule.forRoot({
             validationSchema: Joi.object({
+                IOTA_NET: Joi.string(),
                 IOTA_NODE_URL: Joi.string().required(),
                 IOTA_WALLET_SEED: Joi.string().required(),
 
@@ -35,7 +41,13 @@ import { MessageModule } from '@api/core/message/message.module';
         }),
 
         DatabaseModule,
-        MessageModule
+        HttpModule,
+        IotaModule,
+        MessageModule,
+        UtilsModule
+    ],
+    controllers: [
+        ApiController
     ],
     providers: [
         {
@@ -48,4 +60,4 @@ import { MessageModule } from '@api/core/message/message.module';
         }
     ],
 })
-export class AppModule { }
+export class ApiModule { }

@@ -1,11 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 
+import { IotaService } from '@api/core/iota/iota.service';
+
+import { MessageDto } from '@api/core/message/message.dto';
 import { Message } from '@api/core/message/message.entity';
 import { MessageService } from '@api/core/message/message.service';
 
-const fakeMessage = new Message({
-    content: 'Hello, Tangle!'
+const fakeMessage = new MessageDto({
+    id: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',
+    content: 'Hello, Tangle!',
+    address: 'ILOLJ8V08OVJDVJD3PH1KIA2U6XFCZWRNI6KW65E04MBV3G33UUFSY00102QC99Q',
+    hash: 'ZWEIAGQKKDIBZBFQCUSZDNSNVYEBMJXWPLYUEOHVC9L9KSJMHKPW9BOFHO9NQKFQSZXVPQIBH9RJLY999',
 });
 
 describe('MessageService', () => {
@@ -13,7 +20,11 @@ describe('MessageService', () => {
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
+            imports: [
+                ConfigModule.forRoot()
+            ],
             providers: [
+                IotaService,
                 MessageService,
                 {
                     provide: getRepositoryToken(Message),
@@ -31,11 +42,15 @@ describe('MessageService', () => {
         expect(service).toBeDefined();
     });
 
-    describe('create', () => {
-        it('should create a message for the Tangle', () => {
-            service.create(fakeMessage.content).then((data: Message) =>
-                expect(data.content).toEqual(fakeMessage.content)
-            );
-        });
+    it('can send a message to the Tangle', () => {
+        service.sendMessage(fakeMessage.content, fakeMessage.address)
+        .then((data: Message) => {
+            expect(data.hash).not.toEqual(fakeMessage.hash);
+
+            expect(data).toHaveProperty('initiated_at');
+            expect(data).toHaveProperty('attached_at');
+            expect(Number(data.attached_at)).toBeGreaterThan(Number(data.initiated_at));
+        })
+        .catch((error) => { });
     });
 });

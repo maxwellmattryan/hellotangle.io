@@ -1,29 +1,16 @@
-import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from '@nestjs/common';
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { ExtendedLogger } from '@api/core/utils/extended-logger';
 
 @Injectable()
 export class HttpRequestLogger implements NestInterceptor {
-    private readonly logger: Logger = new Logger('HttpRequestLogger');
+    private readonly logger = new ExtendedLogger('HttpLogger');
 
-    private readonly typeMap: object = {
+    private readonly methodMap: object = {
         get: 'GET',
         put: 'PUT',
         delete: 'DELETE',
         post: 'POST'
-    };
-
-    private readonly httpStatusMap: object = {
-        200: 'Ok',
-        201: 'Created',
-        204: 'No Content',
-        302: 'Found',
-        304: 'Not Modified',
-        400: 'Bad Request',
-        401: 'Unauthorized',
-        402: 'Payment Required',
-        403: 'Forbidden',
-        404: 'Not Found',
-        429: 'Too Many Requests'
     };
 
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> | Promise<Observable<any>> {
@@ -33,14 +20,12 @@ export class HttpRequestLogger implements NestInterceptor {
         let method: string = '';
         Object.keys(req.route.methods).forEach(k => {
             // @ts-ignore
-            if(req.route.methods[k]) method = this.typeMap[k];
+            if(req.route.methods[k]) method = this.methodMap[k];
         });
 
         const statusCode = res.statusCode;
-        // @ts-ignore
-        const statusMessage = this.httpStatusMap[statusCode];
         const url = req.originalUrl;
-        this.logger.log(`[${statusCode} | ${statusMessage}] ${method} ${url}`);
+        this.logger.infoResponse(`${method} ${url}`, statusCode);
 
         return next.handle();
     }
