@@ -4,10 +4,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Transaction } from '@iota/core';
 
 import { IotaService } from '@api/iota/services/iota.service';
-import { SendMessageDto } from '@api/message/dtos/send-message.dto';
 import { Message } from '@api/message/entities/message.entity';
 
-const fakeMessage = new SendMessageDto({
+const fakeMessage = new Message({
     id: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',
     content: 'Hello, Tangle!',
     recipient_address: 'ILOLJ8V08OVJDVJD3PH1KIA2U6XFCZWRNI6KW65E04MBV3G33UUFSY00102QC99Q',
@@ -40,7 +39,7 @@ describe('IotaService', () => {
     });
 
     it('can broadcast message to Tangle and return a non-empty Transaction array', () => {
-        service.sendMessage(new Message({ ...fakeMessage }))
+        service.sendMessage(fakeMessage)
         .then((data: readonly Transaction[]) => {
             expect(data.length).toBeGreaterThanOrEqual(1);
         })

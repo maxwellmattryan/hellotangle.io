@@ -3,13 +3,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { IotaService } from '@api/iota/services/iota.service';
-import { SendMessageDto } from '@api/message/dtos/send-message.dto';
 import { Message } from '@api/message/entities/message.entity';
 import { MessageService } from '@api/message/services/message.service';
-import { IotaModule } from '@api/iota/iota.module';
 import { MessageRepository } from '@api/message/repositories/message.repository';
 
-const fakeMessage = new SendMessageDto({
+const fakeMessage = new Message({
     id: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',
     content: 'Hello, Tangle!',
     recipient_address: 'ILOLJ8V08OVJDVJD3PH1KIA2U6XFCZWRNI6KW65E04MBV3G33UUFSY00102QC99Q',

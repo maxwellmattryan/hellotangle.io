@@ -13,10 +13,9 @@ UI_IMAGE=hellotangle-ui
 DOMAIN=hellotangle.io
 
 GCP_HOSTNAME=gcr.io
-GCP_PLATFORM=managed
-GCP_REGION=us-central1
 GCP_PROJECT_ID=hellotangle
 GCP_VPC_CONNECTOR=hellotangle-api
+GCP_VPC_EGRESS=private-ranges-only
 GCP_SERVICE_ACCOUNT=gcloud-api@hellotangle.iam.gserviceaccount.com
 GCP_API_SERVICE=hellotangle-api
 GCP_UI_SERVICE=hellotangle-ui
@@ -107,7 +106,7 @@ if [ "$API_ACTION" = true ]; then
     echo -e "[Success]: Pushed local API image!\n"
 
     echo -e "($(expr $START + 3)/$STEPS) Deploying to Cloud Run service ($GCP_API_SERVICE)...\n"
-    gcloud run deploy "$GCP_API_SERVICE" --image="$GCP_API_IMAGE_PATH" --platform="$GCP_PLATFORM" --region="$GCP_REGION" --vpc-connector="$GCP_VPC_CONNECTOR" --vpc-egress=all
+    gcloud run deploy "$GCP_API_SERVICE" --image="$GCP_API_IMAGE_PATH" --vpc-connector="$GCP_VPC_CONNECTOR" --vpc-egress="$GCP_VPC_EGRESS"
     echo -e "[Success]: Deployed service!\n"
 
     echo -e "($(expr $START + 4)/$STEPS) Removing API images from Docker...\n"
