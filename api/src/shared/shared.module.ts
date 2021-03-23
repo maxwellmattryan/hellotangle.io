@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { ExtendedLogger } from './utils/extended-logger';
+import { ExtendedLogger } from '../core/utils/extended-logger';
 
 @Module({
     imports: [],

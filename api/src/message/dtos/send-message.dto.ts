@@ -1,23 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsAlphanumeric, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsAlphanumeric, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
-import { Id } from '@api/shared/types/id.types';
+import { Id } from '@api/core/types/id.types';
 
 import { MessageAddress, MessageHash, MessageContent } from '../message.types';
 
-export class MessageDto {
-    constructor(partial: Partial<MessageDto>) {
+export class SendMessageDto {
+    constructor(partial: Partial<SendMessageDto>) {
         Object.assign(this, partial);
     }
 
     @ApiProperty({
         example: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',
-        description: 'The message\'s ID',
+        description: 'Server-generated message ID',
         minLength: 64,
         maxLength: 64,
         required: false
     })
+    @MinLength(64)
+    @MaxLength(64)
+    @IsString()
+    @IsAlphanumeric()
     id?: Id;
 
     @ApiProperty({
@@ -29,6 +33,7 @@ export class MessageDto {
     })
     @MaxLength(256)
     @IsString()
+    @IsNotEmpty()
     content!: MessageContent;
 
     @ApiProperty({
@@ -42,7 +47,8 @@ export class MessageDto {
     @MaxLength(90)
     @IsString()
     @IsAlphanumeric()
-    address!: MessageAddress;
+    @IsNotEmpty()
+    recipient_address!: MessageAddress;
 
     @ApiProperty({
         example: 'JAYMRNADWH9KXMQ99CFFKCA9SCNAWMMRXACEPUXIL9DHVOLQDJIPGHFF9MFPZCZOCSWCQJYLCTDGGKXH9',

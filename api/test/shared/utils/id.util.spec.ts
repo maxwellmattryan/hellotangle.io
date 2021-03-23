@@ -1,5 +1,5 @@
-import { Id } from '@api/shared/types/id.types';
-import { createId } from '@api/shared/utils/id.util';
+import { Id } from '@api/core/types/id.types';
+import { createId } from '@api/core/utils/id.util';
 
 describe('BaseRepository', () => {
     it('can create a unique hashed identifier within the correct format', () => {

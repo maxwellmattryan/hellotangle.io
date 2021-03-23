@@ -1,22 +1,23 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Inject, Post } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
 
 import { Message } from '@api/message/entities/message.entity';
-import { MessageDto } from '@api/message/dtos/message.dto';
-import { MessageService } from '@api/message/services/message.service';
+import { SendMessageDto } from '@api/message/dtos/send-message.dto';
+import { MessageServiceInterface } from '@api/message/interfaces/message.service.interface';
 
 @Controller('messages')
 export class MessageController {
     constructor(
-        private readonly messageService: MessageService
+        @Inject('MessageServiceInterface')
+        private readonly messageService: MessageServiceInterface
     ) { }
 
     @ApiResponse({ status: HttpStatus.CREATED, description: 'Send a message to the Tangle.' })
     @Post('send')
     @HttpCode(HttpStatus.CREATED)
     public async createMessage(
-        @Body() messageDto: MessageDto
+        @Body() messageDto: SendMessageDto
     ): Promise<Message> {
-        return this.messageService.sendMessage(messageDto.content, messageDto.address);
+        return this.messageService.sendMessage(messageDto);
     }
 }

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 
 import { IotaService } from './services/iota.service';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
     imports: [

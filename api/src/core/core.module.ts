@@ -4,7 +4,8 @@ import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { typeormConfig } from './database/config/typeorm.config';
-import { HttpExceptionLogger } from '@api/core/http/http-exception.logger';
+import { HttpExceptionLogger } from './http/http-exception.logger';
+import { ExtendedLogger } from './utils/extended-logger';
 
 @Module({
     imports: [
@@ -14,9 +15,12 @@ import { HttpExceptionLogger } from '@api/core/http/http-exception.logger';
             useFactory: (configService: ConfigService) => typeormConfig(configService)
         })
     ],
-    exports: [],
+    exports: [
+        ExtendedLogger
+    ],
     controllers: [],
     providers: [
+        ExtendedLogger,
         {
             provide: APP_FILTER,
             useClass: HttpExceptionLogger

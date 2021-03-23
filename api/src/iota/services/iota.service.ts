@@ -4,25 +4,30 @@ import { ConfigService } from '@nestjs/config';
 import { API, composeAPI, GetNodeInfoResponse, Transaction } from '@iota/core';
 import { asciiToTrytes } from '@iota/converter';
 
-import { ExtendedLogger } from '@api/shared/utils/extended-logger';
 import { MessageAddress, MessageContent } from '@api/message/message.types';
+import { ExtendedLogger } from '@api/core/utils/extended-logger';
 
 import {
     UnableToBroadcastToTangleException,
     UnableToConnectToTangleNodeException,
     UnableToPrepareTangleTransferArrayException
 } from '../exceptions/iota.exception';
+import { IotaServiceInterface } from '../interfaces/iota.service.interface';
+import { Message } from '@api/message/entities/message.entity';
+import { BaseAbstractService } from '@api/core/services/base.abstract.service';
 
 export type IotaNet = 'mainnet' | 'devnet';
 export type IotaTransfer = { value: number, address: string, message: string };
 
 @Injectable()
-export class IotaService {
+export class IotaService extends BaseAbstractService<null> implements IotaServiceInterface {
     private readonly logger = new ExtendedLogger('IotaService');
 
     constructor(
         private readonly configService: ConfigService
     ) {
+        super();
+
         this.connectToNode();
     }
 
@@ -45,28 +50,28 @@ export class IotaService {
             });
     }
 
-    public async sendMessage(content: MessageContent, address: MessageAddress): Promise<readonly Transaction[]> {
-        const trytes = await this.prepareMessage(content, address);
+    public async sendMessage(message: Message): Promise<readonly Transaction[]> {
+        const trytes = await this.prepareMessage(message);
         return this.broadcastMessage(trytes);
     }
 
-    private async prepareMessage(content: MessageContent, address: MessageAddress): Promise<readonly string[]> {
+    private async prepareMessage(message: Message): Promise<readonly string[]> {
         const iota: API = this.composeIotaApi();
         return iota.prepareTransfers(
             String(this.configService.get('IOTA_WALLET_SEED')),
-            this.prepareTransfers(content, address)
+            this.prepareTransfers(message.content, message.recipient_address)
         ).catch((error) => {
             throw new UnableToPrepareTangleTransferArrayException();
         });
     }
 
-    private prepareTransfers(content: MessageContent, address: MessageAddress): IotaTransfer[] {
+    private prepareTransfers(content: MessageContent, recipientAddress: MessageAddress): IotaTransfer[] {
         const message = JSON.stringify({ 'message': content });
         const messageInTrytes = asciiToTrytes(message);
         return [{
             value: 0.0,
             message: messageInTrytes,
-            address: address
+            address: recipientAddress
         }];
     }
 

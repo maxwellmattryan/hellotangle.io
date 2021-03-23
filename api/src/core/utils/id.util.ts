@@ -1,6 +1,6 @@
 import { createHash } from 'crypto';
 
-import { Id } from '@api/shared/types/id.types';
+import { Id } from '@api/core/types/id.types';
 
 export type Digest = 'base64' | 'hex';
 const digest: Digest = 'base64';

@@ -1,8 +1,8 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
-import { Id } from '@api/shared/types/id.types';
+import { Id } from '@api/core/types/id.types';
 
-import { MessageHash, MessageContent } from '../message.types';
+import { MessageHash, MessageContent, MessageAddress } from '../message.types';
 
 @Entity('messages')
 export class Message {
@@ -15,6 +15,9 @@ export class Message {
 
     @Column({ type: 'varchar', length: 256, unique: false, nullable: false })
     public content: MessageContent = '';
+
+    @Column({ type: 'varchar', length: 90, unique: true, nullable: false })
+    public recipient_address: MessageAddress = '';
 
     @Column({ type: 'varchar', length:  81, unique: true, nullable: true })
     public hash?: MessageHash;

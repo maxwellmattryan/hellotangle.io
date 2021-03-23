@@ -1,27 +1,19 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
-import { createId } from '@api/shared/utils/id.util';
+import { Repository } from 'typeorm';
+
+import { BaseAbstractRepository } from '@api/core/repositories/base.abstract.repository';
 
 import { Message } from '../entities/message.entity';
-import { MessageAddress, MessageContent } from '../message.types';
-import { UnableToCreateMessageException } from '../exceptions/message.exception';
+import { MessageRepositoryInterface } from '../interfaces/message.repository.interface';
 
-@EntityRepository(Message)
-export class MessageRepository extends Repository<Message> {
-    public async createMessage(content: MessageContent, address: MessageAddress): Promise<Message> {
-        const message = new Message({
-            id: createId([String(content), address]),
-            content: content,
-            initiated_at: new Date(Date.now())
-        });
-
-        return this.save(message);
-    }
-
-    public async saveMessage(message: Message): Promise<Message> {
-        return this.save(message)
-        .catch((error) => {
-            throw new UnableToCreateMessageException();
-        });
+@Injectable()
+export class MessageRepository extends BaseAbstractRepository<Message> implements MessageRepositoryInterface {
+    constructor(
+        @InjectRepository(Message)
+        private readonly messageRepository: Repository<Message>
+    ) {
+        super(messageRepository);
     }
 }

@@ -1,15 +1,16 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Test, TestingModule } from '@nestjs/testing';
 
 import { Transaction } from '@iota/core';
 
 import { IotaService } from '@api/iota/services/iota.service';
-import { MessageDto } from '@api/message/dtos/message.dto';
+import { SendMessageDto } from '@api/message/dtos/send-message.dto';
+import { Message } from '@api/message/entities/message.entity';
 
-const fakeMessage = new MessageDto({
+const fakeMessage = new SendMessageDto({
     id: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',
     content: 'Hello, Tangle!',
-    address: 'ILOLJ8V08OVJDVJD3PH1KIA2U6XFCZWRNI6KW65E04MBV3G33UUFSY00102QC99Q',
+    recipient_address: 'ILOLJ8V08OVJDVJD3PH1KIA2U6XFCZWRNI6KW65E04MBV3G33UUFSY00102QC99Q',
     hash: 'ZWEIAGQKKDIBZBFQCUSZDNSNVYEBMJXWPLYUEOHVC9L9KSJMHKPW9BOFHO9NQKFQSZXVPQIBH9RJLY999',
 });
 
@@ -39,7 +40,7 @@ describe('IotaService', () => {
     });
 
     it('can broadcast message to Tangle and return a non-empty Transaction array', () => {
-        service.sendMessage(fakeMessage.content, fakeMessage.address)
+        service.sendMessage(new Message({ ...fakeMessage }))
         .then((data: readonly Transaction[]) => {
             expect(data.length).toBeGreaterThanOrEqual(1);
         })
