@@ -60,13 +60,13 @@ echo -e "\n($START/$STEPS) Initiating pre-build checks...\n"
 START=2
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-if [ "$BRANCH" != "main" ];
+if [ "$BRANCH" != "develop" ];
 then
-    echo -e "\t[✘] Branch is set to \"main\"\n"
-    echo -e "To switch to the correct branch, please use:\n\n\tgit checkout main\n"
+    echo -e "\t[✘] Branch is set to \"develop\"\n"
+    echo -e "To switch to the correct branch, please use:\n\n\tgit checkout develop\n"
     exit 1;
 else
-    echo -e "\t[✔] Branch is set to \"main\""
+    echo -e "\t[✔] Branch is set to \"develop\""
 fi
 
 CURRENT_GCP_ACCOUNT=$(gcloud config list account --format "value(core.account)")
