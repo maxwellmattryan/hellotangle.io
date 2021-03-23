@@ -1,22 +1,22 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { IOTA_SERVICE, IotaServiceInterface } from '@api/iota/interfaces/iota.service.interface';
+import { Inject, Injectable, Scope } from '@nestjs/common';
 
 import { Transaction } from '@iota/core';
 
 import { BaseAbstractService } from '@api/core/services/base.abstract.service';
-import { IotaService } from '@api/iota/services/iota.service';
 
-import { Message } from '../entities/message.entity';
-import { SendMessageDto } from '../dtos/send-message.dto';
-import { MessageHash } from '../message.types';
-import { MessageRepositoryInterface } from '../interfaces/message.repository.interface';
-import { MessageServiceInterface } from '../interfaces/message.service.interface';
+import { Message } from '@api/message/entities/message.entity';
+import { SendMessageDto } from '@api/message/dtos/send-message.dto';
+import { MessageHash } from '@api/message/message.types';
+import { MESSAGE_REPOSITORY, MessageRepositoryInterface } from '@api/message/interfaces/message.repository.interface';
+import { MessageServiceInterface } from '@api/message/interfaces/message.service.interface';
 
 @Injectable()
 export class MessageService extends BaseAbstractService<Message> implements MessageServiceInterface {
     constructor(
-        // TODO: Add IOTA inject token
-        private readonly iotaService: IotaService,
-        @Inject('MessageRepositoryInterface')
+        @Inject(IOTA_SERVICE)
+        private readonly iotaService: IotaServiceInterface,
+        @Inject(MESSAGE_REPOSITORY)
         private readonly messageRepository: MessageRepositoryInterface
     ) {
         super();
@@ -28,6 +28,8 @@ export class MessageService extends BaseAbstractService<Message> implements Mess
 
         const hash: MessageHash = messageResult[0].hash;
         const attachedAt: Date = new Date((messageResult as readonly Transaction[])[0].attachmentTimestamp);
+
+        console.log(message);
 
         message = (await this.messageRepository.update(message.id, new Message({
             ...message,

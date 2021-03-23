@@ -1,11 +1,11 @@
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 
 import { Id } from '@api/core/types/id.types';
 import { createId } from '@api/core/utils/id.util';
 
-import { BaseInterfaceRepository } from './base.interface.repository';
 import { PostgresErrors } from '@api/core/database/postgres.errors';
 import { EntityAlreadyExistsException } from '@api/core/exceptions/base.entity.exceptions';
+import { BaseInterfaceRepository } from '@api/core/repositories/base.interface.repository';
 
 export abstract class BaseAbstractRepository<T> implements BaseInterfaceRepository<T> {
     private entity: Repository<T>;
@@ -17,6 +17,8 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     public async create(data: T): Promise<T | void> {
         const id: Id = createId([(data as any)['content']] || 'Sup');
         const now: Date = new Date(Date.now());
+
+        console.log("DATA: ", data);
 
         return this.save({ ...data, id: id, initiated_at: now });
     }
@@ -39,7 +41,10 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     }
 
     public async update(id: Id, data: T): Promise<T | void> {
-        return this.save(data);
+        return this.save(data)
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     public async delete(id: Id): Promise<DeleteResult> {

@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
 
-import { ExtendedLogger } from '../core/utils/extended-logger';
+import { ExtendedLogger } from '@api/core/utils/extended-logger';
 
 @Module({
-    imports: [],
     exports: [
         ExtendedLogger
     ],
-    controllers: [],
     providers: [
         ExtendedLogger
     ]

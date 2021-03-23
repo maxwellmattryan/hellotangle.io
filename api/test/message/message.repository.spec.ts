@@ -3,14 +3,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { Message } from '@api/message/entities/message.entity';
+import {
+    UnableToCreateMessageException,
+    UnableToDeleteMessageException,
+    UnableToUpdateMessageException
+} from '@api/message/exceptions/message.exceptions';
 import { MessageRepository } from '@api/message/repositories/message.repository';
 
-const fakeMessage = new Message({
-    id: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',
-    content: 'Hello, Tangle!',
-    recipient_address: 'ILOLJ8V08OVJDVJD3PH1KIA2U6XFCZWRNI6KW65E04MBV3G33UUFSY00102QC99Q',
-    hash: 'ZWEIAGQKKDIBZBFQCUSZDNSNVYEBMJXWPLYUEOHVC9L9KSJMHKPW9BOFHO9NQKFQSZXVPQIBH9RJLY999',
-});
+import { FakeMessage, MessageRepositoryMock } from '@test/message/message.repository.mock';
 
 describe('MessageRepository', () => {
     let repository: MessageRepository;
@@ -28,12 +28,7 @@ describe('MessageRepository', () => {
                 },
                 {
                     provide: getRepositoryToken(Message),
-                    useValue: {
-                        create: jest.fn().mockResolvedValue(fakeMessage),
-                        save: jest.fn().mockResolvedValue(fakeMessage),
-                        findAll: jest.fn().mockResolvedValue([fakeMessage]),
-                        findById: jest.fn().mockResolvedValue(fakeMessage),
-                    }
+                    useValue: MessageRepositoryMock(FakeMessage)
                 }
             ]
         }).compile();
@@ -45,36 +40,80 @@ describe('MessageRepository', () => {
         expect(repository).toBeDefined();
     });
 
-    it('can create a message to be sent to the Tangle', () => {
-        const message = repository.create(new Message({ ...fakeMessage }))
-        .then((data): Message | void => {
-            expect((data as Message).content).toEqual(fakeMessage.content);
-        })
-        .catch((error) => { });
+    describe('create()', () => {
+        it('should create a message to be sent to the Tangle', () => {
+            repository.create(new Message({ ...FakeMessage }))
+                .then((data): Message | void => {
+                    expect((data as Message).content).toEqual(FakeMessage.content);
+                })
+                .catch((error) => { });
+        });
     });
 
-    it('can save a message to the database', () => {
-        repository.save(new Message({ ...fakeMessage }))
-        .then((data): Message | void => {
-            expect((data as Message).hash).toEqual(fakeMessage.hash);
-        })
-        .catch((error) => { });
+    describe('save()', () => {
+        it('should save a message to the database using a valid ID', () => {
+            repository.save(new Message({
+                id: 'NEW_ID',
+                content: 'Hello, Tangle!',
+                hash: 'NEW_HASH',
+                recipient_address: 'NEW_RECIPIENT_ADDRESS'
+            }))
+                .then((data): Message | void => {
+                    expect((data as Message)).not.toEqual(FakeMessage);
+                })
+                .catch((error) => { });
+        });
+
+        it('should throw an error trying to save one with same id, recipient_address, or hash.', () => {
+            expect(() => {
+                repository.save(new Message({ ...FakeMessage }))
+            }).toThrow(UnableToCreateMessageException);
+        });
     });
 
-    it('can find all messages in the database', () => {
-        repository.findAll()
-        .then((data: Message[]) => {
-            expect(data[0]).toEqual(fakeMessage);
-        })
-        .catch((error) => { });
+    describe('findAll()', () => {
+        it('should find all messages in the database', () => {
+            repository.findAll()
+                .then((data: Message[]) => {
+                    expect(data[0]).toEqual(FakeMessage);
+                })
+                .catch((error) => { });
+        });
     });
 
-    it('can use ID to find a message in the database', () => {
-        repository.findById(fakeMessage.id)
-        .then((data: Message | undefined) => {
-            expect((data as Message).id).toEqual(fakeMessage.id);
-            expect((data as Message).hash).toEqual(fakeMessage.hash);
-        })
-        .catch((error) => { });
+    describe('findById()', () => {
+        it('should return message using a valid ID', () => {
+            repository.findById(FakeMessage.id)
+                .then((data: Message | undefined) => {
+                    expect(data).toBeDefined();
+                    expect(data).toEqual(FakeMessage);
+                })
+                .catch((error) => { });
+        });
+
+        it('should return undefined using an invalid ID', () => {
+            repository.findById('1')
+                .then((data: Message | undefined) => {
+                    expect(data).toBeUndefined();
+                    expect(data).not.toEqual(FakeMessage);
+                })
+                .catch((error) => { });
+        });
+    });
+
+    describe('update()', () => {
+        it('should never allow for an update', () => {
+            expect(() => {
+                repository.update(FakeMessage.id, FakeMessage);
+            }).toThrow(UnableToUpdateMessageException);
+        });
+    });
+
+    describe('delete()', () => {
+        it('should never allow for a delete', () => {
+            expect(() => {
+                repository.delete(FakeMessage.id);
+            }).toThrow(UnableToDeleteMessageException);
+        });
     });
 });

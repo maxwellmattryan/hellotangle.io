@@ -5,3 +5,15 @@ export class UnableToCreateMessageException extends BadRequestException {
         super('Unable to create message.');
     }
 }
+
+export class UnableToUpdateMessageException extends BadRequestException {
+    constructor() {
+        super('Unable to update message (due to immutability).');
+    }
+}
+
+export class UnableToDeleteMessageException extends BadRequestException {
+    constructor() {
+        super('Unable to delete message (due to immutability).');
+    }
+}

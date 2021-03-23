@@ -4,15 +4,10 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { IotaService } from '@api/iota/services/iota.service';
 import { Message } from '@api/message/entities/message.entity';
-import { MessageService } from '@api/message/services/message.service';
 import { MessageRepository } from '@api/message/repositories/message.repository';
+import { MessageService } from '@api/message/services/message.service';
 
-const fakeMessage = new Message({
-    id: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',
-    content: 'Hello, Tangle!',
-    recipient_address: 'ILOLJ8V08OVJDVJD3PH1KIA2U6XFCZWRNI6KW65E04MBV3G33UUFSY00102QC99Q',
-    hash: 'ZWEIAGQKKDIBZBFQCUSZDNSNVYEBMJXWPLYUEOHVC9L9KSJMHKPW9BOFHO9NQKFQSZXVPQIBH9RJLY999',
-});
+import { FakeMessage, MessageRepositoryMock } from '@test/message/message.repository.mock';
 
 describe('MessageService', () => {
     let service: MessageService;
@@ -40,12 +35,7 @@ describe('MessageService', () => {
                 },
                 {
                     provide: getRepositoryToken(Message),
-                    useValue: {
-                        create: jest.fn().mockResolvedValue(fakeMessage),
-                        save: jest.fn().mockResolvedValue(fakeMessage),
-                        findAll: jest.fn().mockResolvedValue([fakeMessage]),
-                        findById: jest.fn().mockResolvedValue(fakeMessage),
-                    }
+                    useValue: MessageRepositoryMock(FakeMessage)
                 }
             ]
         }).compile();
@@ -58,14 +48,14 @@ describe('MessageService', () => {
     });
 
     it('can send a message to the Tangle', () => {
-        service.sendMessage(fakeMessage)
-        .then((data: Message) => {
-            expect(data.hash).not.toEqual(fakeMessage.hash);
+        service.sendMessage(FakeMessage)
+            .then((data: Message) => {
+                expect(data.hash).not.toEqual(FakeMessage.hash);
 
-            expect(data).toHaveProperty('initiated_at');
-            expect(data).toHaveProperty('attached_at');
-            expect(Number(data.attached_at)).toBeGreaterThan(Number(data.initiated_at));
-        })
-        .catch((error) => { });
+                expect(data).toHaveProperty('initiated_at');
+                expect(data).toHaveProperty('attached_at');
+                expect(Number(data.attached_at)).toBeGreaterThan(Number(data.initiated_at));
+            })
+            .catch((error) => { });
     });
 });

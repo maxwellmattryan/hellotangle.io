@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { IotaService } from './services/iota.service';
+import { IOTA_SERVICE } from '@api/iota/interfaces/iota.service.interface';
+import { IotaService } from '@api/iota/services/iota.service';
 
 @Module({
     imports: [
@@ -10,9 +11,12 @@ import { IotaService } from './services/iota.service';
     exports: [
         IotaService
     ],
-    controllers: [],
     providers: [
-        IotaService
+        IotaService,
+        // {
+        //     provide: IOTA_SERVICE,
+        //     useClass: IotaService
+        // }
     ]
 })
 export class IotaModule { }

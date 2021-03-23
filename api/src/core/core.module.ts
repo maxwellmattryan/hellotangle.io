@@ -3,9 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { typeormConfig } from './database/config/typeorm.config';
-import { HttpExceptionLogger } from './http/http-exception.logger';
-import { ExtendedLogger } from './utils/extended-logger';
+import { typeormConfig } from '@api/core/database/config/typeorm.config';
+import { HttpExceptionLogger } from '@api/core/http/http-exception.logger';
+import { ExtendedLogger } from '@api/core/utils/extended-logger';
 
 @Module({
     imports: [
@@ -18,7 +18,6 @@ import { ExtendedLogger } from './utils/extended-logger';
     exports: [
         ExtendedLogger
     ],
-    controllers: [],
     providers: [
         ExtendedLogger,
         {

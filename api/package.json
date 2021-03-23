@@ -1,9 +1,9 @@
 {
     "name": "hellotangle-api",
-    "version": "0.0.1",
+    "version": "1.0.0-alpha",
     "description": "API for sending quick messages to the (IOTA) Tangle.",
     "author": "Matthew Maxwell",
-    "private": false,
+    "private": true,
     "license": "MIT",
     "scripts": {
         "prebuild": "rimraf dist",
@@ -81,7 +81,8 @@
             "src"
         ],
         "moduleNameMapper": {
-            "^@api/(.*)$": "<rootDir>/src/$1"
+            "^@api/(.*)$": "<rootDir>/src/$1",
+            "^@test/(.*)$": "<rootDir>/test/$1"
         },
         "transform": {
             "^.+\\.ts$": "ts-jest"

@@ -1,26 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { API, composeAPI, GetNodeInfoResponse, Transaction } from '@iota/core';
 import { asciiToTrytes } from '@iota/converter';
+import { API, composeAPI, GetNodeInfoResponse, Transaction } from '@iota/core';
 
-import { MessageAddress, MessageContent } from '@api/message/message.types';
+import { BaseAbstractService } from '@api/core/services/base.abstract.service';
 import { ExtendedLogger } from '@api/core/utils/extended-logger';
+import { Message } from '@api/message/entities/message.entity';
+import { MessageAddress, MessageContent } from '@api/message/message.types';
 
 import {
     UnableToBroadcastToTangleException,
     UnableToConnectToTangleNodeException,
     UnableToPrepareTangleTransferArrayException
-} from '../exceptions/iota.exceptions';
-import { IotaServiceInterface } from '../interfaces/iota.service.interface';
-import { Message } from '@api/message/entities/message.entity';
-import { BaseAbstractService } from '@api/core/services/base.abstract.service';
+} from '@api/iota/exceptions/iota.exceptions';
+import { IotaServiceInterface } from '@api/iota/interfaces/iota.service.interface';
 
 export type IotaNet = 'mainnet' | 'devnet';
 export type IotaTransfer = { value: number, address: string, message: string };
 
 @Injectable()
-export class IotaService extends BaseAbstractService<null> implements IotaServiceInterface {
+export class IotaService extends BaseAbstractService<IotaService> implements IotaServiceInterface {
     private readonly logger = new ExtendedLogger('IotaService');
 
     constructor(
