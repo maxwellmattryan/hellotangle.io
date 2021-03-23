@@ -15,9 +15,9 @@
 
 ## About
 
-Welcome! This repository is an introduction into the world of IOTA and shows the beauty of working with such a unique protocol. 
+Welcome! This repository is an introduction into the world of [IOTA](https://iota.org) and shows the beauty of working with such a unique protocol. 
 
-I wanted to provide a simple interface for people to send arbitrary messages to the Tangle to a provided address. I thought that NestJS and Angular would serve as an excellent pair to create a simple platform to try this out.
+I wanted to provide a simple interface for people to send arbitrary messages to the Tangle to a provided address. I thought that [NestJS](https://nestjs.com) and [Angular](https://angular.io) would serve as an excellent pair to create a simple platform to try this out.
 
 ## API
 
