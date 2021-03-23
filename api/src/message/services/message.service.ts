@@ -23,19 +23,17 @@ export class MessageService extends BaseAbstractService<Message> implements Mess
     }
 
     public async sendMessage(messageDto: SendMessageDto): Promise<Message> {
-        let message = await this.messageRepository.create(new Message({ ...messageDto }));
+        let message = (await this.messageRepository.create(new Message({ ...messageDto })) as Message);
         const messageResult = await this.iotaService.sendMessage(message);
-        console.log(message, messageResult);
 
-        const hash: MessageHash = (messageResult as readonly Transaction[])[0].hash;
+        const hash: MessageHash = messageResult[0].hash;
         const attachedAt: Date = new Date((messageResult as readonly Transaction[])[0].attachmentTimestamp);
 
-        const updateResult = await this.messageRepository.update(message.id, new Message({
+        message = (await this.messageRepository.update(message.id, new Message({
             ...message,
             hash: hash,
             attached_at: attachedAt
-        }));
-
+        })) as Message);
         return message;
     }
 }

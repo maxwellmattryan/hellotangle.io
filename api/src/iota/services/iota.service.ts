@@ -11,7 +11,7 @@ import {
     UnableToBroadcastToTangleException,
     UnableToConnectToTangleNodeException,
     UnableToPrepareTangleTransferArrayException
-} from '../exceptions/iota.exception';
+} from '../exceptions/iota.exceptions';
 import { IotaServiceInterface } from '../interfaces/iota.service.interface';
 import { Message } from '@api/message/entities/message.entity';
 import { BaseAbstractService } from '@api/core/services/base.abstract.service';
