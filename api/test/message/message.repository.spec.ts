@@ -60,4 +60,21 @@ describe('MessageRepository', () => {
         })
         .catch((error) => { });
     });
+
+    it('can find all messages in the database', () => {
+        repository.findAll()
+        .then((data: Message[]) => {
+            expect(data[0]).toEqual(fakeMessage);
+        })
+        .catch((error) => { });
+    });
+
+    it('can use ID to find a message in the database', () => {
+        repository.findById(fakeMessage.id)
+        .then((data: Message | undefined) => {
+            expect((data as Message).id).toEqual(fakeMessage.id);
+            expect((data as Message).hash).toEqual(fakeMessage.hash);
+        })
+        .catch((error) => { });
+    });
 });
