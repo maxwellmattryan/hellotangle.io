@@ -2,9 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { IsAlphanumeric, IsString, MaxLength, MinLength } from 'class-validator';
 
-import { Id } from '@api/core/types/id.type';
+import { Id } from '@api/shared/types/id.types';
 
-import { MessageAddress, MessageHash, MessageContent } from './message.types';
+import { MessageAddress, MessageHash, MessageContent } from '../message.types';
 
 export class MessageDto {
     constructor(partial: Partial<MessageDto>) {

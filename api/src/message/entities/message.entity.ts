@@ -1,10 +1,10 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
-import { Id } from '@api/core/types/id.type';
+import { Id } from '@api/shared/types/id.types';
 
-import { MessageHash, MessageContent } from './message.types';
+import { MessageHash, MessageContent } from '../message.types';
 
-@Entity('message')
+@Entity('messages')
 export class Message {
     constructor(partial: Partial<Message>) {
         Object.assign(this, partial);

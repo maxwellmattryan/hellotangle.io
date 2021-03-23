@@ -2,11 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
-import { IotaService } from '@api/core/iota/iota.service';
+import { IotaService } from '@api/iota/services/iota.service';
 
-import { MessageDto } from '@api/core/message/message.dto';
-import { Message } from '@api/core/message/message.entity';
-import { MessageService } from '@api/core/message/message.service';
+import { MessageDto } from '@api/message/dtos/message.dto';
+import { Message } from '@api/message/entities/message.entity';
+import { MessageService } from '@api/message/services/message.service';
 
 const fakeMessage = new MessageDto({
     id: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',

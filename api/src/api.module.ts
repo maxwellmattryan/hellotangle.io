@@ -5,11 +5,10 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 import * as Joi from '@hapi/joi';
 
-import { DatabaseModule } from '@api/core/database/database.module';
-import { HttpModule } from '@api/core/http/http.module';
-import { IotaModule } from '@api/core/iota/iota.module';
-import { MessageModule } from '@api/core/message/message.module';
-import { UtilsModule } from '@api/core/utils/utils.module';
+import { CoreModule } from '@api/core/core.module';
+import { IotaModule } from '@api/iota/iota.module';
+import { MessageModule } from '@api/message/message.module';
+import { SharedModule } from '@api/shared/shared.module';
 
 import { ApiController } from '@api/api.controller';
 
@@ -40,11 +39,10 @@ import { ApiController } from '@api/api.controller';
             ttl: 60, limit: 20
         }),
 
-        DatabaseModule,
-        HttpModule,
+        CoreModule,
         IotaModule,
         MessageModule,
-        UtilsModule
+        SharedModule
     ],
     controllers: [
         ApiController

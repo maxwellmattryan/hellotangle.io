@@ -1,10 +1,10 @@
 import { EntityRepository, Repository } from 'typeorm';
 
-import { createId } from '@api/core/utils/id.util';
+import { createId } from '@api/shared/utils/id.util';
 
-import { Message } from './message.entity';
-import { MessageAddress, MessageContent } from './message.types';
-import { UnableToCreateMessageException } from './message.exception';
+import { Message } from '../entities/message.entity';
+import { MessageAddress, MessageContent } from '../message.types';
+import { UnableToCreateMessageException } from '../exceptions/message.exception';
 
 @EntityRepository(Message)
 export class MessageRepository extends Repository<Message> {

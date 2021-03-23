@@ -3,8 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { Transaction } from '@iota/core';
 
-import { IotaService } from '@api/core/iota/iota.service';
-import { MessageDto } from '@api/core/message/message.dto';
+import { IotaService } from '@api/iota/services/iota.service';
+import { MessageDto } from '@api/message/dtos/message.dto';
 
 const fakeMessage = new MessageDto({
     id: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',

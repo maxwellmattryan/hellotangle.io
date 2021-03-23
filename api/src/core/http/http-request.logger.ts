@@ -1,6 +1,6 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { ExtendedLogger } from '@api/core/utils/extended-logger';
+import { ExtendedLogger } from '@api/shared/utils/extended-logger';
 
 @Injectable()
 export class HttpRequestLogger implements NestInterceptor {

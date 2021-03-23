@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 
 import { Transaction } from '@iota/core';
 
-import { IotaService } from '@api/core/iota/iota.service';
+import { IotaService } from '@api/iota/services/iota.service';
 
-import { Message } from './message.entity';
-import { MessageRepository } from './message.repository';
-import { MessageAddress, MessageHash, MessageContent } from './message.types';
+import { Message } from '../entities/message.entity';
+import { MessageRepository } from '../repositories/message.repository';
+import { MessageAddress, MessageHash, MessageContent } from '../message.types';
 
 @Injectable()
 export class MessageService {

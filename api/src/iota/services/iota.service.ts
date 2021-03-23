@@ -4,14 +4,14 @@ import { ConfigService } from '@nestjs/config';
 import { API, composeAPI, GetNodeInfoResponse, Transaction } from '@iota/core';
 import { asciiToTrytes } from '@iota/converter';
 
-import { ExtendedLogger } from '@api/core/utils/extended-logger';
-import { MessageAddress, MessageContent } from '@api/core/message/message.types';
+import { ExtendedLogger } from '@api/shared/utils/extended-logger';
+import { MessageAddress, MessageContent } from '@api/message/message.types';
 
 import {
     UnableToBroadcastToTangleException,
     UnableToConnectToTangleNodeException,
     UnableToPrepareTangleTransferArrayException
-} from './iota.exception';
+} from '../exceptions/iota.exception';
 
 export type IotaNet = 'mainnet' | 'devnet';
 export type IotaTransfer = { value: number, address: string, message: string };
@@ -78,7 +78,7 @@ export class IotaService {
             this.getMinimumWeightMagnitude()
         )
             .then((data: readonly Transaction[]) => {
-                this.logger.info(`Broadcasted message to Tangle of hash ${data[0].hash}`);
+                this.logger.info(`Broadcasted message to Tangle with hash of ${data[0].hash}`);
 
                 return data;
             })
