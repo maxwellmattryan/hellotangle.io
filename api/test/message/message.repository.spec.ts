@@ -48,16 +48,16 @@ describe('MessageRepository', () => {
 
     it('can create a message to be sent to the Tangle', () => {
         const message = repository.create(new Message({ ...fakeMessage }))
-        .then((data: Message) => {
-            expect(data.content).toEqual(fakeMessage.content);
+        .then((data): Message | void => {
+            expect((data as Message).content).toEqual(fakeMessage.content);
         })
         .catch((error) => { });
     });
 
     it('can save a message to the database', () => {
         repository.save(new Message({ ...fakeMessage }))
-        .then((data: Message) => {
-            expect(data.hash).toEqual(fakeMessage.hash);
+        .then((data): Message | void => {
+            expect((data as Message).hash).toEqual(fakeMessage.hash);
         })
         .catch((error) => { });
     });
