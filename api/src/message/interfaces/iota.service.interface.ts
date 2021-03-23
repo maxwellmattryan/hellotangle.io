@@ -1,4 +1,4 @@
-import { GetNodeInfoResponse, Transaction } from '@iota/core';
+import { GetNodeInfoResponse } from '@iota/core';
 
 import { BaseInterfaceService } from '@api/core/services/base.interface.service';
 
@@ -7,7 +7,20 @@ import { IotaService } from '@api/message/services/iota.service';
 
 export const IOTA_SERVICE = 'IotaServiceInterface';
 
+/**
+ * IOTA service interface definition for using the IOTA API.
+ */
 export interface IotaServiceInterface extends BaseInterfaceService<IotaService> {
+    /**
+     * Connect to a node in the IOTA Tangle.
+     * @returns Information about the node.
+     */
     connectToNode(): Promise<GetNodeInfoResponse>;
+
+    /**
+     * Send a message transaction to the IOTA Tangle.
+     * @param message The message data to use in the transaction.
+     * @returns The message including newly updated fields (id, hash, attached_at).
+     */
     sendMessage(message: Message): Promise<Message>;
 }

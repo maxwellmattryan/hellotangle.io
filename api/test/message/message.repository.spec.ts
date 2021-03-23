@@ -44,8 +44,9 @@ describe('MessageRepository', () => {
         it('should prepare a message to be sent to the Tangle', () => {
             const message = repository.prepare({
                 content: FakeMessage.content,
-                recipient_address: FakeMessage.recipient_address
-            } as Message);
+                recipient_address: FakeMessage.recipient_address,
+                initiated_at: new Date(Date.now())
+            } as Message, [FakeMessage.content as string, FakeMessage.recipient_address]);
 
             expect(message).toHaveProperty('id');
             expect(message).toHaveProperty('content');

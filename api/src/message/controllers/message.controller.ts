@@ -12,6 +12,7 @@ export class MessageController {
         private readonly messageService: MessageServiceInterface
     ) { }
 
+
     @ApiResponse({ status: HttpStatus.CREATED, description: 'Send a message to the Tangle.' })
     @Post('send')
     @HttpCode(HttpStatus.CREATED)

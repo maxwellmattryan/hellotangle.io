@@ -1,5 +1,8 @@
 import { Logger } from '@nestjs/common';
 
+/**
+ * Custom logger implementation (mainly for adding HTTP-specific log methods).
+ */
 export class ExtendedLogger extends Logger {
     private static createResponseLog(message: string, statusCode: number | string): string {
         return `[${statusCode}] ${message}`;
