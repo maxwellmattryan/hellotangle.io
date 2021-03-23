@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { ExtendedLogger } from '@api/core/utils/extended-logger';
+import { ExtendedLogger } from '@api/utils/extended-logger';
 
 @Module({
     exports: [
@@ -10,4 +10,4 @@ import { ExtendedLogger } from '@api/core/utils/extended-logger';
         ExtendedLogger
     ]
 })
-export class SharedModule { }
+export class UtilsModule { }

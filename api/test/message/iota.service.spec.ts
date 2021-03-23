@@ -1,9 +1,8 @@
+import { Message } from '@api/message/entities/message.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Transaction } from '@iota/core';
-
-import { IotaService } from '@api/iota/services/iota.service';
+import { IotaService } from '@api/message/services/iota.service';
 
 import { FakeMessage } from '@test/message/message.repository.mock';
 
@@ -34,8 +33,8 @@ describe('IotaService', () => {
 
     it('can broadcast message to Tangle and return a non-empty Transaction array', () => {
         service.sendMessage(FakeMessage)
-            .then((data: readonly Transaction[]) => {
-                expect(data.length).toBeGreaterThanOrEqual(1);
+            .then((data: Message) => {
+                expect(typeof data).toEqual(Message);
             })
             .catch((error) => { });
     });

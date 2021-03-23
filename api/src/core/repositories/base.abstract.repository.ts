@@ -1,10 +1,10 @@
 import { DeleteResult, Repository } from 'typeorm';
 
 import { Id } from '@api/core/types/id.types';
-import { createId } from '@api/core/utils/id.util';
+import { createId } from '@api/utils/id.util';
 
 import { PostgresErrors } from '@api/core/database/postgres.errors';
-import { EntityAlreadyExistsException } from '@api/core/exceptions/base.entity.exceptions';
+import { EntityAlreadyExistsException, EntityDataIsInvalid } from '@api/core/exceptions/base.entity.exceptions';
 import { BaseInterfaceRepository } from '@api/core/repositories/base.interface.repository';
 
 export abstract class BaseAbstractRepository<T> implements BaseInterfaceRepository<T> {
@@ -14,16 +14,20 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
         this.entity = entity;
     }
 
-    public async create(data: T): Promise<T | void> {
+    public prepare(data: T): T {
         const id: Id = createId([(data as any)['content']] || 'Sup');
         const now: Date = new Date(Date.now());
-
-        console.log("DATA: ", data);
-
-        return this.save({ ...data, id: id, initiated_at: now });
+        return {
+            ...data,
+            id: id,
+            initiated_at: now
+        } as T;
     }
 
-    public async save(data: T): Promise<T | void> {
+    public async create(data: T): Promise<T | void> {
+        if(!('id' in data))
+            throw new EntityDataIsInvalid();
+
         return this.entity.save(data)
         .catch((error) => {
             if(error.code === PostgresErrors.UNIQUE_VIOLATION) {
@@ -41,10 +45,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     }
 
     public async update(id: Id, data: T): Promise<T | void> {
-        return this.save(data)
-            .catch((error) => {
-                console.log(error);
-            });
+        return this.create(data);
     }
 
     public async delete(id: Id): Promise<DeleteResult> {

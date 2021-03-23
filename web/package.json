@@ -1,6 +1,10 @@
 {
-  "name": "web",
-  "version": "0.0.0",
+  "name": "hellotangle-web",
+  "version": "1.0.0-alpha",
+  "description": "Web application interface for sending quick messages to the (IOTA) Tangle.",
+  "author": "Matthew Maxwell",
+  "private": true,
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +13,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~11.2.4",
     "@angular/common": "~11.2.4",

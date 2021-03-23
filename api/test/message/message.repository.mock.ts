@@ -14,9 +14,11 @@ export const FakeMessage = new Message({
 
 export function MessageRepositoryMock(message: Message): any {
     return {
-        create: jest.fn((data: Message) => Promise.resolve(new Message({ ...data }))),
-        save: jest.fn((data: Message) => {
-            const keys = ['id', 'hash', 'recipient_address'];
+        prepare: jest.fn((data: Message) =>
+            new Message({ ...data, ...message, initiated_at: new Date(Date.now()) })
+        ),
+        create: jest.fn((data: Message) => {
+            const keys = ['hash', 'recipient_address'];
             keys.forEach(k => {
                 if((data as any)[k] === (message as any)[k])
                     throw new UnableToCreateMessageException();
@@ -24,9 +26,17 @@ export function MessageRepositoryMock(message: Message): any {
 
             return Promise.resolve(new Message({ ...data }));
         }),
-        findAll: jest.fn().mockResolvedValue(Promise.resolve([message])),
-        findById: jest.fn((id: Id) => Promise.resolve(id === message.id ? message : undefined)),
-        update: jest.fn((id: Id, data: Message) => { throw new UnableToUpdateMessageException(); }),
-        delete: jest.fn((id: Id) => { throw new UnableToDeleteMessageException(); })
+        findAll: jest.fn().mockResolvedValue(
+            Promise.resolve([message])
+        ),
+        findById: jest.fn((id: Id) =>
+            Promise.resolve(id === message.id ? message : undefined)
+        ),
+        update: jest.fn((id: Id, data: Message) => {
+            throw new UnableToUpdateMessageException();
+        }),
+        delete: jest.fn((id: Id) => {
+            throw new UnableToDeleteMessageException();
+        })
     }
 }

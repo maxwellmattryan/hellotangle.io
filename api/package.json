@@ -14,11 +14,11 @@
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-        "test": "jest --force-exit --detectOpenHandles",
-        "test:watch": "jest --watch --detectOpenHandles",
-        "test:cov": "jest --coverage --force-exit --detectOpenHandles",
+        "test": "jest --force-exit --detectOpenHandles --runInBand --setupFiles dotenv/config",
+        "test:watch": "jest --watch --detectOpenHandles --runInBand --setupFiles dotenv/config",
+        "test:cov": "jest --coverage --force-exit --detectOpenHandles --runInBand --setupFiles dotenv/config",
         "test:e2e": "jest --config ./test/jest-e2e.json",
-        "test:ci": "jest --ci --reporters='default' --reporters='test/shared/utils/github-action.reporter'"
+        "test:ci": "jest --ci --reporters='default' --reporters='test/utils/github-action.reporter'"
     },
     "dependencies": {
         "@iota/core": "^1.0.0-beta.30",
@@ -98,6 +98,9 @@
         "testPathIgnorePatterns": [
             "<rootDir>/src/core/*.ts"
         ],
-        "testEnvironment": "node"
+        "testEnvironment": "node",
+        "setupFiles": [
+            "dotenv/config"
+        ]
     }
 }

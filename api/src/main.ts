@@ -6,7 +6,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 
-import { ExtendedLogger } from '@api/core/utils/extended-logger';
+import { ExtendedLogger } from '@api/utils/extended-logger';
 import { HttpRequestLogger } from '@api/core/http/http-request.logger';
 import { HttpExceptionLogger } from '@api/core/http/http-exception.logger';
 

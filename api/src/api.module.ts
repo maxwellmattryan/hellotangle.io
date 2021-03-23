@@ -6,9 +6,8 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import * as Joi from '@hapi/joi';
 
 import { CoreModule } from '@api/core/core.module';
-import { IotaModule } from '@api/iota/iota.module';
 import { MessageModule } from '@api/message/message.module';
-import { SharedModule } from '@api/shared/shared.module';
+import { UtilsModule } from '@api/utils/utils.module';
 
 import { ApiController } from '@api/api.controller';
 
@@ -40,9 +39,8 @@ import { ApiController } from '@api/api.controller';
         }),
 
         CoreModule,
-        IotaModule,
         MessageModule,
-        SharedModule
+        UtilsModule
     ],
     controllers: [
         ApiController

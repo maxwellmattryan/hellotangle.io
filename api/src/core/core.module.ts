@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { typeormConfig } from '@api/core/database/config/typeorm.config';
 import { HttpExceptionLogger } from '@api/core/http/http-exception.logger';
-import { ExtendedLogger } from '@api/core/utils/extended-logger';
+import { ExtendedLogger } from '@api/utils/extended-logger';
 
 @Module({
     imports: [

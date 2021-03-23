@@ -40,19 +40,23 @@ describe('MessageRepository', () => {
         expect(repository).toBeDefined();
     });
 
-    describe('create()', () => {
-        it('should create a message to be sent to the Tangle', () => {
-            repository.create(new Message({ ...FakeMessage }))
-                .then((data): Message | void => {
-                    expect((data as Message).content).toEqual(FakeMessage.content);
-                })
-                .catch((error) => { });
+    describe('prepare', () => {
+        it('should prepare a message to be sent to the Tangle', () => {
+            const message = repository.prepare({
+                content: FakeMessage.content,
+                recipient_address: FakeMessage.recipient_address
+            } as Message);
+
+            expect(message).toHaveProperty('id');
+            expect(message).toHaveProperty('content');
+            expect(message).toHaveProperty('recipient_address');
+            expect(message).toHaveProperty('initiated_at');
         });
     });
 
-    describe('save()', () => {
+    describe('create', () => {
         it('should save a message to the database using a valid ID', () => {
-            repository.save(new Message({
+            repository.create(new Message({
                 id: 'NEW_ID',
                 content: 'Hello, Tangle!',
                 hash: 'NEW_HASH',
@@ -66,12 +70,12 @@ describe('MessageRepository', () => {
 
         it('should throw an error trying to save one with same id, recipient_address, or hash.', () => {
             expect(() => {
-                repository.save(new Message({ ...FakeMessage }))
+                repository.create(new Message({ ...FakeMessage }))
             }).toThrow(UnableToCreateMessageException);
         });
     });
 
-    describe('findAll()', () => {
+    describe('findAll', () => {
         it('should find all messages in the database', () => {
             repository.findAll()
                 .then((data: Message[]) => {
@@ -81,7 +85,7 @@ describe('MessageRepository', () => {
         });
     });
 
-    describe('findById()', () => {
+    describe('findById', () => {
         it('should return message using a valid ID', () => {
             repository.findById(FakeMessage.id)
                 .then((data: Message | undefined) => {
@@ -101,7 +105,7 @@ describe('MessageRepository', () => {
         });
     });
 
-    describe('update()', () => {
+    describe('update', () => {
         it('should never allow for an update', () => {
             expect(() => {
                 repository.update(FakeMessage.id, FakeMessage);
@@ -109,7 +113,7 @@ describe('MessageRepository', () => {
         });
     });
 
-    describe('delete()', () => {
+    describe('delete', () => {
         it('should never allow for a delete', () => {
             expect(() => {
                 repository.delete(FakeMessage.id);

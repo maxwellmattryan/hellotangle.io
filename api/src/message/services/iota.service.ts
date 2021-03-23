@@ -5,16 +5,16 @@ import { asciiToTrytes } from '@iota/converter';
 import { API, composeAPI, GetNodeInfoResponse, Transaction } from '@iota/core';
 
 import { BaseAbstractService } from '@api/core/services/base.abstract.service';
-import { ExtendedLogger } from '@api/core/utils/extended-logger';
+import { ExtendedLogger } from '@api/utils/extended-logger';
 import { Message } from '@api/message/entities/message.entity';
-import { MessageAddress, MessageContent } from '@api/message/message.types';
+import { MessageAddress, MessageContent, MessageHash } from '@api/message/message.types';
 
 import {
     UnableToBroadcastToTangleException,
     UnableToConnectToTangleNodeException,
     UnableToPrepareTangleTransferArrayException
-} from '@api/iota/exceptions/iota.exceptions';
-import { IotaServiceInterface } from '@api/iota/interfaces/iota.service.interface';
+} from '@api/message/exceptions/iota.exceptions';
+import { IotaServiceInterface } from '@api/message/interfaces/iota.service.interface';
 
 export type IotaNet = 'mainnet' | 'devnet';
 export type IotaTransfer = { value: number, address: string, message: string };
@@ -29,6 +29,12 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
         super();
 
         this.connectToNode();
+    }
+
+    private depth = (): number => 3;
+    private minWeightMagnitude = (): number => {
+        const net = this.configService.get<IotaNet>('IOTA_NET') || 'devnet';
+        return net === 'mainnet' ? 14 : 9;
     }
 
     private composeIotaApi(): API {
@@ -50,9 +56,11 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
             });
     }
 
-    public async sendMessage(message: Message): Promise<readonly Transaction[]> {
+    public async sendMessage(message: Message): Promise<Message> {
         const trytes = await this.prepareMessage(message);
-        return this.broadcastMessage(trytes);
+        const result = await this.broadcastMessage(trytes);
+
+        return this.buildMessage(message, result);
     }
 
     private async prepareMessage(message: Message): Promise<readonly string[]> {
@@ -79,11 +87,11 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
         const iota: API = this.composeIotaApi();
         return iota.sendTrytes(
             trytes,
-            this.getDepth(),
-            this.getMinimumWeightMagnitude()
+            this.depth(),
+            this.minWeightMagnitude()
         )
             .then((data: readonly Transaction[]) => {
-                this.logger.info(`Broadcasted message to Tangle with hash of ${data[0].hash}`);
+                this.logger.info(`Sent message to Tangle with hash of ${data[0].hash}`);
 
                 return data;
             })
@@ -92,13 +100,17 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
             });
     }
 
-    private getDepth(): number {
-        return 3;
+    private buildMessage(message: Message, txResult: readonly Transaction[]): Message {
+        return new Message({
+            ...message,
+            ...this.readTransaction(txResult[0])
+        });
     }
 
-    private getMinimumWeightMagnitude(): number {
-        const net = this.configService.get<IotaNet>('IOTA_NET') || 'devnet';
-
-        return net === 'mainnet' ? 14 : 9;
+    private readTransaction(tx: Transaction): Partial<Message> {
+        return {
+            hash: tx.hash,
+            attached_at: new Date(tx.attachmentTimestamp)
+        }
     }
 }
