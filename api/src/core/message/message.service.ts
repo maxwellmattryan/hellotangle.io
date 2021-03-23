@@ -6,7 +6,7 @@ import { IotaService } from '@api/core/iota/iota.service';
 
 import { Message } from './message.entity';
 import { MessageRepository } from './message.repository';
-import { MessageAddress, MessageBundleHash, MessageContent } from './message.types';
+import { MessageAddress, MessageHash, MessageContent } from './message.types';
 
 @Injectable()
 export class MessageService {
@@ -19,12 +19,12 @@ export class MessageService {
         let message = await this.messageRepository.createMessage(content, address);
         const messageResult = await this.iotaService.sendMessage(content, address);
 
-        const bundleHash: MessageBundleHash = (messageResult as readonly Transaction[])[0].hash;
+        const hash: MessageHash = (messageResult as readonly Transaction[])[0].hash;
         const attachedAt: Date = new Date((messageResult as readonly Transaction[])[0].attachmentTimestamp);
 
         return this.messageRepository.saveMessage(new Message({
             ...message,
-            bundle_hash: bundleHash,
+            hash: hash,
             attached_at: attachedAt
         }));
     }

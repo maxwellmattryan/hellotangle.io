@@ -17,6 +17,7 @@ GCP_PLATFORM=managed
 GCP_REGION=us-central1
 GCP_PROJECT_ID=hellotangle
 GCP_VPC_CONNECTOR=hellotangle-api
+GCP_SERVICE_ACCOUNT=gcloud-api@hellotangle.iam.gserviceaccount.com
 GCP_API_SERVICE=hellotangle-api
 GCP_UI_SERVICE=hellotangle-ui
 GCP_API_IMAGE_PATH="$GCP_HOSTNAME/$GCP_PROJECT_ID/$API_IMAGE"
@@ -62,17 +63,27 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 if [ "$BRANCH" != "main" ];
 then
     echo -e "\t[✘] Branch is set to \"main\"\n"
-    echo -e "To switch to the correct branch, please use:\n\n\tgit checkout main"
+    echo -e "To switch to the correct branch, please use:\n\n\tgit checkout main\n"
 #    exit 1;
 else
     echo -e "\t[✔] Branch is set to \"main\""
 fi
 
+CURRENT_GCP_ACCOUNT=$(gcloud config list account --format "value(core.account)")
+if [ "$CURRENT_GCP_ACCOUNT" != "$GCP_SERVICE_ACCOUNT" ];
+then
+    echo -e "\t[✘] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT\n"
+    echo -e "To properly set the service account for this project, use:\n\n\tgcloud config set account $GCP_SERVICE_ACCOUNT\n"
+    exit 1;
+else
+    echo -e "\t[✔] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT"
+fi
+
 CURRENT_GCP_PROJECT=$(gcloud config get-value project)
 if [ "$CURRENT_GCP_PROJECT" != "$GCP_PROJECT_ID" ];
 then
-    echo -e "\n\t[✘] Cloud SDK's configuration is set for $GCP_PROJECT_ID\n"
-    echo -e "To properly configure the SDK for this project, use:\n\n\tgcloud config set project $GCP_PROJECT_ID"
+    echo -e "\t[✘] Cloud SDK's configuration is set for $GCP_PROJECT_ID\n"
+    echo -e "To properly configure the SDK for this project, use:\n\n\tgcloud config set project $GCP_PROJECT_ID\n"
     exit 1;
 else
     echo -e "\t[✔] Cloud SDK's configuration is set for $GCP_PROJECT_ID\n"

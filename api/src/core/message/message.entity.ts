@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } fro
 
 import { Id } from '@api/core/types/id.type';
 
-import { MessageBundleHash, MessageContent } from './message.types';
+import { MessageHash, MessageContent } from './message.types';
 
 @Entity('message')
 export class Message {
@@ -17,7 +17,7 @@ export class Message {
     public content: MessageContent = '';
 
     @Column({ type: 'varchar', length:  81, unique: true, nullable: true })
-    public bundle_hash?: MessageBundleHash;
+    public hash?: MessageHash;
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'now()', nullable: false })
     public initiated_at?: Date;

@@ -78,7 +78,7 @@ export class IotaService {
             this.getMinimumWeightMagnitude()
         )
             .then((data: readonly Transaction[]) => {
-                this.logger.info(`Broadcasted message to Tangle with bundle hash ${data[0].hash}`);
+                this.logger.info(`Broadcasted message to Tangle of hash ${data[0].hash}`);
 
                 return data;
             })

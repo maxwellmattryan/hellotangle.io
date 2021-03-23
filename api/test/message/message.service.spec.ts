@@ -12,7 +12,7 @@ const fakeMessage = new MessageDto({
     id: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',
     content: 'Hello, Tangle!',
     address: 'ILOLJ8V08OVJDVJD3PH1KIA2U6XFCZWRNI6KW65E04MBV3G33UUFSY00102QC99Q',
-    bundle_hash: 'ZWEIAGQKKDIBZBFQCUSZDNSNVYEBMJXWPLYUEOHVC9L9KSJMHKPW9BOFHO9NQKFQSZXVPQIBH9RJLY999',
+    hash: 'ZWEIAGQKKDIBZBFQCUSZDNSNVYEBMJXWPLYUEOHVC9L9KSJMHKPW9BOFHO9NQKFQSZXVPQIBH9RJLY999',
 });
 
 describe('MessageService', () => {
@@ -45,7 +45,7 @@ describe('MessageService', () => {
     it('can send a message to the Tangle', () => {
         service.sendMessage(fakeMessage.content, fakeMessage.address)
         .then((data: Message) => {
-            expect(data.bundle_hash).not.toEqual(fakeMessage.bundle_hash);
+            expect(data.hash).not.toEqual(fakeMessage.hash);
 
             expect(data).toHaveProperty('initiated_at');
             expect(data).toHaveProperty('attached_at');

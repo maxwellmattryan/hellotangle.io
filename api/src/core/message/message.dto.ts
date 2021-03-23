@@ -4,7 +4,7 @@ import { IsAlphanumeric, IsString, MaxLength, MinLength } from 'class-validator'
 
 import { Id } from '@api/core/types/id.type';
 
-import { MessageAddress, MessageBundleHash, MessageContent } from './message.types';
+import { MessageAddress, MessageHash, MessageContent } from './message.types';
 
 export class MessageDto {
     constructor(partial: Partial<MessageDto>) {
@@ -46,7 +46,7 @@ export class MessageDto {
 
     @ApiProperty({
         example: 'JAYMRNADWH9KXMQ99CFFKCA9SCNAWMMRXACEPUXIL9DHVOLQDJIPGHFF9MFPZCZOCSWCQJYLCTDGGKXH9',
-        description: 'Bundle hash result from message transaction',
+        description: 'Hash result from message transaction',
         minLength: 81,
         maxLength: 81,
         required: false
@@ -55,5 +55,5 @@ export class MessageDto {
     @MaxLength(81)
     @IsString()
     @IsAlphanumeric()
-    bundle_hash?: MessageBundleHash;
+    hash?: MessageHash;
 }
