@@ -13,9 +13,9 @@ MESSAGE: dict = {
     'content': 'Hello, Tangle!',
     'recipient_address': 'HZYKLMOYJYAYBYRTKAQPUOMUSZTC999JDJCVTXRKOS9WEHR9QEYOBFJRHVXGXJ9CEZPEPIDLVOBBDDCNJXML9GHCYB'
 }
-MESSAGE_COUNT: int = 1000
+MESSAGE_COUNT: int = 100
 
-NUM_WORKERS = 100
+NUM_WORKERS = 20
 
 def TimeFn(fn: Callable) -> None:
     def wrapper(*args, **kwargs):
