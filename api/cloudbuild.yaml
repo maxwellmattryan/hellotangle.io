@@ -1,19 +1,18 @@
-
 steps:
-  - name: gcr.io/cloud-builders/docker
-    args:
-      - build
-      - '--no-cache'
-      - '-t'
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_IMAGE_NAME'
-      - api
-      - '-f'
-      - api/Dockerfile
-    id: Build
+    -   name: gcr.io/cloud-builders/docker
+        args:
+            - build
+            - '--no-cache'
+            - '-t'
+            - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_IMAGE_NAME'
+            - api
+            - '-f'
+            - api/Dockerfile
+        id: Build
 images:
-  - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_IMAGE_NAME'
+    - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_IMAGE_NAME'
 timeout: 600s
 options:
-  substitutionOption: ALLOW_LOOSE
+    substitutionOption: ALLOW_LOOSE
 tags:
-  - hello-tangle-api
+    - hello-tangle-api

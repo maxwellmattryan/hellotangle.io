@@ -1,16 +1,21 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Callable
 
+import concurrent
 import json
 import requests
 import time
 
-# API_URL: str = 'https://api.hellotangle.io/api'
-API_URL: str = 'http://localhost:3000/api'
+PROD_API_URL: str = 'https://api.hellotangle.io/api'
+DEV_API_URL: str = 'http://localhost:3000/api'
+
 MESSAGE: dict = {
     'content': 'Hello, Tangle!',
     'recipient_address': 'HZYKLMOYJYAYBYRTKAQPUOMUSZTC999JDJCVTXRKOS9WEHR9QEYOBFJRHVXGXJ9CEZPEPIDLVOBBDDCNJXML9GHCYB'
 }
-MESSAGE_COUNT: int = 100
+MESSAGE_COUNT: int = 1000
+
+NUM_WORKERS = 100
 
 def TimeFn(fn: Callable) -> None:
     def wrapper(*args, **kwargs):
@@ -26,7 +31,7 @@ def TimeFn(fn: Callable) -> None:
     return wrapper
 
 def create_url(path: str) -> str:
-    return f'{API_URL}/{path}'
+    return f'{DEV_API_URL}/{path}'
 
 def print_message_dict(msg: dict) -> None:
     parsed = json.loads(json.dumps(msg))
@@ -44,12 +49,10 @@ def send_message(msgData: dict) -> dict:
 
 @TimeFn
 def spam() -> None:
-    print(f'SPAMMING...')
-    for i in range(MESSAGE_COUNT):
-        print_message(f'\n{i:03}')
-
-        msg: dict = send_message(MESSAGE)
-        print_message(msg)
+    print_message('SPAMMING...')
+    with ThreadPoolExecutor(max_workers = NUM_WORKERS) as executor:
+        res = [executor.submit(send_message, MESSAGE) for _ in range(MESSAGE_COUNT)]
+        concurrent.futures.wait(res)
 
 def main() -> None:
     spam()

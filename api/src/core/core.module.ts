@@ -1,3 +1,4 @@
+import { HttpExceptionFilter } from '@api/core/http/http-exception.filter';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
@@ -22,7 +23,11 @@ import { ExtendedLogger } from '@api/utils/extended-logger';
         ExtendedLogger
     ],
     providers: [
-        ExtendedLogger
+        ExtendedLogger,
+        {
+            provide: APP_FILTER,
+            useClass: HttpExceptionFilter
+        }
     ]
 })
 export class CoreModule implements NestModule {

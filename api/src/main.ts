@@ -1,3 +1,4 @@
+import { HttpExceptionFilter } from '@api/core/http/http-exception.filter';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -24,6 +25,7 @@ async function bootstrap() {
     app.use(compression());
     app.use(helmet());
 
+    app.useGlobalFilters(new HttpExceptionFilter());
     app.useGlobalPipes(new ValidationPipe());
 
     const PORT = process.env.PORT || 3000;

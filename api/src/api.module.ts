@@ -39,7 +39,7 @@ import { ApiController } from '@api/api.controller';
             })
         }),
         ThrottlerModule.forRoot({
-            ttl: 60, limit: 20
+            ttl: 60, limit: 100
         }),
 
         CoreModule,
