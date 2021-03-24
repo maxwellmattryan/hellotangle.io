@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { asciiToTrytes } from '@iota/converter';
-import { API, composeAPI, GetNodeInfoResponse, Transaction } from '@iota/core';
+import { API, composeAPI, GetNodeInfoResponse, Transaction, Transfer } from '@iota/core';
 
 import { BaseAbstractService } from '@api/core/services/base.abstract.service';
 import { ExtendedLogger } from '@api/utils/extended-logger';
@@ -17,7 +17,6 @@ import {
 import { IotaServiceInterface } from '@api/message/interfaces/iota.service.interface';
 
 export type IotaNet = 'mainnet' | 'devnet';
-export type IotaTransfer = { value: number, address: string, message: string };
 
 /**
  * The IOTA service interface implementation for using the IOTA API.
@@ -89,7 +88,7 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
         const trytes = await this.prepareMessage(message);
         const result = await this.broadcastMessage(trytes);
 
-         return this.buildMessage(message, result);
+        return this.buildMessage(message, result);
     }
 
     /**
@@ -101,12 +100,14 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
      */
     private async prepareMessage(message: Message): Promise<readonly string[]> {
         const iota: API = this.composeIotaApi();
-        return iota.prepareTransfers(
+        const trytes = iota.prepareTransfers(
             String(this.configService.get('IOTA_WALLET_SEED')),
             this.prepareTransfers(message.content, message.recipient_address)
         ).catch((error) => {
             throw new UnableToPrepareTangleTransferArrayException();
         });
+
+        return trytes;
     }
 
     /**
@@ -116,7 +117,7 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
      * @returns An array of transfer objects (holding data for value, message, and address).
      * @internal
      */
-    private prepareTransfers(content: MessageContent, recipientAddress: MessageAddress): IotaTransfer[] {
+    private prepareTransfers(content: MessageContent, recipientAddress: MessageAddress): Transfer[] {
         const message = JSON.stringify({ 'message': content });
         const messageInTrytes = asciiToTrytes(message);
         return [{
@@ -158,9 +159,11 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
      * @internal
      */
     private buildMessage(message: Message, txResult: readonly Transaction[]): Message {
+        const txData = this.readTransaction(txResult[0]);
+
         return new Message({
             ...message,
-            ...this.readTransaction(txResult[0])
+            ...txData
         });
     }
 

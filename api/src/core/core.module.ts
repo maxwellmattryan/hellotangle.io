@@ -4,7 +4,6 @@ import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { typeormConfig } from '@api/core/database/config/typeorm.config';
-import { HttpExceptionFilter } from '@api/core/http/http-exception.filter';
 import { HttpLogger } from '@api/core/http/http.logger';
 import { ExtendedLogger } from '@api/utils/extended-logger';
 
@@ -23,11 +22,7 @@ import { ExtendedLogger } from '@api/utils/extended-logger';
         ExtendedLogger
     ],
     providers: [
-        ExtendedLogger,
-        {
-            provide: APP_FILTER,
-            useClass: HttpExceptionFilter
-        }
+        ExtendedLogger
     ]
 })
 export class CoreModule implements NestModule {

@@ -1,4 +1,4 @@
-import { HttpLogger } from '@api/core/http/http.logger';
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
@@ -8,7 +8,6 @@ import * as helmet from 'helmet';
 import { ApiModule } from '@api/api.module';
 
 import { ExtendedLogger } from '@api/utils/extended-logger';
-import { HttpExceptionFilter } from '@api/core/http/http-exception.filter';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(ApiModule);
@@ -25,7 +24,7 @@ async function bootstrap() {
     app.use(compression());
     app.use(helmet());
 
-    app.useGlobalFilters(new HttpExceptionFilter());
+    app.useGlobalPipes(new ValidationPipe());
 
     const PORT = process.env.PORT || 3000;
     await app.listen(PORT);
