@@ -35,11 +35,14 @@ import { ApiController } from '@api/api.controller';
                 DB_SOCKET_PATH: Joi.string(),
                 DB_SSL_CA: Joi.string(),
                 DB_SSL_CERT: Joi.string(),
-                DB_SSL_KEY: Joi.string()
+                DB_SSL_KEY: Joi.string(),
+
+                API_RATE_LIMIT: Joi.string().required()
             })
         }),
         ThrottlerModule.forRoot({
-            ttl: 60, limit: 100
+            ttl: 60,
+            limit: Number(process.env.API_RATE_LIMIT)
         }),
 
         CoreModule,
