@@ -4,19 +4,31 @@ from typing import Callable
 import concurrent
 import json
 import requests
+import socket
 import sys
 import time
 
-PROD_API_URL: str = 'https://api.hellotangle.io/api'
-DEV_API_URL: str = 'http://localhost:3000/api'
+# Required script arguments
+MESSAGE_COUNT: int = 5
+NUM_WORKERS: int = 2
 
+# The development environment is rate limited to 10000 requests per 1 minute.
+API_ENVIRONMENT: str = 'development'
+API_HOST: str = 'localhost'
+API_PORT: int = 3000
+API_URL: str = 'http://localhost:3000/api'
+
+# The production environment is rate limited to 100 requests per 1 minute.
+API_ENVIRONMENT: str = 'production'
+API_HOST: str = 'api.hellotangle.io'
+API_PORT: int = 3000
+API_URL: str = 'https://api.hellotangle.io/api'
+
+# Basic message to use in spamming the API and IOTA Tangle.
 MESSAGE: dict = {
     'content': 'Hello, Tangle!',
     'recipient_address': 'HZYKLMOYJYAYBYRTKAQPUOMUSZTC999JDJCVTXRKOS9WEHR9QEYOBFJRHVXGXJ9CEZPEPIDLVOBBDDCNJXML9GHCYB'
 }
-
-MESSAGE_COUNT = 9
-NUM_WORKERS = 3
 
 def TimeFn(fn: Callable) -> None:
     def wrapper(*args, **kwargs):
@@ -39,8 +51,22 @@ def TimeFn(fn: Callable) -> None:
 
     return wrapper
 
+def is_open(ip: str, port: int or str) -> bool:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    try:
+        s.connect((ip, port))
+        s.shutdown(2)
+
+        return True
+
+    except:
+        print_message(f'[Error]: Unable to connect to {ip}:{port}.')
+
+        return False
+
 def create_url(path: str) -> str:
-    return f'{DEV_API_URL}/{path}'
+    return f'{API_URL}/{path}'
 
 def prettify_json(data: dict) -> str:
     return json.dumps(data, indent = 4, sort_keys = True)
@@ -56,14 +82,16 @@ def print_message(msg: dict or str) -> None:
 
 @TimeFn
 def send_message(msgData: dict) -> dict:
-    return requests.post(create_url('messages/send'), msgData).json()
+    data: dict = requests.post(create_url('messages/send'), msgData).json()
+
+    return data
 
 def initialize_spammer_parameters() -> bool:
     global MESSAGE_COUNT
     global NUM_WORKERS
 
     message_count_error = 'Invalid parameter for argument: MESSAGE_COUNT\nIt must an integer in the range [1, 1_000_000].'
-    num_workers_error = '\nInvalid parameter for argument: NUM_WORKERS\nIt must be an integer in the range [1, 1000].'
+    num_workers_error = '\nInvalid parameter for argument: NUM_WORKERS\nIt must be an integer both in the range [1, 1000] and less than the MESSAGE_COUNT.'
 
     was_exception_thrown = False
 
@@ -126,7 +154,10 @@ def spam() -> None:
         begin_spamming()
 
 def main() -> None:
-    spam()
+    if API_ENVIRONMENT == 'production':
+        spam()
+    elif is_open(API_HOST, API_PORT):
+        spam()
 
 if __name__ == '__main__':
     main()
