@@ -14,6 +14,7 @@
 - [About](#About)
 - [API](#API)
 - [Web](#Web)
+- [Utils](#Utils)
 
 ## About
 
@@ -33,4 +34,17 @@ The Web component of this project houses the Angular application that connects t
 
 Angular applications can be heavy-duty and while perhaps too large for this app, it is a great framework for larger enterprise-level applications, so I think it is good practice to use it.
 
+## Utils
 
+I have written a few small but important scripts in helping me build and test the application. These includes things like encoding / decoding tools and most interestingly the spammer tool.
+
+To run, just make sure that your machine has [Python](https://www.python.org/) installed and run the commands with `python utils/script_name.py <1> <2> ...`.
+
+### Spammer
+
+The spammer is a fun tool to really test the limits of the HelloTangle API. It uses the python `requests` library to spam the backend with message requests.
+
+Arguments:
+
+    - MESSAGE_COUNT: An integer in the range [1, 10000).
+    - NUM_WORKERS: An integer in the range [1, 1000) and less than or equal to the MESSAGE_COUNT.

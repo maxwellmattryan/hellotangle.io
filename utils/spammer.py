@@ -91,7 +91,7 @@ def initialize_spammer_parameters() -> bool:
     global NUM_WORKERS
 
     message_count_error = 'Invalid parameter for argument: MESSAGE_COUNT\nIt must an integer in the range [1, 10000).'
-    num_workers_error = '\nInvalid parameter for argument: NUM_WORKERS\nIt must be an integer both in the range [1, 1000) and less than the MESSAGE_COUNT.'
+    num_workers_error = '\nInvalid parameter for argument: NUM_WORKERS\nIt must be an integer in the range [1, 1000) and less than or equal to the MESSAGE_COUNT.'
 
     was_exception_thrown = False
 
