@@ -38,7 +38,9 @@ Angular applications can be heavy-duty and while perhaps too large for this app,
 
 I have written a few small but important scripts in helping me build and test the application. These includes things like encoding / decoding tools and most interestingly the spammer tool.
 
-To run, just make sure that your machine has [Python](https://www.python.org/) installed and run the commands with `python utils/script_name.py <1> <2> ...`.
+To run, just make sure that your machine has [Python](https://www.python.org/) installed and run them with:
+
+`python utils/script_name.py <1> <2> ...`
 
 ### Spammer
 
