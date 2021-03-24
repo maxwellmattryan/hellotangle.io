@@ -49,5 +49,5 @@ python utils/script_name.py <1> <2> ...
 The spammer is a fun tool to really test the limits of the HelloTangle API. It uses the python `requests` library to spam the backend with message requests.
 
 Parameters:
-  - MESSAGE_COUNT*: An integer in the range [1, 10000).
-  - NUM_WORKERS*: An integer in the range [1, 1000) and less than or equal to the MESSAGE_COUNT.
+  - MESSAGE_COUNT*: An integer in the range [1, 10000].
+  - NUM_WORKERS*: An integer in the range [1, 1000] and less than or equal to the MESSAGE_COUNT.
