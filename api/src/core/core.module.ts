@@ -7,6 +7,9 @@ import { typeormConfig } from '@api/core/database/config/typeorm.config';
 import { HttpExceptionLogger } from '@api/core/http/http-exception.logger';
 import { ExtendedLogger } from '@api/utils/extended-logger';
 
+/**
+ * The core module containing mostly boilerplate components for the API (i.e. loggers, filters, database setup).
+ */
 @Module({
     imports: [
         TypeOrmModule.forRootAsync({

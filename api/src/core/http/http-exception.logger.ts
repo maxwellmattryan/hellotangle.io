@@ -3,7 +3,7 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Injectable } from
 import { ExtendedLogger } from '@api/utils/extended-logger';
 
 /**
- * Logs HTTP errors and exceptions.
+ * The logger for HTTP errors and exceptions.
  */
 @Catch(HttpException)
 export class HttpExceptionLogger implements ExceptionFilter<HttpException> {

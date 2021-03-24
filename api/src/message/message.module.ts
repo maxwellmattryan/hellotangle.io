@@ -11,6 +11,9 @@ import { MESSAGE_SERVICE } from '@api/message/interfaces/message.service.interfa
 import { MessageRepository } from '@api/message/repositories/message.repository';
 import { MessageService } from '@api/message/services/message.service';
 
+/**
+ * The message module containing components related to communicating via the IOTA protocol.
+ */
 @Module({
     imports: [
         ConfigModule,

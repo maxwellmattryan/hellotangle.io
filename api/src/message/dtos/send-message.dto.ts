@@ -1,33 +1,27 @@
-import { ApiProperty } from '@nestjs/swagger';
-
 import { IsAlphanumeric, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
 import { MessageAddress, MessageContent } from '@api/message/message.types';
 
+/**
+ * The message transfer data object (DTO) for sending messages via the IOTA protocol.
+ */
 export class SendMessageDto {
     constructor(partial: Partial<SendMessageDto>) {
         Object.assign(this, partial);
     }
 
-    @ApiProperty({
-        example: 'Hello, Tangle!',
-        description: 'Content to put inside message',
-        minLength: 256,
-        maxLength: 256,
-        required: true
-    })
+    /**
+     * The content of a message, which __must__ be at least one character and no more than 256 (512 bytes in TS).
+     */
+    @MinLength(1)
     @MaxLength(256)
     @IsString()
     @IsNotEmpty()
     content!: MessageContent;
 
-    @ApiProperty({
-        example: 'FJDUTBPYGT9OGHPBFBJGYCZGYADIQEUFKMMMGCZWOHVE9HAQEYFFMSJTJSIYJLGGQUAXARVRASFBDIGXWVLIGPWMHD',
-        description: 'Address to send message to',
-        minLength: 90,
-        maxLength: 90,
-        required: true
-    })
+    /**
+     * The receipient address for a message, which __must__ be an alphanumeric string containing exactly 90 characters (180 bytes in TS).
+     */
     @MinLength(90)
     @MaxLength(90)
     @IsString()

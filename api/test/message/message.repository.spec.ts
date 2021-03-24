@@ -2,13 +2,10 @@ import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
+import { EntityIsImmutableException } from '@api/core/exceptions/base.entity.exceptions';
 import { Message } from '@api/message/entities/message.entity';
-import {
-    UnableToCreateMessageException,
-    UnableToDeleteMessageException,
-    UnableToUpdateMessageException
-} from '@api/message/exceptions/message.exceptions';
 import { MessageRepository } from '@api/message/repositories/message.repository';
+import { UnableToCreateMessageException } from '@api/message/exceptions/message.exceptions';
 
 import { FakeMessage, MessageRepositoryMock } from '@test/message/message.repository.mock';
 
@@ -110,7 +107,7 @@ describe('MessageRepository', () => {
         it('should never allow for an update', () => {
             expect(() => {
                 repository.update(FakeMessage.id, FakeMessage);
-            }).toThrow(UnableToUpdateMessageException);
+            }).toThrow(EntityIsImmutableException);
         });
     });
 
@@ -118,7 +115,7 @@ describe('MessageRepository', () => {
         it('should never allow for a delete', () => {
             expect(() => {
                 repository.delete(FakeMessage.id);
-            }).toThrow(UnableToDeleteMessageException);
+            }).toThrow(EntityIsImmutableException);
         });
     });
 });

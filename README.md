@@ -29,7 +29,7 @@ It is worth mentioning that for an app of this size, going to such lengths for a
 
 ## Web
 
-The Web component of this project houses the Angular application that connects the client-side user with the API backend allowing people to send messages to the IOTA Tangle, which is my ultimate goal with this platform.
+The Web component of this project houses the Angular application that connects the client-side user with the API backend allowing people to send messages via the IOTA protocol, which is my ultimate goal with this platform.
 
 Angular applications can be heavy-duty and while perhaps too large for this app, it is a great framework for larger enterprise-level applications, so I think it is good practice to use it.
 

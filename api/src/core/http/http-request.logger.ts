@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ExtendedLogger } from '@api/utils/extended-logger';
 
 /**
- * Logs HTTP requests with method and status data.
+ * The logger for HTTP requests, which also logs HTTP method and response status data.
  */
 @Injectable()
 export class HttpRequestLogger implements NestInterceptor {

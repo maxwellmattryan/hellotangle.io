@@ -81,7 +81,7 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
     }
 
     /**
-     * Sends a message transaction to the IOTA Tangle.
+     * Sends a message to the IOTA Tangle.
      * @param message The message data to use in the transaction.
      * @returns The message including newly updated fields (id, hash, attached_at).
      */
@@ -130,7 +130,7 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
      * Broadcasts the prepared message to the IOTA Tangle.
      * @param trytes The encoded message data.
      * @returns An array of transaction data containing our message(s).
-     * @throws {@link UnableToBroadcastToTangleException} if message was unable to be sent to the IOTA Tangle.
+     * @throws {@link UnableToBroadcastToTangleException} if message was unable to be sent via IOTA protocol.
      * @internal
      */
     private async broadcastMessage(trytes: readonly string[]): Promise<readonly Transaction[]> {

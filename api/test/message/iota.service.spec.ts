@@ -1,8 +1,8 @@
-import { Message } from '@api/message/entities/message.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { IotaService } from '@api/message/services/iota.service';
+import { Message } from '@api/message/entities/message.entity';
 
 import { FakeMessage } from '@test/message/message.repository.mock';
 

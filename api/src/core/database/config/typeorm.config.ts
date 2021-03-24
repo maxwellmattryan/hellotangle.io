@@ -2,6 +2,11 @@ import { ConfigService } from '@nestjs/config';
 
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
+/**
+ * The configuration function for TypeORM and an instance of PostgreSQL.
+ * @param configService The configuration service from the NestJS `ConfigModule`.
+ * @returns An object usable by the TypeORM registration method in module imports.
+ */
 export function typeormConfig(configService: ConfigService): any {
     const socketPath = configService.get('DB_SOCKET_PATH');
     const sslOptions = socketPath ? {

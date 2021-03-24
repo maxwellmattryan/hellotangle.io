@@ -8,7 +8,7 @@ import { IotaService } from '@api/message/services/iota.service';
 export const IOTA_SERVICE = 'IotaServiceInterface';
 
 /**
- * IOTA service interface definition for using the IOTA API.
+ * The IOTA service interface definition for using the IOTA API.
  */
 export interface IotaServiceInterface extends BaseInterfaceService<IotaService> {
     /**
@@ -18,7 +18,7 @@ export interface IotaServiceInterface extends BaseInterfaceService<IotaService> 
     connectToNode(): Promise<GetNodeInfoResponse>;
 
     /**
-     * Send a message transaction to the IOTA Tangle.
+     * Send a message transaction via the IOTA protocol.
      * @param message The message data to use in the transaction.
      * @returns The message including newly updated fields (id, hash, attached_at).
      */

@@ -23,7 +23,7 @@ export class MessageService extends BaseAbstractService<Message> implements Mess
     }
 
     /**
-     * Send message to IOTA Tangle with data from request.
+     * Send message via IOTA protocol with data from request.
      * @param messageDto The message data to use in creating a message.
      * @returns The resulting message with data from transaction.
      */

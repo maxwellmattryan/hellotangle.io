@@ -12,7 +12,7 @@ import {
 import { BaseInterfaceRepository } from '@api/core/repositories/base.interface.repository';
 
 /**
- * Base repository implementation.
+ * The base repository implementation containing basic methods for CRUD operations.
  */
 export abstract class BaseAbstractRepository<T> implements BaseInterfaceRepository<T> {
     private entity: Repository<T>;
@@ -22,7 +22,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     }
 
     /**
-     * Prepare an entity with a newly generated and correctly formatted ID.
+     * Prepares an entity with a newly generated and correctly formatted ID.
      * @param data The data to use in creating a new entity.
      * @param identifiers Unique values to use in creating an ID.
      * @returns An entity with a new `id` property.
@@ -36,7 +36,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     }
 
     /**
-     * Create and persist an entity to the database.
+     * Creates and persists an entity to the database.
      * @param data The data to use in creating a new entity.
      * @returns A newly created and persisted entity.
      * @throws {@link EntityDataIsInvalidException} if no `id` property exists.
@@ -44,6 +44,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
      * @throws {@link UnableToCreateEntityException} if entity save operation fails for any other reason.
      */
     public async create(data: T): Promise<T | void> {
+        console.log("DATA: ", data);
         if(!('id' in data))
             throw new EntityDataIsInvalidException();
 
@@ -58,7 +59,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     }
 
     /**
-     * Find all entities in the database.
+     * Finds all entities in the database.
      * @returns An array of entities.
      */
     public async findAll(): Promise<T[]> {
@@ -66,7 +67,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     }
 
     /**
-     * Find an entity in the database with matching ID.
+     * Finds an entity in the database with matching ID.
      * @param id The ID to use in finding the entity.
      * @returns An entity if found otherwise nothing.
      */
@@ -75,7 +76,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     }
 
     /**
-     * Update or create (if doesn't exist) entity with matching ID and entity data.
+     * Updates or creates (if doesn't exist) entity with matching ID and entity data.
      * @param id The ID to use in updating or creating an entity.
      * @param data The entity data to use in updating or creating an entity.
      * @returns An updated entity.
@@ -85,7 +86,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     }
 
     /**
-     * Delete an entity in the database with matching ID.
+     * Deletes an entity in the database with matching ID.
      * @param id The ID to use in finding the entity to delete.
      * @returns A deletion result object.
      */
