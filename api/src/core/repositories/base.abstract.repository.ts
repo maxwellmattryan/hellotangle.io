@@ -1,8 +1,5 @@
 import { DeleteResult, Repository } from 'typeorm';
 
-import { Id } from '@api/core/types/id.types';
-import { createId } from '@api/utils/id.util';
-
 import { PostgresErrors } from '@api/core/database/postgres.errors';
 import {
     EntityAlreadyExistsException,
@@ -10,6 +7,8 @@ import {
     UnableToCreateEntityException
 } from '@api/core/exceptions/base.entity.exceptions';
 import { BaseInterfaceRepository } from '@api/core/repositories/base.interface.repository';
+import { Id } from '@api/core/types/id.types';
+import { createId } from '@api/utils/id.util';
 
 /**
  * The base repository implementation containing basic methods for CRUD operations.
@@ -39,18 +38,23 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
      * Creates and persists an entity to the database.
      * @param data The data to use in creating a new entity.
      * @returns A newly created and persisted entity.
-     * @throws {@link EntityDataIsInvalidException} if no `id` property exists.
      * @throws {@link EntityAlreadyExistsException} if trying to create an entity with a non-unique ID.
+     * @throws {@link EntityDataIsInvalidException} if entity data contains missing or invalid values.
      * @throws {@link UnableToCreateEntityException} if entity save operation fails for any other reason.
      */
     public async create(data: T): Promise<T | void> {
-        if(!('id' in data))
-            throw new EntityDataIsInvalidException();
+        if(!('id' in data) || !(data as any)['id'])
+            data = this.prepare(data, []);
 
         return this.entity.save(data)
         .catch((error) => {
-            if(error.code === PostgresErrors.UNIQUE_VIOLATION) {
-                throw new EntityAlreadyExistsException();
+            switch(error.code) {
+                default:
+                case PostgresErrors.UNIQUE_VIOLATION:
+                    throw new EntityAlreadyExistsException();
+
+                case PostgresErrors.NOT_NULL_VIOLATION:
+                    throw new EntityDataIsInvalidException();
             }
 
             throw new UnableToCreateEntityException();

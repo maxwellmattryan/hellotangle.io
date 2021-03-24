@@ -1,4 +1,4 @@
-import { IsDate, IsDefined, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsAlphanumeric, IsDate, IsDefined, IsString, MaxLength, MinLength } from 'class-validator';
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
 import { BaseAbstractEntity } from '@api/core/entities/base.abstract.entity';
@@ -18,13 +18,14 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
     }
 
     /**
-     * The ID of a message, which __must__ be exactly 64 characters and __must__ exist to be used in code and persisted in the database.
+     * The ID of a message, which __must__ be a unique alphanumeric string of exactly 64 characters and __must__ exist to be used in code and persisted in the database.
      * @property type VARCHAR
      * @property length 64
      * @property unique true
      * @property nullable false
      */
     @IsString()
+    @IsAlphanumeric()
     @MinLength(64)
     @MaxLength(64)
     @IsDefined()
@@ -32,7 +33,7 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
     public id: Id = '';
 
     /**
-     * The content of a message, which __must__ be at least one character, no more than 256 characters, and __must__ exist to be used in code and persisted in the database.
+     * The content of a message, which __must__ be a string of no more than 256 characters and __must__ exist to be used in code and persisted in the database.
      * @property type VARCHAR
      * @property length 256
      * @property unique false
@@ -45,27 +46,29 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
     public content: MessageContent = '';
 
     /**
-     * The receipient address for a message, which __must__ be an alphanumeric string containing exactly 90 characters and __must__ exist to be used in code and persisted in the database.
+     * The receipient address for a message, which __must__ be an alphanumeric string of exactly 90 characters and __must__ exist to be used in code and persisted in the database.
      * @property type VARCHAR
      * @property length 90
-     * @property unique true
+     * @property unique false
      * @property nullable false
      */
     @IsString()
+    @IsAlphanumeric()
     @MinLength(90)
     @MaxLength(90)
     @IsDefined()
-    @Column({ type: 'varchar', length: 90, unique: true, nullable: false })
+    @Column({ type: 'varchar', length: 90, unique: false, nullable: false })
     public recipient_address: MessageAddress = '';
 
     /**
-     * The transaction hash of a message, which __must__ be an alphanumeric string containing exactly 81 characters and __must__ exist to be persisted in the database.
+     * The transaction hash of a message, which __must__ be a unique alphanumeric string of exactly 81 characters and __must__ exist to be persisted in the database.
      * @property type VARCHAR
      * @property length 90
      * @property unique true
      * @property nullable false
      */
     @IsString()
+    @IsAlphanumeric()
     @MinLength(81)
     @MaxLength(81)
     @IsDefined()
