@@ -40,7 +40,9 @@ I have written a few small but important scripts in helping me build and test th
 
 To run, just make sure that your machine has [Python](https://www.python.org/) installed and run them with:
 
-`python utils/script_name.py <1> <2> ...`
+```
+python utils/script_name.py <1> <2> ...
+```
 
 ### Spammer
 
