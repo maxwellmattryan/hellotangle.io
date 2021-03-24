@@ -52,7 +52,9 @@ describe('MessageService', () => {
 
     it('can send a message to the Tangle', () => {
         service.sendMessage(FakeMessage)
-            .then((data: Message) => {
+            .then((data: Message | void) => {
+                data = (data as Message);
+
                 expect(data.hash).not.toEqual(FakeMessage.hash);
 
                 expect(data).toHaveProperty('initiated_at');
