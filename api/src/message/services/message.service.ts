@@ -9,7 +9,7 @@ import { MESSAGE_REPOSITORY, MessageRepositoryInterface } from '@api/message/int
 import { MessageServiceInterface } from '@api/message/interfaces/message.service.interface';
 
 /**
- * Message service interface implementation for communicating with the IOTA Tangle.
+ * The message service interface implementation for communicating with the IOTA Tangle.
  */
 @Injectable()
 export class MessageService extends BaseAbstractService<Message> implements MessageServiceInterface {

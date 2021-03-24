@@ -1,13 +1,14 @@
+import { HttpLogger } from '@api/core/http/http.logger';
 import { NestFactory } from '@nestjs/core';
-import { ApiModule } from './api.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 
+import { ApiModule } from '@api/api.module';
+
 import { ExtendedLogger } from '@api/utils/extended-logger';
-import { HttpRequestLogger } from '@api/core/http/http-request.logger';
-import { HttpExceptionLogger } from '@api/core/http/http-exception.logger';
+import { HttpExceptionFilter } from '@api/core/http/http-exception.filter';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(ApiModule);
@@ -24,8 +25,7 @@ async function bootstrap() {
     app.use(compression());
     app.use(helmet());
 
-    app.useGlobalFilters(new HttpExceptionLogger());
-    app.useGlobalInterceptors(new HttpRequestLogger());
+    app.useGlobalFilters(new HttpExceptionFilter());
 
     const PORT = process.env.PORT || 3000;
     await app.listen(PORT);

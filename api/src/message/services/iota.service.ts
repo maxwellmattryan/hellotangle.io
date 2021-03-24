@@ -20,7 +20,7 @@ export type IotaNet = 'mainnet' | 'devnet';
 export type IotaTransfer = { value: number, address: string, message: string };
 
 /**
- * IOTA service interface implementation for using the IOTA API.
+ * The IOTA service interface implementation for using the IOTA API.
  */
 @Injectable()
 export class IotaService extends BaseAbstractService<IotaService> implements IotaServiceInterface {

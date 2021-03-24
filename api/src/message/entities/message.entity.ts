@@ -1,16 +1,16 @@
-import { BaseAbstractEntity } from '@api/core/entities/base.abstract.entity';
 import { IsDate, IsDefined, IsString, MaxLength, MinLength } from 'class-validator';
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
-import { Id } from '@api/core/types/id.types';
-
+import { BaseAbstractEntity } from '@api/core/entities/base.abstract.entity';
 import { MessageHash, MessageContent, MessageAddress } from '@api/message/message.types';
+import { MessageEntityInterface } from '@api/message/interfaces/message.entity.interface';
+import { Id } from '@api/core/types/id.types';
 
 /**
  * The message entity class containing all relevant properties for IOTA protocol messages.
  */
 @Entity('messages')
-export class Message extends BaseAbstractEntity<Message> {
+export class Message extends BaseAbstractEntity<Message> implements MessageEntityInterface {
     constructor(partial: Partial<Message>) {
         super();
 
@@ -75,7 +75,7 @@ export class Message extends BaseAbstractEntity<Message> {
     /**
      * The timestamp that the message was initiated at, which __must__ exist to be persisted in the database.
      * @property type TIMESTAMP
-     * @property default now()
+     * @property default now
      * @property nullable false
      */
     @IsDate()

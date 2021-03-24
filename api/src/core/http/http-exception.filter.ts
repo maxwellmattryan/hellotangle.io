@@ -1,4 +1,4 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Injectable } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common';
 
 import { ExtendedLogger } from '@api/utils/extended-logger';
 
@@ -6,7 +6,7 @@ import { ExtendedLogger } from '@api/utils/extended-logger';
  * The logger for HTTP errors and exceptions.
  */
 @Catch(HttpException)
-export class HttpExceptionLogger implements ExceptionFilter<HttpException> {
+export class HttpExceptionFilter implements ExceptionFilter<HttpException> {
     private readonly logger = new ExtendedLogger('HttpExceptionLogger');
 
     catch(exception: HttpException, host: ArgumentsHost) {
