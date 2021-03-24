@@ -82,6 +82,7 @@ def initialize_spammer_parameters() -> bool:
 
         assert(type(NUM_WORKERS) is int)
         assert(NUM_WORKERS > 0 and NUM_WORKERS <= 1_000)
+        assert(NUM_WORKERS <= MESSAGE_COUNT)
 
     except Exception as e:
         print_message(num_workers_error)
@@ -108,11 +109,11 @@ def begin_spamming() -> None:
             print_message(f'\n[Error]: {e}')
             continue
 
-        done_msg: str = f'\nFinished spamming!'
-        message_count_msg: str = f'\nBroadcasted {MESSAGE_COUNT} message(s)'
-        num_workers_msg: str = f' with {NUM_WORKERS} worker(s).'
+        done_msg: str = f'Finished spamming!'
+        message_count_msg: str = f'Broadcasted {MESSAGE_COUNT} message(s)'
+        num_workers_msg: str = f'with {NUM_WORKERS} worker(s).'
 
-        print_message(f'{done_msg}{message_count_msg}{num_workers_msg}')
+        print_message(f'\n{done_msg}\n{message_count_msg} {num_workers_msg}')
 
         break
 
