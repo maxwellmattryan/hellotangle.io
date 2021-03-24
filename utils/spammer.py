@@ -18,7 +18,7 @@ def TimeFn(fn: Callable) -> None:
         result = fn(*args, **kwargs)
         time_end = time.time()
 
-        msg: str = f'{fn.__name__}() > {(time_end - time_start) * 1000:2.2f} ms'
+        msg: str = f'{fn.__name__} > {(time_end - time_start) * 1000:2.2f} ms'
         print_message(msg)
 
         return result
