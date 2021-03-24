@@ -70,7 +70,7 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
     public async connectToNode(): Promise<GetNodeInfoResponse> {
         return this.composeIotaApi().getNodeInfo()
             .then((data: GetNodeInfoResponse) => {
-                this.logger.info(`Connected to IOTA node at ${data.time} with ${data.neighbors} neighbor(s)`);
+                this.logger.info(`Connected to IOTA Tangle node at ${new Date(data.time)} with ${data.neighbors} neighbor(s)`);
 
                 return data;
             })
@@ -142,7 +142,7 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
             this.minWeightMagnitude()
         )
             .then((data: readonly Transaction[]) => {
-                this.logger.info(`Sent message to Tangle with hash of ${data[0].hash}`);
+                this.logger.info(`Sent message to IOTA Tangle with hash of ${data[0].hash}`);
 
                 return data;
             })

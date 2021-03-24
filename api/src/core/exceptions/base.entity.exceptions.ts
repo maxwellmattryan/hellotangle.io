@@ -10,11 +10,11 @@ export class EntityAlreadyExistsException extends BadRequestException {
 }
 
 /**
- * Entity contains invalid and / or lacks valid data (i.e. no `id` property exists).
+ * Entity contains invalid and/or lacks valid data (i.e. no `id` property exists).
  */
 export class EntityDataIsInvalidException extends BadRequestException {
     constructor() {
-        super('Entity contains invalid and / or lacks valid data (i.e. no `id` property exists).');
+        super('Entity contains invalid and/or lacks valid data.');
     }
 }
 
