@@ -90,8 +90,8 @@ def initialize_spammer_parameters() -> bool:
     global MESSAGE_COUNT
     global NUM_WORKERS
 
-    message_count_error = 'Invalid parameter for argument: MESSAGE_COUNT\nIt must an integer in the range [1, 1_000_000].'
-    num_workers_error = '\nInvalid parameter for argument: NUM_WORKERS\nIt must be an integer both in the range [1, 1000] and less than the MESSAGE_COUNT.'
+    message_count_error = 'Invalid parameter for argument: MESSAGE_COUNT\nIt must an integer in the range [1, 10000).'
+    num_workers_error = '\nInvalid parameter for argument: NUM_WORKERS\nIt must be an integer both in the range [1, 1000) and less than the MESSAGE_COUNT.'
 
     was_exception_thrown = False
 
@@ -99,7 +99,7 @@ def initialize_spammer_parameters() -> bool:
         MESSAGE_COUNT = int(sys.argv[1])
 
         assert(type(MESSAGE_COUNT) is int)
-        assert(MESSAGE_COUNT > 0 and MESSAGE_COUNT <= 1_000_000)
+        assert(MESSAGE_COUNT > 0 and MESSAGE_COUNT < 10000)
 
     except Exception as e:
         print_message(message_count_error)
@@ -109,7 +109,7 @@ def initialize_spammer_parameters() -> bool:
         NUM_WORKERS = int(sys.argv[2])
 
         assert(type(NUM_WORKERS) is int)
-        assert(NUM_WORKERS > 0 and NUM_WORKERS <= 1_000)
+        assert(NUM_WORKERS > 0 and NUM_WORKERS < 1000)
         assert(NUM_WORKERS <= MESSAGE_COUNT)
 
     except Exception as e:
