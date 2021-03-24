@@ -109,11 +109,11 @@ def begin_spamming() -> None:
             print_message(f'\n[Error]: {e}')
             continue
 
-        done_msg: str = f'Finished spamming!'
+        done_msg: str = f'Finished!'
         message_count_msg: str = f'Broadcasted {MESSAGE_COUNT} message(s)'
         num_workers_msg: str = f'with {NUM_WORKERS} worker(s).'
 
-        print_message(f'\n{done_msg}\n{message_count_msg} {num_workers_msg}')
+        print_message(f'\n{done_msg} {message_count_msg} {num_workers_msg}')
 
         break
 
