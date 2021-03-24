@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { ExtendedLogger } from '@api/utils/extended-logger';
 
 /**
- * The logger for HTTP requests, which also logs HTTP method and response status data.
+ * The logger for HTTP requests, which also logs HTTP method.
  */
 @Injectable()
 export class HttpRequestLogger implements NestInterceptor {
-    private readonly logger = new ExtendedLogger('HttpLogger');
+    private readonly logger = new ExtendedLogger('HttpRequestLogger');
 
     private readonly methodMap: object = {
         get: 'GET',
@@ -19,7 +19,6 @@ export class HttpRequestLogger implements NestInterceptor {
 
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> | Promise<Observable<any>> {
         const req = context.switchToHttp().getRequest();
-        const res = context.switchToHttp().getResponse();
 
         let method: string = '';
         Object.keys(req.route.methods).forEach(k => {
@@ -27,9 +26,8 @@ export class HttpRequestLogger implements NestInterceptor {
             if(req.route.methods[k]) method = this.methodMap[k];
         });
 
-        const statusCode = res.statusCode;
         const url = req.originalUrl;
-        this.logger.infoResponse(`${method} ${url}`, statusCode);
+        this.logger.info(`${method} ${url}`);
 
         return next.handle();
     }

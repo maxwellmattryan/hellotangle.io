@@ -81,7 +81,7 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
     }
 
     /**
-     * Sends a message to the IOTA Tangle.
+     * Sends a message via the IOTA protocol.
      * @param message The message data to use in the transaction.
      * @returns The message including newly updated fields (id, hash, attached_at).
      */
@@ -89,7 +89,7 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
         const trytes = await this.prepareMessage(message);
         const result = await this.broadcastMessage(trytes);
 
-        return this.buildMessage(message, result);
+         return this.buildMessage(message, result);
     }
 
     /**

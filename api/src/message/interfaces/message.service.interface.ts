@@ -15,5 +15,5 @@ export interface MessageServiceInterface extends BaseInterfaceService<MessageSer
      * @param messageDto The message data to use in creating a message.
      * @returns The resulting message with data from transaction.
      */
-    sendMessage(messageDto: SendMessageDto): Promise<Message>;
+    sendMessage(messageDto: SendMessageDto): Promise<Message | void>;
 }

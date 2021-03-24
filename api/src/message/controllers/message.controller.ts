@@ -24,7 +24,7 @@ export class MessageController {
     @HttpCode(HttpStatus.CREATED)
     public async createMessage(
         @Body() messageDto: SendMessageDto
-    ): Promise<Message> {
+    ): Promise<Message | void> {
         return this.messageService.sendMessage(messageDto);
     }
 }

@@ -28,6 +28,15 @@ export class EntityIsImmutableException extends BadRequestException {
 }
 
 /**
+ * Entity validation failed, which means that there were fields containing invalid data.
+ */
+export class EntityValidationFailedException extends BadRequestException {
+    constructor() {
+        super('Entity validation failed, which means that there were fields containing invalid data.');
+    }
+}
+
+/**
  * Entity save operation fails for a generic reason.
  */
 export class UnableToCreateEntityException extends BadRequestException {

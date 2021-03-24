@@ -44,7 +44,6 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
      * @throws {@link UnableToCreateEntityException} if entity save operation fails for any other reason.
      */
     public async create(data: T): Promise<T | void> {
-        console.log("DATA: ", data);
         if(!('id' in data))
             throw new EntityDataIsInvalidException();
 
