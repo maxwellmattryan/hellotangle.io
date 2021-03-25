@@ -1,0 +1,14 @@
+@import 'variables';
+
+.footer {
+    background-color: $color-dark;
+    height: $footer-height;
+}
+
+.footer__text {
+    color: $color-primary;
+    font-size: 85%;
+    line-height: $footer-height;
+    text-align: center;
+    vertical-align: middle;
+}

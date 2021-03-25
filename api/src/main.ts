@@ -6,7 +6,7 @@ import * as helmet from 'helmet';
 
 import { ApiModule } from '@api/api.module';
 
-import { ExtendedLogger } from '@api/utils/extended-logger';
+import { ExtendedLogger } from '@api/core/extended-logger';
 
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create<NestExpressApplication>(ApiModule);

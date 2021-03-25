@@ -8,7 +8,7 @@ import {
 } from '@api/core/exceptions/base.entity.exceptions';
 import { BaseInterfaceRepository } from '@api/core/repositories/base.interface.repository';
 import { Id } from '@api/core/types/id.types';
-import { createId } from '@api/utils/id.util';
+import { createId } from '@api/core/utils/id.util';
 
 /**
  * The base repository implementation containing basic methods for CRUD operations.

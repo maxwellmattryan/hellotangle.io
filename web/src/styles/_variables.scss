@@ -1,5 +1,7 @@
+// FONTS
 $font-stack: Montserrat, Roboto, "Helvetica Neue", sans-serif;
 
+// COLORS
 $color-white: #F8F9FA;
 $color-primary: #E9ECEF;
 $color-secondary: #6C757D;
@@ -11,3 +13,43 @@ $color-caution-light: rgb(255, 239, 211);
 $color-caution: rgb(255, 231, 160);
 $color-go-light: rgb(215, 255, 213);
 $color-go: rgb(155, 236, 143);
+
+// LAYOUT
+$margin: 2rem;
+$half-margin: calc(#{$margin} * 0.5);
+$quarter-margin: calc(#{$margin} * 0.25);
+$eighth-margin: calc(#{$margin} * 0.125);
+
+$padding: 2rem;
+$half-padding: calc(#{$padding} * 0.5);
+$quarter-padding: calc(#{$padding} * 0.25);
+$eighth-padding: calc(#{$padding} * 0.125);
+
+// SIZES
+$header-height: 8vh;
+$footer-height: 6vh;
+
+$small-icon-height: 3vh;
+$icon-height: 42px;
+$image-height: 50vh;
+
+$page-height: 92vh;
+$half-page-height: calc(#{$page-height} * 0.5);
+
+$line-divider-height: 1.5px;
+$section-divider-height: 15vh;
+
+// ANIMATION, TIMING
+$hover-transition-duration: 0.2s;
+$hover-transition-transform: -3px;
+
+$navbar-transition-duration: 0.3s;
+$sidebar-transition-duration: 0.15s;
+$anchor-active-transition-duration: 0.075s;
+
+$main-logo-animation-duration: 0.6s;
+$main-logo-animation-delay: 0.2s;
+
+$menu-icon-animation-duration: 0.2s;
+$menu-icon-animation-scale-start: 0.85;
+$menu-icon-animation-scale-end: 1.15;

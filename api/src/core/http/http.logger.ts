@@ -2,7 +2,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 
 import { Request, Response, NextFunction } from 'express';
 
-import { ExtendedLogger } from '@api/utils/extended-logger';
+import { ExtendedLogger } from '@api/core/extended-logger';
 
 /**
  * The logger for HTTP requests and responses.

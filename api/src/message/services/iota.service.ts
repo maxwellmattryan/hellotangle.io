@@ -5,7 +5,7 @@ import { asciiToTrytes } from '@iota/converter';
 import { API, composeAPI, GetNodeInfoResponse, Transaction, Transfer } from '@iota/core';
 
 import { BaseAbstractService } from '@api/core/services/base.abstract.service';
-import { ExtendedLogger } from '@api/utils/extended-logger';
+import { ExtendedLogger } from '@api/core/extended-logger';
 import { Message } from '@api/message/entities/message.entity';
 import { MessageAddress, MessageContent } from '@api/message/message.types';
 

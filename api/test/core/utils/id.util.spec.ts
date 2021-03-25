@@ -1,5 +1,5 @@
 import { Id } from '@api/core/types/id.types';
-import { createId } from '@api/utils/id.util';
+import { createId } from '@api/core/utils/id.util';
 
 describe('BaseRepository', () => {
     it('can create a unique hashed identifier within the correct format', () => {

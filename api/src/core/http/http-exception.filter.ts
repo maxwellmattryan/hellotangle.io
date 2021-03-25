@@ -1,7 +1,7 @@
 import { ArgumentsHost, HttpException } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 
-import { ExtendedLogger } from '@api/utils/extended-logger';
+import { ExtendedLogger } from '@api/core/extended-logger';
 
 /**
  * The filter for HTTP exceptions and errors that also logs them to the console.
