@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from '@web/core/material.module';
 
 import { CreateMessagePage } from '@web/modules/message/pages/create-message/create-message.page';
+import { MaterialModule } from '@web/core/material.module';
 import { MessageRoutingModule } from '@web/modules/message/message-routing.module';
+import { MessageFormComponent } from './components/message-form/message-form.component';
 import { SharedModule } from '@web/shared/shared.module';
 
 /**
@@ -12,7 +13,8 @@ import { SharedModule } from '@web/shared/shared.module';
  */
 @NgModule({
     declarations: [
-        CreateMessagePage
+        CreateMessagePage,
+        MessageFormComponent
     ],
     imports: [
         CommonModule,
