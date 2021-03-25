@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AboutPage } from '@web/core/pages/about-page/about.page';
+
 const routes: Routes = [
     {
         path: '',
@@ -8,8 +10,12 @@ const routes: Routes = [
         loadChildren: () => import('@web/message/message.module').then(m => m.MessageModule)
     },
     {
+        path: 'about',
+        component: AboutPage
+    },
+    {
         path: '**',
-        redirectTo: ''
+        redirectTo: '/'
     }
 ];
 

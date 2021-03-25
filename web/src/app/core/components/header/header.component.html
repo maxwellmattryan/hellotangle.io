@@ -3,17 +3,14 @@
     'navbar--no-show': !shouldDisplayNavbar
 }" class='navbar header'>
     <a class='navbar__logo-icon' routerLink=''>
-        <h1>M</h1>
+        <h1>HT</h1>
     </a>
 
     <span class='fill-space'></span>
 
     <div class='navbar__link-container'>
         <a class='link-item navbar__link-item' routerLink='/'>Home</a>
-        <a class='link-item navbar__link-item' routerLink='/blog'>Blog</a>
-        <a class='link-item navbar__link-item' routerLink='/shop'>Shop</a>
-
-        <a *ngIf='isAdmin' class='link-item navbar__link-item' routerLink='/admin'>Admin</a>
+        <a class='link-item navbar__link-item' routerLink='/about'>About</a>
     </div>
 
     <button aria-label='Toggle the sidebar menu' class='navbar__toggle-btn' (click)='toggleSidebar()'>
@@ -42,9 +39,6 @@
 
     <div class='sidebar__link-container'>
         <a class='sidebar__link-item' routerLink='/' (click)='toggleSidebar()'>Home</a>
-        <a class='sidebar__link-item' routerLink='/blog' (click)='toggleSidebar()'>Blog</a>
-        <a class='sidebar__link-item' routerLink='/shop' (click)='toggleSidebar()'>Shop</a>
-
-        <a *ngIf='isAdmin' class='sidebar__link-item' routerLink='admin' (click)='toggleSidebar()'>Admin</a>
+        <a class='sidebar__link-item' routerLink='/about' (click)='toggleSidebar()'>About</a>
     </div>
 </div>

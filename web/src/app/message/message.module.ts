@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MessageRoutingModule } from '@web/message/message-routing.module';
-import { CreateMessagePageComponent } from '@web/message/pages/create-message-page/create-message-page.component';
+import { CreateMessagePage } from '@web/message/pages/create-message-page/create-message.page';
 
 @NgModule({
     declarations: [
-        CreateMessagePageComponent
+        CreateMessagePage
     ],
     imports: [
         CommonModule,

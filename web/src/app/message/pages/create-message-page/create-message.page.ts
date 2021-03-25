@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NotificationService } from '@web/core/services/notification.service';
+
 @Component({
-  selector: 'web-create-message-page',
-  templateUrl: './create-message-page.component.html',
-  styleUrls: ['./create-message-page.component.scss']
+    selector: 'web-create-message-page',
+    templateUrl: './create-message.page.html',
+    styleUrls: ['./create-message.page.scss']
 })
-export class CreateMessagePageComponent implements OnInit {
+export class CreateMessagePage implements OnInit {
 
-  constructor() { }
+    constructor(
+        private readonly notificationService: NotificationService
+    ) { }
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {
+        this.notificationService.createNotification('Hello, world!');
+    }
 }

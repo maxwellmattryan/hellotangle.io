@@ -16,6 +16,8 @@ import { MessageModule } from '@web/message/message.module';
     ],
     exports: [],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule { }
