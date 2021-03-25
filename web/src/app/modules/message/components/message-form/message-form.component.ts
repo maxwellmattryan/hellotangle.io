@@ -32,16 +32,12 @@ export class MessageFormComponent implements OnInit {
      * @internal
      */
     private initMessageForm(): FormGroup {
-        const recipientAddressPlaceholder =
-            'eg. HZYKLMOYJYAYBZRTKAQPUOVUSZTC999JDJCVTXRKOS9WEHR9QEKWBFJRRHVKGXJ9CEZXEPIDLVOBEBD9DCNJNML9PL';
         const recipientAddressRegex: RegExp = /^[A-Z0-9]{90}$/;
-
-        const contentPlaceholder = 'eg. "Hello, Tangle!"';
         const contentRegex: RegExp = /^[ -~]{1,256}$/;
 
         return this.formBuilder.group({
-            recipient_address: this.formBuilder.control(recipientAddressPlaceholder, [Validators.pattern(recipientAddressRegex)]),
-            content: this.formBuilder.control(contentPlaceholder, [Validators.pattern(contentRegex)])
+            recipient_address: this.formBuilder.control('', [Validators.pattern(recipientAddressRegex)]),
+            content: this.formBuilder.control('', [Validators.pattern(contentRegex)])
         });
     }
 
