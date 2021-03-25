@@ -13,6 +13,7 @@ WEB_IMAGE=hellotangle-web
 DOMAIN=hellotangle.io
 
 GCP_HOSTNAME=gcr.io
+GCP_PLATFORM=managed
 GCP_PROJECT_ID=hellotangle
 GCP_VPC_CONNECTOR=hellotangle-api
 GCP_VPC_EGRESS=private-ranges-only
@@ -42,8 +43,6 @@ if [ "$API_ACTION" = true ] && [ "$WEB_ACTION" = true ]
 then
     STEPS=12
 else
-    echo -e "$API_ACTION and $WEB_ACTION"
-
     if [ "$API_ACTION" = false ] && [ "$WEB_ACTION" = false ]
     then
         API_ACTION=true
@@ -66,7 +65,7 @@ then
     echo -e "\t[✘] Branch is set to \"develop\"\n"
     echo -e "To switch to the correct branch, please use:\n\n\tgit checkout develop\n"
 
-#    exit 1; remove newline @ 65
+#    exit 1; remove newline @ 64
 else
     echo -e "\t[✔] Branch is set to \"develop\""
 fi
@@ -135,7 +134,7 @@ then
     echo -e "[Success]: Pushed local API image!\n"
 
     echo -e "($(expr $START + 3)/$STEPS) Deploying to Cloud Run service ($GCP_API_SERVICE)...\n"
-    gcloud run deploy "$GCP_API_SERVICE" --image="$GCP_API_IMAGE_PATH" --vpc-connector="$GCP_VPC_CONNECTOR" --vpc-egress="$GCP_VPC_EGRESS"
+    gcloud run deploy "$GCP_API_SERVICE" --image="$GCP_API_IMAGE_PATH" --platform="$GCP_PLATFORM" --vpc-connector="$GCP_VPC_CONNECTOR" --vpc-egress="$GCP_VPC_EGRESS"
     echo -e "[Success]: Deployed service!\n"
 
     echo -e "($(expr $START + 4)/$STEPS) Removing API images from Docker...\n"
