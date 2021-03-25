@@ -1,7 +1,7 @@
 /**
  * The content of a message (in plain text).
  */
-export type MessageContent = string | object;
+export type MessageContent = string | Record<string, unknown>;
 
 /**
  * The address(es) used in messages, namely the recipient address.

@@ -8,7 +8,7 @@ import { ApiModule } from '@api/api.module';
 
 import { ExtendedLogger } from '@api/utils/extended-logger';
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
     const app = await NestFactory.create<NestExpressApplication>(ApiModule);
     app.useLogger(app.get(ExtendedLogger));
 
@@ -17,8 +17,6 @@ async function bootstrap() {
         methods: 'GET,POST,PUT,DELETE,BATCH,OPTIONS',
         credentials: true
     });
-
-    app.setGlobalPrefix('api');
 
     app.use(compression());
     app.use(helmet());

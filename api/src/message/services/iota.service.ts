@@ -48,7 +48,7 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
     private minWeightMagnitude = (): number => {
         const net = this.configService.get<IotaNet>('IOTA_NET') || 'devnet';
         return net === 'mainnet' ? 14 : 9;
-    }
+    };
 
     /**
      * Creates an instance of the IOTA API.
@@ -100,14 +100,12 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
      */
     private async prepareMessage(message: Message): Promise<readonly string[]> {
         const iota: API = this.composeIotaApi();
-        const trytes = iota.prepareTransfers(
+        return iota.prepareTransfers(
             String(this.configService.get('IOTA_WALLET_SEED')),
             this.prepareTransfers(message.content, message.recipient_address)
         ).catch((error) => {
             throw new UnableToPrepareTangleTransferArrayException();
         });
-
-        return trytes;
     }
 
     /**
@@ -177,6 +175,6 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
         return {
             hash: tx.hash,
             attached_at: new Date(tx.attachmentTimestamp)
-        }
+        };
     }
 }

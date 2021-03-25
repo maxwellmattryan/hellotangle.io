@@ -1,5 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Inject, Post } from '@nestjs/common';
 
+import { Routes } from '@api/core/configs/routes.config';
 import { SendMessageDto } from '@api/message/dtos/send-message.dto';
 import { Message } from '@api/message/entities/message.entity';
 import { MESSAGE_SERVICE, MessageServiceInterface } from '@api/message/interfaces/message.service.interface';
@@ -7,7 +8,7 @@ import { MESSAGE_SERVICE, MessageServiceInterface } from '@api/message/interface
 /**
  * The message controller for handling requests related to IOTA protocol communication.
  */
-@Controller('messages')
+@Controller()
 export class MessageController {
     constructor(
         @Inject(MESSAGE_SERVICE)
@@ -20,7 +21,7 @@ export class MessageController {
      * @param messageDto The message data transfer object (DTO) holding the content and recipient_address information.
      * @returns A message containing the data originally sent plus data from the resulting IOTA protocol transaction.
      */
-    @Post('send')
+    @Post(Routes.Messages.send)
     @HttpCode(HttpStatus.CREATED)
     public async createMessage(
         @Body() messageDto: SendMessageDto

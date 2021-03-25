@@ -15,7 +15,7 @@ const hashAlgorithm: HashAlgorithm = 'sha512';
  */
 export const createId = (identifiers: string[], length: number = 64): Id => {
     return createStringHashId(identifiers.join(' '), length);
-}
+};
 
 /**
  * Creates a hashed ID string.

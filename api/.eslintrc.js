@@ -5,12 +5,10 @@ module.exports = {
         sourceType: 'module',
     },
     plugins: [
-        '@typescript-eslint',
-        'prettier'
+        '@typescript-eslint'
     ],
     extends: [
         'eslint:recommended',
-        'plugin:prettier/recommended',
         'plugin:@typescript-eslint/recommended',
     ],
     root: false,
@@ -43,7 +41,8 @@ module.exports = {
             {
                 'selector': 'variable',
                 'format': [
-                    'camelCase',
+                    'strictCamelCase',
+                    'StrictPascalCase',
                     'UPPER_CASE'
                 ]
             }
@@ -64,7 +63,7 @@ module.exports = {
             "off"
         ],
         "@typescript-eslint/no-empty-interface": [
-            "error"
+            "off"
         ],
         "@typescript-eslint/no-extra-non-null-assertion": [
             "error"
@@ -73,10 +72,13 @@ module.exports = {
             "error"
         ],
         "@typescript-eslint/no-invalid-void-type": [
-            "error"
+            "off"
         ],
         "@typescript-eslint/no-misused-new": [
             "error"
+        ],
+        "@typescript-eslint/no-inferrable-types": [
+            "off"
         ],
         "@typescript-eslint/no-misused-promises": [
             "error",
@@ -107,5 +109,8 @@ module.exports = {
                 "asyncArrow": "always"
             }
         ],
+        "@typescript-eslint/semi": [
+            "error"
+        ]
     },
 };
