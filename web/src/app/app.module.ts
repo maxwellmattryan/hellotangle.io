@@ -5,6 +5,9 @@ import { AppRoutingModule } from '@web/app-routing.module';
 import { CoreModule } from '@web/core/core.module';
 import { MessageModule } from '@web/message/message.module';
 
+/**
+ * The top-level application module that composes all of the other modules and bootsraps the app.
+ */
 @NgModule({
     declarations: [
         AppComponent

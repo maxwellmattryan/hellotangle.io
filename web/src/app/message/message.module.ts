@@ -5,6 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MessageRoutingModule } from '@web/message/message-routing.module';
 import { CreateMessagePage } from '@web/message/pages/create-message-page/create-message.page';
 
+/**
+ * The message module containing necessary configuration.
+ */
 @NgModule({
     declarations: [
         CreateMessagePage

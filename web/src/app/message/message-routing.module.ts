@@ -10,6 +10,9 @@ const routes: Routes = [
     }
 ];
 
+/**
+ * The message routing module for assigning components to routes.
+ */
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
