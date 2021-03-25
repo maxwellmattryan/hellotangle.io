@@ -122,13 +122,17 @@ def begin_spamming() -> None:
     global MESSAGE_COUNT
     global NUM_WORKERS
 
+    time_start = time.time()
+
     while(True):
         try:
             print_message('Beginning the spam!')
 
+
             with ThreadPoolExecutor(max_workers = NUM_WORKERS) as executor:
                 res = [executor.submit(send_message, MESSAGE) for _ in range(MESSAGE_COUNT)]
                 concurrent.futures.wait(res)
+
 
         except UnboundLocalError as ule:
             print_message(f'\n[Error]: {ule}')
@@ -137,11 +141,15 @@ def begin_spamming() -> None:
             print_message(f'\n[Error]: {e}')
             continue
 
+        time_end = time.time()
+        time_in_seconds = (time_end - time_start) % 60
+
         done_msg: str = f'Finished!'
         message_count_msg: str = f'Spammed {MESSAGE_COUNT} message request(s)'
-        num_workers_msg: str = f'with {NUM_WORKERS} worker(s).'
+        num_workers_msg: str = f'with {NUM_WORKERS} worker(s)'
+        message_rate_msg: str = f'at {(MESSAGE_COUNT / time_in_seconds):.02f} msg(s) per second.'
 
-        print_message(f'\n{done_msg} {message_count_msg} {num_workers_msg}')
+        print_message(f'\n{done_msg} {message_count_msg} {num_workers_msg} {message_rate_msg}')
 
         break
 
