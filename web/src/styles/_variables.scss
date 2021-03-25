@@ -38,13 +38,15 @@ $small-icon-height: 3vh;
 $icon-height: 42px;
 $image-height: 50vh;
 
-$page-height: 92vh;
+$page-height: calc(100vh - #{$header-height} - #{$footer-height});
 $half-page-height: calc(#{$page-height} * 0.5);
 
 $line-divider-height: 1.5px;
 $section-divider-height: 15vh;
 
 // ANIMATION, TIMING
+$app-fade-in-duration: 2s;
+
 $hover-transition-duration: 0.2s;
 $hover-transition-transform: -3px;
 

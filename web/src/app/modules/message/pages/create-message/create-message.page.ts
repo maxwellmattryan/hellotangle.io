@@ -15,7 +15,9 @@ export class CreateMessagePage implements OnInit {
         private readonly notificationService: NotificationService
     ) { }
 
-    ngOnInit(): void {
+    ngOnInit(): void { }
+
+    onAppear(): void {
         this.notificationService.createNotification('Hello, Tangle!');
     }
 }

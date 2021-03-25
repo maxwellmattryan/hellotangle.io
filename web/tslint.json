@@ -144,7 +144,6 @@
         "directive-selector": [
             true,
             "attribute",
-            "web",
             "camelCase"
         ],
         "component-selector": [

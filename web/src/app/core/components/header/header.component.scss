@@ -16,6 +16,7 @@
 .ghost-navbar {
     background-color: $color-dark;
     height: $header-height;
+    max-height: $header-height;
 }
 
 .navbar {
@@ -24,9 +25,10 @@
     flex-direction: row;
     height: $header-height;
     justify-content: space-between;
-    left: 0px;
+    left: 0;
+    max-height: $header-height;
     position: fixed;
-    right: 0px;
+    right: 0;
     transition: $navbar-transition-duration;
     transition-timing-function: ease-out;
     width: 100%;
@@ -38,7 +40,7 @@
     }
 
     &--show {
-        top: 0px;
+        top: 0;
         pointer-events: all;
     }
 }
@@ -112,6 +114,7 @@
     background-color: $color-dark;
     height: $header-height;
     width: $header-height;
+    max-height: $header-height;
 }
 
 .sidebar {
