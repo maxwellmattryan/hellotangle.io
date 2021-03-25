@@ -2,7 +2,7 @@ import { Id } from '@web/core/types/id.type';
 import { MessageAddress, MessageContent, MessageHash } from '@web/modules/message/types/message.types';
 
 /**
- * The message entity class containing all relevant properties for IOTA protocol messages.
+ * The message interface containing all relevant properties for IOTA protocol messages.
  */
 export interface Message {
     /**

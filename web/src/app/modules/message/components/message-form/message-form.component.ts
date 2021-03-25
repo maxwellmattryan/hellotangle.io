@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Message } from '@web/modules/message/interfaces/message.interface';
 import { MessageApiService } from '@web/modules/message/services/message-api.service';
@@ -19,7 +20,8 @@ export class MessageFormComponent implements OnInit {
 
     constructor(
         private readonly formBuilder: FormBuilder,
-        private readonly messageApiService: MessageApiService
+        private readonly messageApiService: MessageApiService,
+        private readonly router: Router
     ) { }
 
     ngOnInit(): void { }
@@ -54,6 +56,8 @@ export class MessageFormComponent implements OnInit {
             this.isSendingMessage = false;
 
             console.log(res);
+
+            this.router.navigate(['result']);
         }, (error: HttpErrorResponse) => {
             this.isSendingMessage = false;
         });

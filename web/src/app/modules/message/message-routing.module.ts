@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CreateMessagePage } from '@web/modules/message/pages/create-message/create-message.page';
+import { MessageResultPage } from '@web/modules/message/pages/message-result/message-result.page';
+import { SendMessagePage } from '@web/modules/message/pages/send-message/send-message.page';
 
 const routes: Routes = [
     {
         path: '',
-        component: CreateMessagePage
+        pathMatch: 'full',
+        component: SendMessagePage
+    },
+    {
+        path: 'result',
+        component: MessageResultPage
     }
 ];
 

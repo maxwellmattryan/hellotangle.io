@@ -58,6 +58,10 @@
     line-height: $header-height;
     font-size: 120%;
     padding: 0 $padding;
+
+    &--thin {
+        font-weight: 300;
+    }
 }
 
 @keyframes expand-in {

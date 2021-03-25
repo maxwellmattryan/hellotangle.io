@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { CreateMessagePage } from '@web/modules/message/pages/create-message/create-message.page';
+import { SendMessagePage } from '@web/modules/message/pages/send-message/send-message.page';
 import { MaterialModule } from '@web/core/material.module';
-import { MessageRoutingModule } from '@web/modules/message/message-routing.module';
 import { MessageApiService } from '@web/modules/message/services/message-api.service';
 import { MessageFormComponent } from './components/message-form/message-form.component';
+import { MessageResultPage } from '@web/modules/message/pages/message-result/message-result.page';
+import { MessageRoutingModule } from '@web/modules/message/message-routing.module';
 import { SharedModule } from '@web/shared/shared.module';
 
 /**
@@ -14,8 +15,9 @@ import { SharedModule } from '@web/shared/shared.module';
  */
 @NgModule({
     declarations: [
-        CreateMessagePage,
-        MessageFormComponent
+        SendMessagePage,
+        MessageFormComponent,
+        MessageResultPage
     ],
     imports: [
         CommonModule,
