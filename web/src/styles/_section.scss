@@ -1,0 +1,28 @@
+/**
+ * This SCSS file contains all of the styles for sections, which are used to contain
+ * content in pages (i.e. the about content in an about page). They can also be used
+ * for whole pages.
+ */
+
+@import 'variables';
+
+.section-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section {
+    background-color: $color-dark;
+    color: $color-white;
+    padding: $padding;
+    margin: 0 auto;
+    max-width: 1060px;
+    min-height: calc(99vh - #{$header-height} - #{$section-divider-height} - #{$footer-height} * 2);
+}
+
+@media only screen and (min-width: 786px) {
+    .section {
+        min-height: calc(99vh - #{$header-height} - #{$section-divider-height} - #{$footer-height} * 2);
+    }
+}

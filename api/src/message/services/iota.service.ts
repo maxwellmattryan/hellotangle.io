@@ -5,16 +5,15 @@ import { asciiToTrytes } from '@iota/converter';
 import { API, composeAPI, GetNodeInfoResponse, Transaction, Transfer } from '@iota/core';
 
 import { BaseAbstractService } from '@api/core/services/base.abstract.service';
+import { IotaServiceInterface } from '@api/message/interfaces/iota.service.interface';
 import { ExtendedLogger } from '@api/core/extended-logger';
 import { Message } from '@api/message/entities/message.entity';
-import { MessageAddress, MessageContent } from '@api/message/message.types';
-
+import { MessageAddress, MessageContent } from '@api/message/types/message.types';
 import {
     UnableToBroadcastToTangleException,
     UnableToConnectToTangleNodeException,
     UnableToPrepareTangleTransferArrayException
 } from '@api/message/exceptions/iota.exceptions';
-import { IotaServiceInterface } from '@api/message/interfaces/iota.service.interface';
 
 export type IotaNet = 'mainnet' | 'devnet';
 

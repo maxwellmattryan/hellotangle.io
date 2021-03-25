@@ -2,7 +2,7 @@ import { IsAlphanumeric, IsDate, IsDefined, IsString, MaxLength, MinLength } fro
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
 import { BaseAbstractEntity } from '@api/core/entities/base.abstract.entity';
-import { MessageHash, MessageContent, MessageAddress } from '@api/message/message.types';
+import { MessageHash, MessageContent, MessageAddress } from '@api/message/types/message.types';
 import { MessageEntityInterface } from '@api/message/interfaces/message.entity.interface';
 import { Id } from '@api/core/types/id.types';
 
@@ -76,7 +76,7 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
     public hash?: MessageHash;
 
     /**
-     * The timestamp that the message was initiated at, which __must__ exist to be persisted in the database.
+     * The timestamp that a message was initiated at, which __must__ exist to be persisted in the database.
      * @property type TIMESTAMP
      * @property default now
      * @property nullable false
@@ -87,7 +87,7 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
     public initiated_at?: Date;
 
     /**
-     * The timestamp that the message was attached to the IOTA Tangle, which __must__ exist to be persisted in the database.
+     * The timestamp that a message was attached to the IOTA Tangle, which __must__ exist to be persisted in the database.
      * @property type TIMESTAMP
      * @property nullable false
      */

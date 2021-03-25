@@ -1,6 +1,6 @@
 import { IsAlphanumeric, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
-import { MessageAddress, MessageContent } from '@api/message/message.types';
+import { MessageAddress, MessageContent } from '@api/message/types/message.types';
 
 /**
  * The message transfer data object (DTO) for sending messages via the IOTA protocol.

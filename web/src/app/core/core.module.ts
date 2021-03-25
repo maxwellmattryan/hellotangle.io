@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { AboutPage } from '@web/core/pages/about-page/about.page';
+import { AboutPage } from '@web/modules/about/pages/about-page/about.page';
 import { CORE_ROOT_GUARD, coreRootGuardFactory } from '@web/core/guards/core-root.guard';
 import { CoreRoutingModule } from '@web/core/core-routing.module';
 import { HttpErrorInterceptor } from '@web/core/interceptors/http-error.interceptor';
