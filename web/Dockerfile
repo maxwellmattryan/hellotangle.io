@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN apk add git
 RUN npm install
 
-COPY . .
+COPY src .
 
 RUN npm run build
 
@@ -22,7 +22,7 @@ COPY package*.json ./
 RUN apk add git
 RUN npm install
 
-COPY . .
+COPY src .
 
 COPY --from=builder /usr/src/app/dist ./dist
 

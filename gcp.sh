@@ -30,7 +30,7 @@ for i in "$@"; do
         API_ACTION=true
         shift
         ;;
-    -u|--web)
+    -w|--web)
         WEB_ACTION=true
         shift
         ;;
@@ -42,6 +42,8 @@ if [ "$API_ACTION" = true ] && [ "$WEB_ACTION" = true ]
 then
     STEPS=12
 else
+    echo -e "$API_ACTION and $WEB_ACTION"
+
     if [ "$API_ACTION" = false ] && [ "$WEB_ACTION" = false ]
     then
         API_ACTION=true
@@ -55,11 +57,11 @@ fi
 
 start_time=$(date +%s)
 
-echo -e "\n($START/$STEPS) Initiating pre-bWEBld checks...\n"
+echo -e "\n($START/$STEPS) Initiating pre-build checks...\n"
 START=2
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-if [ "$BRANCH" != "develop" ];
+if [ "$BRANCH" != "develop" ]
 then
     echo -e "\t[✘] Branch is set to \"develop\"\n"
     echo -e "To switch to the correct branch, please use:\n\n\tgit checkout develop\n"
@@ -70,7 +72,7 @@ else
 fi
 
 CURRENT_GCP_ACCOUNT=$(gcloud config list account --format "value(core.account)")
-if [ "$CURRENT_GCP_ACCOUNT" != "$GCP_SERVICE_ACCOUNT" ];
+if [ "$CURRENT_GCP_ACCOUNT" != "$GCP_SERVICE_ACCOUNT" ]
 then
     echo -e "\t[✘] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT\n"
     echo -e "To properly set the service account for this project, use:\n\n\tgcloud config set account $GCP_SERVICE_ACCOUNT"
@@ -81,7 +83,7 @@ else
 fi
 
 CURRENT_GCP_PROJECT=$(gcloud config get-value project)
-if [ "$CURRENT_GCP_PROJECT" != "$GCP_PROJECT_ID" ];
+if [ "$CURRENT_GCP_PROJECT" != "$GCP_PROJECT_ID" ]
 then
     echo -e "\t[✘] Cloud SDK's configuration is set for $GCP_PROJECT_ID\n"
     echo -e "To properly configure the SDK for this project, use:\n\n\tgcloud config set project $GCP_PROJECT_ID"
@@ -91,29 +93,33 @@ else
     echo -e "\t[✔] Cloud SDK's configuration is set for $GCP_PROJECT_ID"
 fi
 
-cd api/ || echo -e "[Error]: API folder does not exist" | exit
-if ! npm test > /dev/null 2>&1
+if [ "$API_ACTION" = true ]
 then
-    VALID=false
-else
-    VALID=true
-fi
+    cd api/ || echo -e "[Error]: API folder does not exist" | exit
+    if ! npm test > /dev/null 2>&1
+    then
+        VALID=false
+    else
+        VALID=true
+    fi
 
-if [[ $VALID == "true" ]];
-then
-    echo -e "\t[✔] API tests passed\n"
-else
-    echo -e "\t[✘] API tests passed\n"
-    echo -e "To see more details about the errors in the tests, use:\n\n\tcd api/ && npm test"
+    if [ "$VALID" = true ] && [ "$API_ACTION" = true ];
+    then
+        echo -e "\t[✔] API tests passed"
+    else
+        echo -e "\t[✘] API tests passed"
+        echo -e "To see more details about the errors in the tests, use:\n\n\tcd api/ && npm test"
 
+        cd ../
+        exit 1;
+    fi
     cd ../
-    exit 1;
 fi
-cd ../
 
-echo -e "[Success]: Pre-build checks passed!\n"
+echo -e "\n[Success]: Pre-build checks passed!\n"
 
-if [ "$API_ACTION" = true ]; then
+if [ "$API_ACTION" = true ]
+then
     cd api/ || echo -e "[Error]: API folder does not exist" | exit
 
     echo -e "($(expr $START)/$STEPS) Building local API image...\n"
@@ -142,7 +148,8 @@ if [ "$API_ACTION" = true ]; then
     cd ../
 fi
 
-if [ "$WEB_ACTION" = true ]; then
+if [ "$WEB_ACTION" = true ]
+then
     cd web/ || echo -e "[Error]: web folder does not exist" | exit
 
     echo -e "($(expr $START)/$STEPS) Building local web image...\n"
