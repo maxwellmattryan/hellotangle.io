@@ -11,13 +11,26 @@ import { NotificationService } from '@web/core/services/notification.service';
     styleUrls: ['./create-message.page.scss']
 })
 export class CreateMessagePage implements OnInit {
+    public isFillingMessageForm: boolean = false;
+
     constructor(
         private readonly notificationService: NotificationService
     ) { }
 
     ngOnInit(): void { }
 
-    onAppear(): void {
+    /**
+     * Does something(s) when this component appears into view.
+     */
+    public onAppear(): void {
         this.notificationService.createNotification('Hello, Tangle!');
+    }
+
+    /**
+     * Initializes the message form by setting a boolean flag, causing
+     * change detection to render the form.
+     */
+    public initializeMessageForm(): void {
+        this.isFillingMessageForm = true;
     }
 }

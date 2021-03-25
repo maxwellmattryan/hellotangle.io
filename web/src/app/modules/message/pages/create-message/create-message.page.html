@@ -1,13 +1,24 @@
-<div (appear)='onAppear()' class='section create-msg'>
-    <h1 class='create-msg__header'>
-        Hi! Welcome to
-        <br>
-        <span class='create-msg__header--highlight'>
-            <span class='ccreate-msg__header--highlight--thin'>Hello</span>Tangle.
+<div (appear)='onAppear()' class='section send-msg'>
+    <ng-container *ngIf='!isFillingMessageForm'>
+        <h1 class='send-msg__header'>
+            Hi! Welcome to
+            <br>
+            <span class='send-msg__header--highlight'>
+            <span class='csend-msg__header--highlight--thin'>Hello</span>Tangle.
         </span>
-    </h1>
+        </h1>
 
-    <div class='section-divider'></div>
+        <div class='section-divider--half'></div>
 
-    <web-message-form></web-message-form>
+        <button
+                aria-label='Initialize form to send IOTA protocol message.'
+                mat-flat-button
+                color='primary'
+                (click)='initializeMessageForm()'
+        >&#10230;</button>
+    </ng-container>
+
+    <ng-container *ngIf='isFillingMessageForm'>
+        <web-message-form></web-message-form>
+    </ng-container>
 </div>

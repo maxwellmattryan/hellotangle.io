@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -27,6 +27,7 @@ import { NotificationService } from '@web/core/services/notification.service';
         BrowserModule,
         BrowserAnimationsModule,
         CoreRoutingModule,
+        HttpClientModule,
         ReactiveFormsModule,
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
     ],

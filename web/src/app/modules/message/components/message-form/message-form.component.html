@@ -1,21 +1,26 @@
-<form class='message-form' [formGroup]='messageForm' (ngSubmit)='onSendMessage()'>
-    <div class='form-field editor__form-field'>
-        <label class='form-field-label editor__form-field-label'>Recipient Address</label>
-        <br><br>
-        <input formControlName='recipient_address' required autofocus>
-    </div>
+<div class='send-msg-container'>
+    <form class='send-msg-form' [formGroup]='messageForm' (ngSubmit)='onSendMessage()'>
+        <div class='form-field'>
+            <label class='form-field-label'>Recipient Address</label>
+            <br><br>
+            <input formControlName='recipient_address' required autofocus>
+        </div>
 
-    <div class='form-field editor__form-field'>
-        <label class='form-field-label editor__form-field-label'>Content</label>
-        <br><br>
-        <input formControlName='content' required autofocus>
-    </div>
+        <div class='form-field'>
+            <label class='form-field-label '>Content</label>
+            <br><br>
+            <input formControlName='content' required autofocus>
+        </div>
 
-    <button
-        aria-label='Send IOTA protocol message'
-        [disabled]='!messageForm.valid'
-        class='create-msg__send-btn'
-        mat-flat-button
-        color='primary'
-    >Send Message</button>
-</form>
+        <button
+                aria-label='Submit form data to send IOTA protocol message'
+                [disabled]='!messageForm.valid || isSendingMessage'
+                [class.spinner]='isSendingMessage'
+                class='btn send-msg-form__send-btn'
+                mat-flat-button
+                color='primary'
+        >
+            <ng-container *ngIf='!isSendingMessage'>SEND</ng-container>
+        </button>
+    </form>
+</div>
