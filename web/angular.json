@@ -35,8 +35,8 @@
                             "src/manifest.webmanifest"
                         ],
                         "styles": [
-                            "src/styles.scss",
-                            "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                            "src/styles.scss"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
@@ -110,6 +110,7 @@
                             "src/manifest.webmanifest"
                         ],
                         "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                             "src/styles.scss"
                         ],
                         "stylePreprocessorOptions": {

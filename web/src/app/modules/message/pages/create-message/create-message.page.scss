@@ -1,12 +1,13 @@
 @import 'variables';
 
-.create-message {
+.create-msg {
     display: flex;
     flex-direction: column;
     height: $page-height;
     justify-content: center;
 
-    .create-message__header {
+    .create-msg__header {
+        align-self: center;
         color: $color-primary;
         font-weight: 300;
         margin-bottom: $margin;
@@ -20,10 +21,15 @@
             }
         }
     }
+
+    .create-msg__send-btn {
+        align-self: center;
+        width: $btn-width;
+    }
 }
 
 @media only screen and (min-width: 768px) {
-    .create-message__header {
+    .create-msg__header {
         &--highlight {
             font-size: 180%;
         }

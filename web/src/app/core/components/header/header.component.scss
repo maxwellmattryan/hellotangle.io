@@ -33,6 +33,7 @@
     transition-timing-function: ease-out;
     width: 100%;
     z-index: 1;
+    opacity: 0.9;
 
     &--no-show {
         top: -($header-height);
