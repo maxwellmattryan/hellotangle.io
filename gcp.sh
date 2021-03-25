@@ -9,7 +9,7 @@ convertsecs() {
 NODE_VERSION=15.10.0-alpine3.10
 
 API_IMAGE=hellotangle-api
-UI_IMAGE=hellotangle-ui
+WEB_IMAGE=hellotangle-web
 DOMAIN=hellotangle.io
 
 GCP_HOSTNAME=gcr.io
@@ -18,34 +18,34 @@ GCP_VPC_CONNECTOR=hellotangle-api
 GCP_VPC_EGRESS=private-ranges-only
 GCP_SERVICE_ACCOUNT=gcloud-api@hellotangle.iam.gserviceaccount.com
 GCP_API_SERVICE=hellotangle-api
-GCP_UI_SERVICE=hellotangle-ui
+GCP_WEB_SERVICE=hellotangle-web
 GCP_API_IMAGE_PATH="$GCP_HOSTNAME/$GCP_PROJECT_ID/$API_IMAGE"
-GCP_UI_IMAGE_PATH="$GCP_HOSTNAME/$GCP_PROJECT_ID/$UI_IMAGE"
+GCP_WEB_IMAGE_PATH="$GCP_HOSTNAME/$GCP_PROJECT_ID/$WEB_IMAGE"
 
 API_ACTION=false
-UI_ACTION=false
+WEB_ACTION=false
 for i in "$@"; do
     case $i in
     -a|--api)
         API_ACTION=true
         shift
         ;;
-    -u|--ui)
-        UI_ACTION=true
+    -u|--web)
+        WEB_ACTION=true
         shift
         ;;
     esac
 done
 
 START=1
-if [ "$API_ACTION" = true ] && [ "$UI_ACTION" = true ]
+if [ "$API_ACTION" = true ] && [ "$WEB_ACTION" = true ]
 then
     STEPS=12
 else
-    if [ "$API_ACTION" = false ] && [ "$UI_ACTION" = false ]
+    if [ "$API_ACTION" = false ] && [ "$WEB_ACTION" = false ]
     then
         API_ACTION=true
-        UI_ACTION=true
+        WEB_ACTION=true
 
         STEPS=12
     else
@@ -55,7 +55,7 @@ fi
 
 start_time=$(date +%s)
 
-echo -e "\n($START/$STEPS) Initiating pre-build checks...\n"
+echo -e "\n($START/$STEPS) Initiating pre-bWEBld checks...\n"
 START=2
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
@@ -142,29 +142,29 @@ if [ "$API_ACTION" = true ]; then
     cd ../
 fi
 
-if [ "$UI_ACTION" = true ]; then
-    cd ui/ || echo -e "[Error]: UI folder does not exist" | exit
+if [ "$WEB_ACTION" = true ]; then
+    cd web/ || echo -e "[Error]: web folder does not exist" | exit
 
-    echo -e "($(expr $START)/$STEPS) Building local UI image...\n"
-    docker build . --tag "$UI_IMAGE"
-    echo -e "[Success]: Built local UI image!\n"
+    echo -e "($(expr $START)/$STEPS) Building local web image...\n"
+    docker build . --tag "$WEB_IMAGE"
+    echo -e "[Success]: Built local web image!\n"
 
-    echo -e "($(expr $START + 1)/$STEPS) Tagging local UI image for Container Registry..."
-    docker tag "$UI_IMAGE" "$GCP_UI_IMAGE_PATH"
-    echo -e "[Success]: Tagged local UI image!\n"
+    echo -e "($(expr $START + 1)/$STEPS) Tagging local web image for Container Registry..."
+    docker tag "$WEB_IMAGE" "$GCP_WEB_IMAGE_PATH"
+    echo -e "[Success]: Tagged local web image!\n"
 
-    echo -e "($(expr $START + 2)/$STEPS) Pushing local UI image to Container Registry...\n"
-    docker push "$GCP_UI_IMAGE_PATH"
-    echo -e "[Success]: Pushed local UI image!\n"
+    echo -e "($(expr $START + 2)/$STEPS) Pushing local web image to Container Registry...\n"
+    docker push "$GCP_WEB_IMAGE_PATH"
+    echo -e "[Success]: Pushed local web image!\n"
 
-    echo -e "($(expr $START + 3)/$STEPS) Deploying to Cloud Run service ($GCP_UI_SERVICE)...\n"
-    gcloud run deploy "$GCP_UI_SERVICE" --image="$GCP_UI_IMAGE_PATH" --platform="$GCP_PLATFORM" --region="$GCP_REGION"
+    echo -e "($(expr $START + 3)/$STEPS) Deploying to Cloud Run service ($GCP_WEB_SERVICE)...\n"
+    gcloud run deploy "$GCP_WEB_SERVICE" --image="$GCP_WEB_IMAGE_PATH" --platform="$GCP_PLATFORM" --region="$GCP_REGION"
     echo -e "[Success]: Deployed service!\n"
 
-    echo -e "($(expr $START + 4)/$STEPS) Removing UI images from Docker...\n"
-    docker rmi "$UI_IMAGE:latest"
-    docker rmi "$GCP_UI_IMAGE_PATH:latest"
-    echo -e "[Success]: Removed UI image(s)!\n"
+    echo -e "($(expr $START + 4)/$STEPS) Removing web images from Docker...\n"
+    docker rmi "$WEB_IMAGE:latest"
+    docker rmi "$GCP_WEB_IMAGE_PATH:latest"
+    echo -e "[Success]: Removed web image(s)!\n"
 
     if [ "$STEPS" = 12 ]
     then

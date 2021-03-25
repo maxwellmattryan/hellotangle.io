@@ -5,14 +5,14 @@ steps:
             - '--no-cache'
             - '-t'
             - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_IMAGE_NAME'
-            - api
+            - web
             - '-f'
-            - api/Dockerfile
+            - web/Dockerfile
         id: Build
 images:
     - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_IMAGE_NAME'
-timeout: 600s
+timeout: 900s
 options:
     substitutionOption: ALLOW_LOOSE
 tags:
-    - hellotangle-api
+    - hellotangle-web

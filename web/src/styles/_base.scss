@@ -1,0 +1,69 @@
+@import 'variables';
+
+* {
+    border: 0;
+    margin: 0;
+    outline: none;
+    padding: 0;
+}
+
+a {
+    color: $color-white;
+
+    &:link {
+        text-decoration: none;
+    }
+
+    &:visited {
+        text-decoration: none;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:active {
+        text-decoration: none;
+    }
+}
+
+p {
+    line-height: 170%;
+}
+
+html, body {
+    background-color: $color-dark;
+    color: $color-white;
+    font-family: $font-stack;
+    font-size: 16px;
+    height: 100%;
+}
+
+ul {
+    padding-left: 20px;
+
+    li::before {
+        content: "\2022"; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+        color: $color-primary; /* Change the color */
+        display: inline-block; /* Needed to add space between the bullet and the text */
+        font-size: 1.5rem;
+        font-weight: 900; /* If you want it to be bold */
+        margin: 0 0 0 -1rem; /* Also needed for space (tweak if needed) */
+        transform: translate(-0.15rem, 0.15rem);
+        width: 1rem; /* Also needed for space (tweak if needed) */
+    }
+}
+
+button, input, textarea {
+    font-family: Montserrat, Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media only screen and (min-width: 768px) {
+    html, body {
+        font-size: 18px;
+    }
+
+    button {
+        font-size: 90%;
+    }
+}

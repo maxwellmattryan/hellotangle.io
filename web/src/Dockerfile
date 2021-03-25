@@ -5,6 +5,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
+RUN apk add git
 RUN npm install
 
 COPY . .
@@ -18,7 +19,8 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install --only=prod
+RUN apk add git
+RUN npm install
 
 COPY . .
 
