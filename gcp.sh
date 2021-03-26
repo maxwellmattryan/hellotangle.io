@@ -6,7 +6,7 @@ convertsecs() {
     printf "%02dm %02ds\n" $m $s
 }
 
-NODE_VERSION=15.10.0-alpine3.10
+NODE_VERSION=15.12.0-alpine3.10
 
 API_IMAGE=hellotangle-api
 WEB_IMAGE=hellotangle-web
@@ -122,7 +122,7 @@ then
     cd api/ || echo -e "[Error]: API folder does not exist" | exit
 
     echo -e "($(expr $START)/$STEPS) Building local API image...\n"
-    docker build . --tag "$API_IMAGE"
+    docker build . --no-cache --tag "$API_IMAGE"
     echo -e "[Success]: Built local API image!\n"
 
     echo -e "($(expr $START + 1)/$STEPS) Tagging local API image for Container Registry..."
@@ -152,7 +152,7 @@ then
     cd web/ || echo -e "[Error]: web folder does not exist" | exit
 
     echo -e "($(expr $START)/$STEPS) Building local web image...\n"
-    docker build . --tag "$WEB_IMAGE"
+    docker build . --no-cache --tag "$WEB_IMAGE"
     echo -e "[Success]: Built local web image!\n"
 
     echo -e "($(expr $START + 1)/$STEPS) Tagging local web image for Container Registry..."
