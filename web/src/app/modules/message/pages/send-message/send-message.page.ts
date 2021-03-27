@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '@web/core/services/notification.service';
 
 /**
- * The send message page allowing for users to enter a message to send via the IOTA protocol.
+ * The page component allowing for users to enter a message to send via the IOTA protocol.
  */
 @Component({
     selector: 'web-send-message-page',

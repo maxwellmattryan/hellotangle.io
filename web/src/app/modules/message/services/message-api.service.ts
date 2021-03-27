@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { ApiService } from '@web/core/services/api.service';
 import { environment } from '@web/environments/environment';
-import { Message } from '@web/modules/message/interfaces/message.interface';
+import { Message } from '@web/modules/message/models/message.model';
 
 /**
  * The Message API service for handling message-related endpoints.

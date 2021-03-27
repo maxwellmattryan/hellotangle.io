@@ -11,7 +11,7 @@ const routes: Routes = [
         component: SendMessagePage
     },
     {
-        path: 'result',
+        path: 'result/:id',
         component: MessageResultPage
     }
 ];

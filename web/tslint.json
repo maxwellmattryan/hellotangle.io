@@ -131,6 +131,7 @@
         "directive-class-suffix": true,
         "no-trailing-whitespace": false,
         "no-conflicting-lifecycle": true,
+        "no-empty-interface": false,
         "no-host-metadata-property": true,
         "no-input-rename": true,
         "no-inputs-metadata-property": true,

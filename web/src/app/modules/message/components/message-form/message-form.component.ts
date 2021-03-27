@@ -55,7 +55,7 @@ export class MessageFormComponent implements OnInit {
 
             this.messageService.storeMessage(res);
 
-            this.router.navigate(['result']);
+            this.router.navigate([`result/${res.id}`]);
         }, (error: HttpErrorResponse) => {
             this.isSendingMessage = false;
         });

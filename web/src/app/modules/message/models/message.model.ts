@@ -1,10 +1,11 @@
+import { Deserializable } from '@web/core/interfaces/deserializable.interface';
 import { Id } from '@web/core/types/id.type';
 import { MessageAddress, MessageContent, MessageHash } from '@web/modules/message/types/message.types';
 
 /**
- * The message interface containing all relevant properties for IOTA protocol messages.
+ * The message model containing all relevant properties for IOTA protocol messages.
  */
-export class Message {
+export class Message implements Deserializable<Message> {
     constructor(partial: Partial<Message>) {
         Object.assign(this, partial);
     }
@@ -15,7 +16,7 @@ export class Message {
     id?: Id;
 
     /**
-     * The content of a message, which __must__ be a string of no more than 256 characters and
+     * The content of a message, which __must__ be no more than 256 characters and
      * __must__ exist to handle that message.
      */
     content: MessageContent = '';
@@ -41,4 +42,14 @@ export class Message {
      * The timestamp that a message was attached to the IOTA Tangle.
      */
     attached_at?: Date;
+
+    /**
+     * Deserializes data for a `Message`.
+     * @internal
+     */
+    deserialize(input: any): this {
+        Object.assign(this, input);
+
+        return this;
+    }
 }

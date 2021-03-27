@@ -12,7 +12,7 @@ import { MessageServiceInterface } from '@api/message/interfaces/message.service
  * The message service interface implementation for communicating with the IOTA Tangle.
  */
 @Injectable()
-export class MessageService extends BaseAbstractService<Message> implements MessageServiceInterface {
+export class MessageService extends BaseAbstractService<MessageService> implements MessageServiceInterface {
     constructor(
         @Inject(IOTA_SERVICE)
         private readonly iotaService: IotaServiceInterface,

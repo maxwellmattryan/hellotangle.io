@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 /**
- * The about page containing all relevant information about the HelloTangle project.
+ * The page component containing all relevant information about the HelloTangle project.
  */
 @Component({
     selector: 'web-about-page',

@@ -1,0 +1,12 @@
+@import 'variables';
+
+.msg-result {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: $page-height;
+
+    .msg-result__header {
+        margin: $margin 0;
+    }
+}
