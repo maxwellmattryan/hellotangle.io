@@ -1,0 +1,11 @@
+/**
+ * This file contains all stylings for page headers.
+ */
+
+@import 'variables';
+
+.page-header {
+    margin: $margin 0 $header-margin;
+    text-align: center;
+    width: 100%;
+}

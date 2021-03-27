@@ -13,12 +13,17 @@
     width: 100%;
 }
 
-.section-divider {
+
+.section-divider,
+.section-divider-half {
     background: $color-dark;
     display: inline-block;
-    height: $section-divider-height;
+}
 
-    &--half {
-        height: calc(#{$section-divider-height} / 2);
-    }
+.section-divider {
+    height: $section-divider-height;
+}
+
+.section-divider-half {
+    height: calc(#{$section-divider-height} * 0.5);
 }

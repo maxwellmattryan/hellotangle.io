@@ -1,78 +1,78 @@
-<div class='section about'>
-    <h1 class='about__header'>
+<div class='section fade-in-quick about'>
+    <h1 class='page-header about__header'>
         About
     </h1>
 
-    <div class='line-divider'></div>
+    <div class='about__info-container'>
+        <p id='about__info-01' class='fade-in-quick about__info'>
+            Welcome to HelloTangle!
+        </p>
 
-    <p class='about__info'>
-        Welcome to HelloTangle!
-    </p>
-
-    <p class='about__info'>
-        This is a web application leveraging
-        <a
-            class='link link-inline about__info-link'
-            href='https://iota.org'
-            target='_blank'
-            rel='nofollow noreferrer noopener'
-        >IOTA</a>, a truly promising ecosystem of
-        technologies that utilizes the IOTA Foundation's (IF) implementation of a
-        <i>distributed ledger technology</i> (DLT) known as the IOTA Tangle. HelloTangle acts as a
-        simple bridge between a user and the IOTA network, allowing one the ability to quickly
-        and easily send messages to any given address. The frontend (what you're using now)
-        is built with Angular, while the backend (where the actual message broadcasting takes place)
-        was built with NestJS. To see more of the technical details, checkout the
-        <a
-            class='link link-inline about__info-link'
-            href='https://github.com/maxwellmattryan/hellotangle'
-            target='_blank' rel='nofollow noreferrer noopener'
-        >repo</a>!
-    </p>
-
-    <p class='about__info'>
-        To give some explanation about IOTA, it is a new internet protocol that is intended
-        for transacting between machines that are a part of the <i>IoT</i> (Internet of Things).
-        Many people know it as a cryptocurrency, which to be fair it was inspired mainly by
-        that realm of technologies (i.e. Bitcoin, Ethereum), but it aims to be much more than
-        that in a few ways:
-    </p>
-
-    <ul class='about__info-list'>
-        <li class='about__info-list-item'>
-            Implementing the <i>Tangle</i> to store transactions as opposed to a blockchain data
-            structure like what Bitcoin or Ethereum use (a.k.a linked lists). Because the
-            Tangle is essentially a <i>directed acyclic graph</i> (DAG), the network is not
-            bottlenecked by miners needing to confirm transactions like in Bitcoin, meaning
-            that it offers much faster confirmation times. This means that IOTA transactions
-            are <b>feeless</b> since you (or your devices) are the entities responsible for
-            confirming transactions so that yours will be confirmed.
-        </li>
-
-        <li class='about__info-list-item'>
-            Offering data-only transactions as well as microtransactions, which affords the
-            <i>m2m</i> (machine-to-machine) <i>economy</i> a much more efficient and secure way of
-            transferring value or data between devices. This also carries huge implications
-            for how our data with be handled in the future as there are projects being
-            developed, namely
+        <p id='about__info-02' class='fade-in-quick about__info'>
+            This is a web application leveraging
             <a
-                class='link link-inline about__info-link'
-                href='https://builders.intel.com/docs/networkbuilders/privacy-and-data-confidence-in-edge-clouds.pdf'
-                target='_blank'
-                rel='nofollow noreferrer noopener'
-            >Alvarium</a>, that are establishing methods of auditing data for
-            authenticity, confidence, and so forth.
-        </li>
+                    class='link link-inline about__info-link'
+                    href='https://iota.org'
+                    target='_blank'
+                    rel='nofollow noreferrer noopener'
+            >IOTA</a>, a truly promising ecosystem of
+            technologies that utilizes the IOTA Foundation's (IF) implementation of a
+            <i>distributed ledger technology</i> (DLT) known as the IOTA Tangle. HelloTangle acts as a
+            simple bridge between a user and the IOTA network, allowing one the ability to quickly
+            and easily send messages to any given address. The frontend (what you're using now)
+            is built with Angular, while the backend (where the actual message broadcasting takes place)
+            was built with NestJS. To see more of the technical details, checkout the
+            <a
+                    class='link link-inline about__info-link'
+                    href='https://github.com/maxwellmattryan/hellotangle'
+                    target='_blank' rel='nofollow noreferrer noopener'
+            >repo</a>!
+        </p>
 
-        <li class='about__info-list-item'>
-            Aiming to be the primary network protocol used by the m2m economy while offering
-            engineers a vast ecosystem of libraries and tools for interacting with the IOTA
-            network. Those could be libraries for running nodes to process transactions,
-            backend servers creating transactions, or handling sensitive and confidential data.
-        </li>
-    </ul>
+        <p id='about__info-03' class='fade-in-quick about__info'>
+            To give some explanation about IOTA, it is a new internet protocol that is intended
+            for transacting between machines that are a part of the <i>IoT</i> (Internet of Things).
+            Many people know it as a cryptocurrency, which to be fair it was inspired mainly by
+            that realm of technologies (i.e. Bitcoin, Ethereum), but it aims to be much more than
+            that in a few ways:
+        </p>
 
-    <p class='about__info'>
-        Thanks for checking out the app. Cheers!
-    </p>
+        <ul id='about__info-04' class='fade-in-quick about__info-list'>
+            <li class='about__info-list-item'>
+                Implementing the <i>Tangle</i> to store transactions as opposed to a blockchain data
+                structure like what Bitcoin or Ethereum use (a.k.a linked lists). Because the
+                Tangle is essentially a <i>directed acyclic graph</i> (DAG), the network is not
+                bottlenecked by miners needing to confirm transactions like in Bitcoin, meaning
+                that it offers much faster confirmation times. This means that IOTA transactions
+                are <b>feeless</b> since you (or your devices) are the entities responsible for
+                confirming transactions so that yours will be confirmed.
+            </li>
+
+            <li class='fade-in-quick about__info-list-item'>
+                Offering data-only transactions as well as microtransactions, which affords the
+                <i>m2m</i> (machine-to-machine) <i>economy</i> a much more efficient and secure way of
+                transferring value or data between devices. This also carries huge implications
+                for how our data with be handled in the future as there are projects being
+                developed, namely
+                <a
+                        class='link link-inline about__info-link'
+                        href='https://builders.intel.com/docs/networkbuilders/privacy-and-data-confidence-in-edge-clouds.pdf'
+                        target='_blank'
+                        rel='nofollow noreferrer noopener'
+                >Alvarium</a>, that are establishing methods of auditing data for
+                authenticity, confidence, and so forth.
+            </li>
+
+            <li class='about__info-list-item'>
+                Aiming to be the primary network protocol used by the m2m economy while offering
+                engineers a vast ecosystem of libraries and tools for interacting with the IOTA
+                network. Those could be libraries for running nodes to process transactions,
+                backend servers creating transactions, or handling sensitive and confidential data.
+            </li>
+        </ul>
+
+        <p id='about__info-05' class='fade-in-quick about__info'>
+            Thanks for checking out the app. Cheers!
+        </p>
+    </div>
 </div>
