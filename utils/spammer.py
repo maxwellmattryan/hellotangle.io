@@ -11,18 +11,12 @@ import time
 # Required script arguments
 MESSAGE_COUNT: int = 5
 NUM_WORKERS: int = 2
+API_ENVIRONMENT: str = 'dev'
 
-# The development environment is rate limited to 10000 requests per 1 minute.
-API_ENVIRONMENT: str = 'development'
+# NOTE: The producation environment is rate limited to 100 requests per 1 minute.
 API_HOST: str = 'localhost'
 API_PORT: int = 3000
-API_URL: str = 'http://localhost:3000/api'
-
-# The production environment is rate limited to 100 requests per 1 minute.
-# API_ENVIRONMENT: str = 'production'
-# API_HOST: str = 'api.hellotangle.io'
-# API_PORT: int = 3000
-# API_URL: str = 'https://api.hellotangle.io/api'
+API_URL: str = f'http://{API_HOST}:{API_PORT}/api'
 
 # Basic message to use in spamming the API and IOTA Tangle.
 MESSAGE: dict = {
@@ -66,6 +60,8 @@ def is_open(ip: str, port: int or str) -> bool:
         return False
 
 def create_url(path: str) -> str:
+    global API_URL
+
     return f'{API_URL}/{path}'
 
 def prettify_json(data: dict) -> str:
@@ -89,9 +85,12 @@ def send_message(msgData: dict) -> dict:
 def initialize_spammer_parameters() -> bool:
     global MESSAGE_COUNT
     global NUM_WORKERS
+    global API_ENVIRONMENT
+    global API_URL
 
     message_count_error = 'Invalid parameter for argument: MESSAGE_COUNT\nIt must an integer in the range [1, 10000].'
     num_workers_error = '\nInvalid parameter for argument: NUM_WORKERS\nIt must be an integer in the range [1, 1000] and less than or equal to MESSAGE_COUNT.'
+    api_environment_error = '\nInvalid parameter for argument: API_ENVIRONMENT\nIt must be either "dev" or "prod".'
 
     was_exception_thrown = False
 
@@ -116,6 +115,21 @@ def initialize_spammer_parameters() -> bool:
         print_message(num_workers_error)
         was_exception_thrown = True
 
+    try:
+        API_ENVIRONMENT = str(sys.argv[3])
+
+        if type(API_ENVIRONMENT) is not None:
+
+            assert(type(API_ENVIRONMENT) is str)
+            assert(API_ENVIRONMENT == 'dev' or API_ENVIRONMENT == 'prod')
+
+            if API_ENVIRONMENT == 'prod':
+                API_URL = f'https://api.hellotangle.io/api'
+
+    except Exception as e:
+        print_message(api_environment_error)
+        was_exception_thrown = True
+
     return not was_exception_thrown
 
 def begin_spamming() -> None:
@@ -128,11 +142,9 @@ def begin_spamming() -> None:
         try:
             print_message('Beginning the spam!')
 
-
             with ThreadPoolExecutor(max_workers = NUM_WORKERS) as executor:
                 res = [executor.submit(send_message, MESSAGE) for _ in range(MESSAGE_COUNT)]
                 concurrent.futures.wait(res)
-
 
         except UnboundLocalError as ule:
             print_message(f'\n[Error]: {ule}')
@@ -155,14 +167,16 @@ def begin_spamming() -> None:
 
 @TimeFn
 def spam() -> None:
-    num_args = len(sys.argv)
-    assert(num_args == 3)
-
-    if initialize_spammer_parameters():
-        begin_spamming()
+    begin_spamming()
 
 def main() -> None:
-    if API_ENVIRONMENT == 'production':
+    num_args = len(sys.argv)
+    assert(num_args == 4)
+
+    if not initialize_spammer_parameters():
+        return
+
+    if API_ENVIRONMENT == 'prod':
         spam()
     elif is_open(API_HOST, API_PORT):
         spam()

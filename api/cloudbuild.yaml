@@ -11,7 +11,7 @@ steps:
         id: Build
 images:
     - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_IMAGE_NAME'
-timeout: 600s
+timeout: 900s
 options:
     substitutionOption: ALLOW_LOOSE
 tags:

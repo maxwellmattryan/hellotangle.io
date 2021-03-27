@@ -3,7 +3,7 @@ import {
     IsAscii,
     IsDate,
     IsDateString,
-    IsNotEmpty,
+    IsNotEmpty, IsOptional,
     IsString,
     MaxLength,
     MinLength
@@ -43,5 +43,6 @@ export class SendMessageDto {
      * The timestamp that a message was initiated at, ideally set by the client.
      */
     @IsDateString()
+    @IsOptional()
     initiated_at?: Date;
 }
