@@ -3,11 +3,57 @@
         About
     </h1>
 
+    <div class='line-divider'></div>
+
     <p class='about__info'>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mauris ipsum, consectetur in odio ac, commodo convallis nibh. Integer ultrices neque eu sem aliquet maximus. Donec tincidunt cursus tristique. Nunc vel vulputate sapien. Nulla facilisi. Aliquam imperdiet augue malesuada, dignissim justo vel, pretium lacus. In ac libero leo. Cras sodales lorem vitae maximus ornare. Aliquam lorem lorem, ultrices eu eleifend at, volutpat ac dolor. Donec accumsan vitae risus tincidunt venenatis. Mauris fringilla lacinia sapien id cursus. Integer non augue quis lacus pretium suscipit. Fusce consectetur eros nec convallis semper. Nulla facilisi.
+        HelloTangle is a web application leveraging IOTA, a truly promising ecosystem of
+        technologies that utilizes the IOTA Foundation's (IF) implementation of a distributed
+        ledger technology (DLT) known as the IOTA Tangle. It acts as a simple bridge between
+        a user and the IOTA network, allowing one the ability to quickly and easily send
+        messages to any given address. The frontend is built with Angular and allows the
+        user to enter the necessary information to send a message. The more interesting parts
+        are in the backend (built with NestJS - very similar to Angular), where the actual
+        message broadcasting takes place. To see more of the technical details, checkout the
+        repo!
     </p>
 
     <p class='about__info'>
-        Etiam eu ex pulvinar, tempor sapien aliquet, vulputate magna. Sed condimentum lorem quis lacus commodo, id hendrerit lectus commodo. Donec ac lacinia augue. Duis iaculis iaculis ultricies. Vivamus et odio at turpis consectetur porttitor at eget nulla. Maecenas in purus laoreet risus luctus viverra. In euismod ex at sodales luctus. Donec porta in ipsum id faucibus. Aliquam pellentesque lacus leo, in posuere dui volutpat non.
+        To give some explanation about IOTA, it is a new internet protocol that is intended
+        for transacting between machines that are a part of the IoT (Internet of Things).
+        Many people know it as a cryptocurrency, which to be fair it was inspired mainly by
+        that realm of technologies (i.e. Bitcoin, Ethereum), but it aims to be much more than
+        that in a few ways:
+    </p>
+
+    <ul class='about__info-list'>
+        <li class='about__info-list-item'>
+            Implementing the Tangle to store transactions as opposed to a blockchain data
+            structure like what Bitcoin or Ethereum use (a.k.a linked lists). Because the
+            Tangle is essentially a directed acyclic graph (DAG), the network is not
+            bottlenecked by miners needing to confirm transactions like in Bitcoin, meaning
+            that it offers much faster confirmation times. This means that IOTA transactions
+            are feeless since you (or your devices) are the entities responsible for
+            confirming transactions so that yours will be confirmed.
+        </li>
+
+        <li class='about__info-list-item'>
+            Offering data-only transactions as well as microtransactions, which affords the
+            m2m (machine-to-machine) economy a much more efficient and secure way of
+            transferring value or data between devices. This also carries huge implications
+            for how our data with be handled in the future as there are projects being
+            developed, namely Alvarium, that are establishing methods of auditing data for
+            authenticity, confidence, and so forth.
+        </li>
+
+        <li class='about__info-list-item'>
+            Aiming to be the primary network protocol used by the m2m economy while offering
+            engineers a vast ecosystem of libraries and tools for interacting with the IOTA
+            network. Those could be libraries for running nodes to process transactions,
+            backend servers creating transactions, or handling sensitive and confidential data.
+        </li>
+    </ul>
+
+    <p class='about__info'>
+        Cheers!
     </p>
 </div>

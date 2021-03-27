@@ -1,5 +1,24 @@
 @import 'variables';
 
 .about {
-    height: $page-height;
+    height: auto;
+    margin-bottom: calc(#{$margin} * 1.5);
+    min-height: $page-height;
+
+    .about__header {
+        margin: $margin 0;
+        text-align: center;
+    }
+
+    .about__info {
+        margin-bottom: $margin;
+    }
+
+    .about__info-list {
+        margin-bottom: calc(#{$margin} * 1.5);
+
+        .about__info-list-item {
+            margin-bottom: $half-margin;
+        }
+    }
 }
