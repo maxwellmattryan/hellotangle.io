@@ -14,7 +14,8 @@
 }
 
 a {
-    color: $color-primary;
+    color: $color-white;
+    opacity: 1.0;
 
     &:link {
         text-decoration: none;
@@ -33,8 +34,13 @@ a {
     }
 }
 
+h1, h2, h3, h4, h5 ,h6 {
+    opacity: 1.0;
+}
+
 p, li {
     line-height: 170%;
+    opacity: 0.6;
 }
 
 html, body {

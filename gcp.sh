@@ -64,9 +64,9 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 if [ "$BRANCH" != "develop" ]
 then
     echo -e "\t[✘] Branch is set to \"develop\"\n"
-    echo -e "To switch to the correct branch, please use:\n\n\tgit checkout develop\n"
+    echo -e "To switch to the correct branch, please use:\n\n\tgit checkout develop"
 
-#    exit 1; remove newline @ 64
+    exit 1;
 else
     echo -e "\t[✔] Branch is set to \"develop\""
 fi

@@ -1,5 +1,5 @@
-<div *ngIf='isMessageDataLoaded()' class='msg-display'>
-    <div class='msg-display__msg-attribute-container'>
+<div *ngIf='isMessageDataLoaded()' class='slide-up-long msg-display'>
+    <div id='msg__id' class='fade-in msg-display__msg-attribute-container'>
         <p class='msg-display__msg-attribute-key'>
             ID
             <span
@@ -10,7 +10,7 @@
         </p>
         <p class='msg-display__msg-attribute-value'>{{ messageData.id }}</p>
     </div>
-    <div class='msg-display__msg-attribute-container'>
+    <div id='msg__hash' class='fade-in msg-display__msg-attribute-container'>
         <p class='msg-display__msg-attribute-key'>
             Hash
             <span
@@ -25,7 +25,7 @@
             </a>
         </p>
     </div>
-    <div class='msg-display__msg-attribute-container'>
+    <div id='msg__recipient-address' class='fade-in msg-display__msg-attribute-container'>
         <p class='msg-display__msg-attribute-key'>
             Recipient Address
             <span
@@ -36,7 +36,7 @@
         </p>
         <p class='msg-display__msg-attribute-value'>{{ messageData.recipient_address }}</p>
     </div>
-    <div class='msg-display__msg-attribute-container'>
+    <div id='msg__content' class='fade-in msg-display__msg-attribute-container'>
         <p class='msg-display__msg-attribute-key'>
             Content
             <span
@@ -47,7 +47,7 @@
         </p>
         <p class='msg-display__msg-attribute-value'>"{{ messageData.content }}"</p>
     </div>
-    <div class='msg-display__msg-attribute-container'>
+    <div id='msg__initiated-at' class='fade-in msg-display__msg-attribute-container'>
         <p class='msg-display__msg-attribute-key'>
             Initiated At
             <span
@@ -58,7 +58,7 @@
         </p>
         <p class='msg-display__msg-attribute-value'>{{ formatDate(messageData.initiated_at) }}</p>
     </div>
-    <div class='msg-display__msg-attribute-container'>
+    <div id='msg__attached-at' class='fade-in msg-display__msg-attribute-container'>
         <p class='msg-display__msg-attribute-key'>
             Attached At
             <span

@@ -6,20 +6,37 @@
     <div class='line-divider'></div>
 
     <p class='about__info'>
-        HelloTangle is a web application leveraging IOTA, a truly promising ecosystem of
-        technologies that utilizes the IOTA Foundation's (IF) implementation of a distributed
-        ledger technology (DLT) known as the IOTA Tangle. It acts as a simple bridge between
-        a user and the IOTA network, allowing one the ability to quickly and easily send
-        messages to any given address. The frontend is built with Angular and allows the
-        user to enter the necessary information to send a message. The more interesting parts
-        are in the backend (built with NestJS - very similar to Angular), where the actual
-        message broadcasting takes place. To see more of the technical details, checkout the
-        repo!
+        Welcome to HelloTangle!
+    </p>
+
+    <p class='about__info'>
+        This is a web application leveraging
+        <a
+            class='link link-inline about__info-link'
+            href='https://iota.org'
+            target='_blank'
+            rel='nofollow noreferrer noopener'
+        >
+            IOTA
+        </a>, a truly promising ecosystem of
+        technologies that utilizes the IOTA Foundation's (IF) implementation of a
+        <i>distributed ledger technology</i> (DLT) known as the IOTA Tangle. HelloTangle acts as a
+        simple bridge between a user and the IOTA network, allowing one the ability to quickly
+        and easily send messages to any given address. The frontend (what you're using now)
+        is built with Angular, while the backend (where the actual message broadcasting takes place)
+        was built with NestJS. To see more of the technical details, checkout the
+        <a
+            class='link link-inline about__info-link'
+            href='https://github.com/maxwellmattryan/hellotangle'
+            target='_blank' rel='nofollow noreferrer noopener'
+        >
+            repo
+        </a>!
     </p>
 
     <p class='about__info'>
         To give some explanation about IOTA, it is a new internet protocol that is intended
-        for transacting between machines that are a part of the IoT (Internet of Things).
+        for transacting between machines that are a part of the <i>IoT</i> (Internet of Things).
         Many people know it as a cryptocurrency, which to be fair it was inspired mainly by
         that realm of technologies (i.e. Bitcoin, Ethereum), but it aims to be much more than
         that in a few ways:
@@ -27,21 +44,29 @@
 
     <ul class='about__info-list'>
         <li class='about__info-list-item'>
-            Implementing the Tangle to store transactions as opposed to a blockchain data
+            Implementing the <i>Tangle</i> to store transactions as opposed to a blockchain data
             structure like what Bitcoin or Ethereum use (a.k.a linked lists). Because the
-            Tangle is essentially a directed acyclic graph (DAG), the network is not
+            Tangle is essentially a <i>directed acyclic graph</i> (DAG), the network is not
             bottlenecked by miners needing to confirm transactions like in Bitcoin, meaning
             that it offers much faster confirmation times. This means that IOTA transactions
-            are feeless since you (or your devices) are the entities responsible for
+            are <b>feeless</b> since you (or your devices) are the entities responsible for
             confirming transactions so that yours will be confirmed.
         </li>
 
         <li class='about__info-list-item'>
             Offering data-only transactions as well as microtransactions, which affords the
-            m2m (machine-to-machine) economy a much more efficient and secure way of
+            <i>m2m</i> (machine-to-machine) <i>economy</i> a much more efficient and secure way of
             transferring value or data between devices. This also carries huge implications
             for how our data with be handled in the future as there are projects being
-            developed, namely Alvarium, that are establishing methods of auditing data for
+            developed, namely
+            <a
+                class='link link-inline about__info-link'
+                href='https://builders.intel.com/docs/networkbuilders/privacy-and-data-confidence-in-edge-clouds.pdf'
+                target='_blank'
+                rel='nofollow noreferrer noopener'
+            >
+                Alvarium
+            </a>, that are establishing methods of auditing data for
             authenticity, confidence, and so forth.
         </li>
 
@@ -54,6 +79,6 @@
     </ul>
 
     <p class='about__info'>
-        Cheers!
+        Thanks for checking out the app. Cheers!
     </p>
 </div>
