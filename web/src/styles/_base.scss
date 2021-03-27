@@ -24,18 +24,12 @@ a {
     }
 
     &:hover {
-        text-decoration: underline;
+        text-decoration: none;
     }
 
     &:active {
         text-decoration: none;
     }
-}
-
-a[target="_blank"]:after {
-    content: '\f35d';
-    font-family: 'FontAwesome', $font-stack;
-    margin-left: $eighth-margin;
 }
 
 p {
