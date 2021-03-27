@@ -1,6 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
+import { environment } from '@web/environments/environment';
+
 /**
  * The available content types for using in API requests.
  * @internal
@@ -24,5 +28,13 @@ export class ApiService {
      */
     protected contentTypeHeader(contentType: ContentType = 'application/json'): HttpHeaders {
         return new HttpHeaders({ 'Content-Type': contentType });
+    }
+
+    /**
+     * Sends request to the API's root endpoint.
+     * @returns A string `Observable`.
+     */
+    public getRoot(): Observable<string> {
+        return this.http.get<string>(`${environment.API_URL}`);
     }
 }

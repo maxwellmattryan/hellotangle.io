@@ -11,7 +11,7 @@ export class ApiController {
     @ApiResponse({ status: HttpStatus.OK, description: 'Welcome to the HelloTangle API!' })
     @Get(Routes.Api.root)
     @HttpCode(HttpStatus.OK)
-    public async getHome(): Promise<string> {
-        return 'Welcome to the HelloTangle API!';
+    public async getHome(): Promise<{ message: string }> {
+        return { message: 'Welcome to the HelloTangle API!' };
     }
 }

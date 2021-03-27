@@ -18,9 +18,6 @@ export class MessageDisplayComponent implements OnInit {
      */
     @Input() messageData: Message = new Message({});
 
-    @Input() useApi: boolean = false;
-    @Input() useStore: boolean = false;
-
     constructor(
         private readonly changeDetectorRef: ChangeDetectorRef,
         private readonly messageService: MessageService

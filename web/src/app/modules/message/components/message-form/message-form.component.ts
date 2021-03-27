@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,8 @@ import { MessageService } from '@web/modules/message/services/message.service';
 @Component({
     selector: 'web-message-form',
     templateUrl: './message-form.component.html',
-    styleUrls: ['./message-form.component.scss']
+    styleUrls: ['./message-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessageFormComponent implements OnInit {
     public isSendingMessage: boolean = false;
