@@ -88,6 +88,7 @@
                 aria-label='Submit form data to send IOTA protocol message'
                 [disabled]='!messageForm.valid || isSendingMessage'
                 [class.spinner]='isSendingMessage'
+                [ngClass]='{"form__submit-btn--loading": isSendingMessage}'
                 class='form__submit-btn btn msg-form__send-btn'
                 mat-flat-button
                 color='primary'

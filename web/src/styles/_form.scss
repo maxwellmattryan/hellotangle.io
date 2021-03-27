@@ -4,6 +4,43 @@
 
 @import 'variables';
 
+.form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .form__field-container {
+        margin-bottom: $margin;
+        width: 100%;
+
+        .form__field-label {
+
+        }
+
+        .form__field-input {
+            padding: $quarter-padding;
+            margin-bottom: $half-margin;
+            width: 100%;
+        }
+
+        .form__field-requirement-container {
+            margin-top: $quarter-margin;
+
+            .form__field-requirement {
+                color: $color-warn;
+                font-size: 80%;
+                margin-bottom: $quarter-margin;
+            }
+        }
+    }
+
+    .form__submit-btn {
+        margin-top: $half-margin;
+        align-self: center;
+    }
+}
+
 .form__field-requirement:before {
     content: '\f06a';
     font-family: 'FontAwesome', $font-stack;
