@@ -33,7 +33,7 @@ export class MessageFormComponent implements OnInit {
      */
     private initMessageForm(): FormGroup {
         const recipientAddressRegex: RegExp = /^[A-Z0-9]{90}$/;
-        const contentRegex: RegExp = /^[ -~]{1,256}$/;
+        const contentRegex: RegExp = /^[^\u0000-\u007F]{1,256}$/;
 
         return this.formBuilder.group({
             recipient_address: this.formBuilder.control('', [Validators.pattern(recipientAddressRegex)]),

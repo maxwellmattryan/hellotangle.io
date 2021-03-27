@@ -18,6 +18,7 @@ GCP_PROJECT_ID=hellotangle
 GCP_VPC_CONNECTOR=hellotangle-api
 GCP_VPC_EGRESS=private-ranges-only
 GCP_SERVICE_ACCOUNT=gcloud-api@hellotangle.iam.gserviceaccount.com
+GCP_AUTH_KEY_FILE=./conf/gcloud/gcloud-api.json
 GCP_API_SERVICE=hellotangle-api
 GCP_WEB_SERVICE=hellotangle-web
 GCP_API_IMAGE_PATH="$GCP_HOSTNAME/$GCP_PROJECT_ID/$API_IMAGE"
@@ -74,7 +75,9 @@ CURRENT_GCP_ACCOUNT=$(gcloud config list account --format "value(core.account)")
 if [ "$CURRENT_GCP_ACCOUNT" != "$GCP_SERVICE_ACCOUNT" ]
 then
     echo -e "\t[✘] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT\n"
-    echo -e "To properly set the service account for this project, use:\n\n\tgcloud config set account $GCP_SERVICE_ACCOUNT"
+    echo -e "To properly set and authenticate the service account for this project, use:\n\n\tgcloud config set account $GCP_SERVICE_ACCOUNT"
+    echo -e "and"
+    echo -e "\tgcloud auth activate-service-account $GCP_SERVICE_ACCOUNT --key-file=$GCP_AUTH_KEY_FILE"
 
     exit 1;
 else
