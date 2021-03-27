@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Message } from '@web/modules/message/models/message.model';
@@ -35,12 +35,18 @@ export class MessageFormComponent implements OnInit {
      * @internal
      */
     private initMessageForm(): FormGroup {
-        const recipientAddressRegex: RegExp = /^[A-Z0-9]{90}$/;
-        const contentRegex: RegExp = /^[\x00-\x7F]{1,256}$/;
+        const recipientAddressRegex: RegExp = /^[A-Z9]*$/;
+        const contentRegex: RegExp = /^[\x00-\x7F]*$/;
 
         return this.formBuilder.group({
-            recipient_address: this.formBuilder.control('', [Validators.pattern(recipientAddressRegex)]),
-            content: this.formBuilder.control('', [Validators.pattern(contentRegex)])
+            recipient_address: this.formBuilder.control(
+                '',
+                [Validators.required, Validators.minLength(90), Validators.maxLength(90), Validators.pattern(recipientAddressRegex)]
+            ),
+            content: this.formBuilder.control(
+                '',
+                [Validators.required, Validators.maxLength(256), Validators.pattern(contentRegex)]
+            )
         });
     }
 
@@ -72,4 +78,10 @@ export class MessageFormComponent implements OnInit {
             ...this.messageForm.value
         };
     }
+
+    /**
+     * Getter methods for easier form control access in HTML template.
+     */
+    get content(): AbstractControl { return this.messageForm.get('content') as AbstractControl; }
+    get recipient_address(): AbstractControl { return this.messageForm.get('recipient_address') as AbstractControl; }
 }

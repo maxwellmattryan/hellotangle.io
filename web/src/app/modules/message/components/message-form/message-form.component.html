@@ -1,25 +1,73 @@
 <div class='send-msg-container'>
     <form class='send-msg-form' [formGroup]='messageForm' (ngSubmit)='onSendMessage()'>
-        <div class='form-field'>
-            <label class='form-field-label'>Recipient Address</label>
+        <div class='send-msg-form__field-container'>
+            <label class='send-msg-form__field-label'>Recipient Address</label>
             <br><br>
             <input
-                formControlName='recipient_address'
-                required
-                autofocus
-                placeholder='eg. HZYKLMOYJYAYBZRTKAQPUOVUSZTC999JDJCVTXRKOS9WEHR9QEKWBFJRRHVKGXJ9CEZXEPIDLVOBEBD9DCNJNML9PL'
+                    class='send-msg-form__field-input'
+                    formControlName='recipient_address'
+                    required
+                    autofocus
+                    placeholder='eg. HZYKLMOYJYAYBZRTKAQPUOVUSZTC999JDJCVTXRKOS9WEHR9QEKWBFJRRHVKGXJ9CEZXEPIDLVOBEBD9DCNJNML9PL'
             >
+            <div
+                class='send-msg-form__field-requirement-container'
+                *ngIf='recipient_address!.invalid && (recipient_address.dirty || recipient_address.touched)'
+            >
+                <div
+                        class='send-msg-form__field-requirement'
+                        *ngIf='recipient_address.errors!.required'
+                >
+                    Recipient address is required.
+                </div>
+                <div
+                    class='send-msg-form__field-requirement'
+                    *ngIf='recipient_address.errors!.minlength || recipient_address.errors!.maxlength'
+                >
+                    Recipient address must be exactly 90 characters.
+                </div>
+                <div
+                        class='send-msg-form__field-requirement'
+                        *ngIf='recipient_address.errors!.pattern'
+                >
+                    Recipient address must consist of only capital letters and the letter 9.
+                </div>
+            </div>
         </div>
 
-        <div class='form-field'>
-            <label class='form-field-label '>Content</label>
+        <div class='send-msg-form__field-container'>
+            <label class='send-msg-form__field-label'>Content</label>
             <br><br>
             <input
+                class='send-msg-form__field-input'
                 formControlName='content'
                 required
                 autofocus
                 placeholder='eg. "Hello, Tangle!"'
             >
+            <div
+                    class='send-msg-form__field-requirement-container'
+                    *ngIf='content!.invalid && (content.dirty || recipient_address.touched)'
+            >
+                <div
+                        class='send-msg-form__field-requirement'
+                        *ngIf='content.errors!.required'
+                >
+                    Content is required.
+                </div>
+                <div
+                        class='send-msg-form__field-requirement'
+                        *ngIf='content.errors!.maxlength'
+                >
+                    Content must not exceed 256 characters.
+                </div>
+                <div
+                        class='send-msg-form__field-requirement'
+                        *ngIf='content.errors!.pattern'
+                >
+                    Content must be consist of only ASCII values.
+                </div>
+            </div>
         </div>
 
         <button

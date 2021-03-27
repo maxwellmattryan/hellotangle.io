@@ -33,7 +33,7 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
     public id: Id = '';
 
     /**
-     * The content of a message, which __must__ be a string of no more than 256 characters and __must__ exist to be used in code and persisted in the database.
+     * The content of a message, which __must__ be an ASCII string of at least one character and no more than 256 characters and __must__ exist to be used in code and persisted in the database.
      * @property type VARCHAR
      * @property length 256
      * @property unique false

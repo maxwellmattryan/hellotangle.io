@@ -1,0 +1,41 @@
+@import 'variables';
+
+.send-msg-container {
+    max-width: 1060px;
+    width: 60vw;
+
+    .send-msg-form {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .send-msg-form__field-container {
+            margin-bottom: $margin;
+
+            .send-msg-form__field-label {
+
+            }
+
+            .send-msg-form__field-input {
+                padding: $quarter-padding;
+                margin-bottom: $half-margin;
+                width: 60vw;
+            }
+
+            .send-msg-form__field-requirement-container {
+                margin-top: $quarter-margin;
+
+                .send-msg-form__field-requirement {
+                    color: $color-warn;
+                    font-size: 80%;
+                    margin-bottom: $quarter-margin;
+                }
+            }
+        }
+
+        .send-msg-form__send-btn {
+            margin-top: $half-margin;
+        }
+    }
+}

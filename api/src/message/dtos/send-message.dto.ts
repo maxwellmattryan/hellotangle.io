@@ -1,4 +1,4 @@
-import { IsAlphanumeric, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsAlphanumeric, IsAscii, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
 import { MessageAddress, MessageContent } from '@api/message/types/message.types';
 
@@ -11,12 +11,13 @@ export class SendMessageDto {
     }
 
     /**
-     * The content of a message, which __must__ be at least one character and no more than 256 (512 bytes in TS).
+     * The content of a message, which __must__ be an ASCII string of at least one character and no more than 256 (512 bytes in TS).
      */
     @MinLength(1)
     @MaxLength(256)
     @IsString()
     @IsNotEmpty()
+    @IsAscii()
     content!: MessageContent;
 
     /**
