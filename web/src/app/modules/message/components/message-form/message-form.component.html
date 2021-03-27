@@ -1,7 +1,14 @@
 <div class='msg-form-container'>
     <form class='form msg-form' [formGroup]='messageForm' (ngSubmit)='onSendMessage()'>
         <div class='form__field-container msg-form__field-container'>
-            <label class='form__field-label msg-form__field-label'>Recipient Address</label>
+            <label class='form__field-label msg-form__field-label'>
+                Recipient Address
+                <span
+                        class='hint msg-form__field-label-hint'
+                        matTooltip='The IOTA address to send the message to.'
+                        matTooltipPosition='right'
+                ></span>
+            </label>
             <br><br>
             <input
                 class='form__field-input msg-form__field-input'
@@ -36,14 +43,21 @@
         </div>
 
         <div class='form__field-container msg-form__field-container'>
-            <label class='form__field-label msg-form__field-label'>Content</label>
+            <label class='form__field-label msg-form__field-label'>
+                Content
+                <span
+                        class='hint msg-form__field-label-hint'
+                        matTooltip='The content to send in the message.'
+                        matTooltipPosition='right'
+                ></span>
+            </label>
             <br><br>
             <input
                 class='form__field-input msg-form__field-input'
                 formControlName='content'
                 required
                 autofocus
-                placeholder='eg. "Hello, Tangle!"'
+                placeholder='eg. Hello, Tangle!'
             >
             <div
                 class='form__field-requirement-container msg-form__field-requirement-container'

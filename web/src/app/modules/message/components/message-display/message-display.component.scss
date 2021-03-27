@@ -17,8 +17,14 @@
         }
 
         .msg-display__msg-attribute-value {
-            overflow-wrap: break-word;
             font-size: 90%;
+            margin-bottom: $half-margin;
+            overflow-wrap: break-word;
+        }
+
+        .msg-display__msg-attribute-info {
+            font-size: 90%;
+            opacity: 0.9;
         }
     }
 }

@@ -7,6 +7,7 @@
 
 * {
     border: 0;
+    font-family: $font-stack;
     margin: 0;
     outline: none;
     padding: 0;
@@ -39,7 +40,6 @@ p, li {
 html, body {
     background-color: $color-dark;
     color: $color-primary;
-    font-family: $font-stack;
     font-size: 16px;
     height: 100%;
 }

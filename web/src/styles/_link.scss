@@ -4,6 +4,11 @@
 
 @import 'variables';
 
+.link {
+    color: $color-primary;
+    opacity: 0.7;
+}
+
 .link[target="_blank"]:after {
     content: '\f35d';
     font-family: 'FontAwesome', $font-stack;

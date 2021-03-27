@@ -1,30 +1,72 @@
 <div *ngIf='isMessageDataLoaded()' class='msg-display'>
     <div class='msg-display__msg-attribute-container'>
-        <p class='msg-display__msg-attribute-key'>ID: </p>
+        <p class='msg-display__msg-attribute-key'>
+            ID
+            <span
+                class='hint msg-display__msg-attribute-hint'
+                matTooltip='The entity identifier used within the backend API context.'
+                matTooltipPosition='right'
+            ></span>
+        </p>
         <p class='msg-display__msg-attribute-value'>{{ messageData.id }}</p>
     </div>
     <div class='msg-display__msg-attribute-container'>
-        <p class='msg-display__msg-attribute-key'>Hash: </p>
+        <p class='msg-display__msg-attribute-key'>
+            Hash
+            <span
+                    class='hint msg-display__msg-attribute-hint'
+                    matTooltip='The transaction identifier used within the IOTA network.'
+                    matTooltipPosition='right'
+            ></span>
+        </p>
         <p class='msg-display__msg-attribute-value'>
-            <a class='link' [href]='getIotaExplorerUrl()' target='_blank' role='link' rel='nofollow noreferrer noopener'>
+            <a class='link msg-display__msg-hash-link' [href]='getIotaExplorerUrl()' target='_blank' role='link' rel='nofollow noreferrer noopener'>
                 {{ messageData.hash }}
             </a>
         </p>
     </div>
     <div class='msg-display__msg-attribute-container'>
-        <p class='msg-display__msg-attribute-key'>Recipient Address: </p>
+        <p class='msg-display__msg-attribute-key'>
+            Recipient Address
+            <span
+                    class='hint msg-display__msg-attribute-hint'
+                    matTooltip='The IOTA address that the message was sent to.'
+                    matTooltipPosition='right'
+            ></span>
+        </p>
         <p class='msg-display__msg-attribute-value'>{{ messageData.recipient_address }}</p>
     </div>
     <div class='msg-display__msg-attribute-container'>
-        <p class='msg-display__msg-attribute-key'>Content: </p>
+        <p class='msg-display__msg-attribute-key'>
+            Content
+            <span
+                    class='hint msg-display__msg-attribute-hint'
+                    matTooltip='The content that was sent in the message.'
+                    matTooltipPosition='right'
+            ></span>
+        </p>
         <p class='msg-display__msg-attribute-value'>"{{ messageData.content }}"</p>
     </div>
     <div class='msg-display__msg-attribute-container'>
-        <p class='msg-display__msg-attribute-key'>Initiated At: </p>
+        <p class='msg-display__msg-attribute-key'>
+            Initiated At
+            <span
+                    class='hint msg-display__msg-attribute-hint'
+                    matTooltip='The timestamp that the message was initiated at.'
+                    matTooltipPosition='right'
+            ></span>
+        </p>
         <p class='msg-display__msg-attribute-value'>{{ formatDate(messageData.initiated_at) }}</p>
     </div>
     <div class='msg-display__msg-attribute-container'>
-        <p class='msg-display__msg-attribute-key'>Attached At: </p>
+        <p class='msg-display__msg-attribute-key'>
+            Attached At
+            <span
+                    class='hint msg-display__msg-attribute-hint'
+                    matTooltip='The timestamp that the message was attached to the IOTA Tangle at.'
+                    matTooltipPosition='right'
+            ></span>
+        </p>
         <p class='msg-display__msg-attribute-value'>{{ formatDate(messageData.attached_at) }}</p>
     </div>
 </div>

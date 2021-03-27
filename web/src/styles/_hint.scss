@@ -1,0 +1,17 @@
+/**
+ * This file contains all styling for tooltips.
+ */
+
+@import 'variables';
+
+.hint:after {
+    content: '\f05a';
+    font-family: 'FontAwesome', $font-stack;
+    font-size: 80%;
+    margin: 0 $quarter-margin;
+}
+
+.mat-tooltip {
+    font-family: $font-stack;
+    font-size: 80%;
+}
