@@ -1,5 +1,4 @@
 import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
 
 import { Routes } from '@api/core/configs/routes.config';
 
@@ -8,7 +7,6 @@ import { Routes } from '@api/core/configs/routes.config';
  */
 @Controller()
 export class ApiController {
-    @ApiResponse({ status: HttpStatus.OK, description: 'Welcome to the HelloTangle API!' })
     @Get(Routes.Api.root)
     @HttpCode(HttpStatus.OK)
     public async getHome(): Promise<{ message: string }> {
