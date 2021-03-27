@@ -22,7 +22,7 @@ import { MessageModule } from '@web/modules/message/message.module';
         MaterialModule,
 
         AboutModule,
-        MessageModule,
+        MessageModule
     ],
     exports: [],
     providers: [],

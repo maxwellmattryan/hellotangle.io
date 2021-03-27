@@ -1,0 +1,11 @@
+/**
+ * This file contains all styling for form components.
+ */
+
+@import 'variables';
+
+.form__field-requirement:before {
+    content: '\f06a';
+    font-family: 'FontAwesome', $font-stack;
+    margin-right: $eighth-margin;
+}

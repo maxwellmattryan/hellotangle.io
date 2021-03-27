@@ -41,6 +41,9 @@ $image-height: 50vh;
 $page-height: calc(100vh - #{$header-height} - #{$footer-height} * 2.0);
 $half-page-height: calc(#{$page-height} * 0.5);
 
+$page-width: 60vw;
+$page-max-width: 1060px;
+
 $line-divider-height: 1.5px;
 $section-divider-height: 15vh;
 

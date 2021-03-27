@@ -1,0 +1,23 @@
+@import 'variables';
+
+.msg-display {
+    display: flex;
+    flex-direction: column;
+    max-width: $page-max-width;
+    width: $page-width;
+
+    .msg-display__msg-attribute-container {
+        margin-bottom: $margin;
+
+        .msg-display__msg-attribute-key {
+            font-size: 120%;
+            font-weight: 700;
+            margin-bottom: $half-margin;
+        }
+
+        .msg-display__msg-attribute-value {
+            overflow-wrap: break-word;
+            font-size: 90%;
+        }
+    }
+}

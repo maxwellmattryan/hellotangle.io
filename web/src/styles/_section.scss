@@ -17,11 +17,5 @@
     padding: $padding;
     margin: 0 auto;
     max-width: 1060px;
-    min-height: calc(99vh - #{$header-height} - #{$section-divider-height} - #{$footer-height} * 2);
-}
-
-@media only screen and (min-width: 786px) {
-    .section {
-        min-height: calc(99vh - #{$header-height} - #{$section-divider-height} - #{$footer-height} * 2);
-    }
+    min-height: $page-height;
 }
