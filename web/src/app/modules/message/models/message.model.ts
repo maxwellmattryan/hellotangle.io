@@ -4,7 +4,11 @@ import { MessageAddress, MessageContent, MessageHash } from '@web/modules/messag
 /**
  * The message interface containing all relevant properties for IOTA protocol messages.
  */
-export interface Message {
+export class Message {
+    constructor(partial: Partial<Message>) {
+        Object.assign(this, partial);
+    }
+
     /**
      * The ID of a message, which __must__ be an alphanumeric string of exactly 64 characters.
      */
@@ -14,13 +18,13 @@ export interface Message {
      * The content of a message, which __must__ be a string of no more than 256 characters and
      * __must__ exist to handle that message.
      */
-    content: MessageContent;
+    content: MessageContent = '';
 
     /**
      * The receipient address for a message, which __must__ be an alphanumeric string of
      * exactly 90 characters and __must__ exist to handle that message.
      */
-    recipient_address: MessageAddress;
+    recipient_address: MessageAddress = '';
 
     /**
      * The transaction hash of a message, which __must__ be an alphanumeric string of

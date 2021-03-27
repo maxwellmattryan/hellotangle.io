@@ -1,0 +1,7 @@
+<div *ngIf='isMessageDataLoaded()' class='msg-display'>
+    <p>ID: {{ messageData.id }}</p>
+    <p>Hash: {{ messageData.hash }}</p>
+    <p>Content: {{ messageData.content }}</p>
+    <p>Initiated at: {{ messageData.initiated_at }}</p>
+    <p>Attached at: {{ messageData.attached_at }}</p>
+</div>

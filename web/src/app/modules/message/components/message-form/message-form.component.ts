@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Message } from '@web/modules/message/interfaces/message.interface';
+import { Message } from '@web/modules/message/models/message.model';
 import { MessageApiService } from '@web/modules/message/services/message-api.service';
+import { MessageService } from '@web/modules/message/services/message.service';
 
 /**
  * The form component for sending IOTA protocol messages.
@@ -21,6 +22,7 @@ export class MessageFormComponent implements OnInit {
     constructor(
         private readonly formBuilder: FormBuilder,
         private readonly messageApiService: MessageApiService,
+        private readonly messageService: MessageService,
         private readonly router: Router
     ) { }
 
@@ -51,7 +53,7 @@ export class MessageFormComponent implements OnInit {
         this.messageApiService.sendMessage(message).subscribe((res: Message) => {
             this.isSendingMessage = false;
 
-            console.log(res);
+            this.messageService.storeMessage(res);
 
             this.router.navigate(['result']);
         }, (error: HttpErrorResponse) => {
