@@ -12,12 +12,21 @@
         color: $color-primary;
         font-weight: 300;
         margin-bottom: 10rem;
-        text-align: center;
-        width: 100%;
+        text-align: left;
+        width: auto;
+
+        &--faded {
+            display: inline-block;
+            margin-bottom: $quarter-margin;
+            opacity: 0.6;
+            font-size: 100%;
+        }
 
         &--highlight {
+            animation-delay: 0.4s;
             color: $color-white;
             font-weight: 700;
+            font-size: 150%;
 
             &--thin {
                 font-weight: 300;
@@ -27,7 +36,7 @@
 }
 
 .send-msg__header.slide-up {
-    animation-delay: 1.2s;
+    animation-delay: $landing-pause-duration;
 }
 
 web-message-form {
@@ -36,12 +45,4 @@ web-message-form {
 
 web-message-form.fade-in {
     animation-delay: 1.8s;
-}
-
-@media only screen and (min-width: 768px) {
-    .send-msg__header {
-        &--highlight {
-            font-size: 180%;
-        }
-    }
 }

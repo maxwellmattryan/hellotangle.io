@@ -1,7 +1,6 @@
 @import 'variables';
 
 .msg-display {
-    animation-delay: 0.4s;
     display: flex;
     flex-direction: column;
     max-width: $page-max-width;
@@ -12,6 +11,7 @@
         width: 100%;
 
         .msg-display__msg-attribute-key {
+            color: rgba(233, 236, 239, 0.9);
             font-size: 120%;
             font-weight: 600;
             margin-bottom: $quarter-margin;
