@@ -75,7 +75,8 @@ export class MessageFormComponent implements OnInit {
      */
     private buildMessageFormData(): Message {
         return {
-            ...this.messageForm.value
+            ...this.messageForm.value,
+            initiated_at: new Date(Date.now())
         };
     }
 

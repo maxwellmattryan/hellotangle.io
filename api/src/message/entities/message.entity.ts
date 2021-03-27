@@ -46,7 +46,7 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
     public content: MessageContent = '';
 
     /**
-     * The receipient address for a message, which __must__ be an alphanumeric string of exactly 90 characters and __must__ exist to be used in code and persisted in the database.
+     * The receipient address of a message, which __must__ be an alphanumeric string of exactly 90 characters and __must__ exist to be used in code and persisted in the database.
      * @property type VARCHAR
      * @property length 90
      * @property unique false

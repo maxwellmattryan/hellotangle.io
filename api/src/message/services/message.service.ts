@@ -28,8 +28,12 @@ export class MessageService extends BaseAbstractService<MessageService> implemen
      * @returns The resulting message with data from transaction.
      */
     public async sendMessage(messageDto: SendMessageDto): Promise<Message | void> {
+        const hasInitializedDate: boolean = 'initiated_at' in messageDto;
         const messageData = this.messageRepository.prepare(
-            new Message({ ...messageDto, initiated_at: new Date(Date.now()) }),
+            new Message({
+                ...messageDto,
+                initiated_at: hasInitializedDate ? new Date(messageDto.initiated_at as Date) : new Date(Date.now())
+            }),
             [messageDto.content as string, messageDto.recipient_address]
         );
         const message = await this.iotaService.sendMessage(messageData);

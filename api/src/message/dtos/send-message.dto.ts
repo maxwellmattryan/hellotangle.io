@@ -1,4 +1,13 @@
-import { IsAlphanumeric, IsAscii, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+    IsAlphanumeric,
+    IsAscii,
+    IsDate,
+    IsDateString,
+    IsNotEmpty,
+    IsString,
+    MaxLength,
+    MinLength
+} from 'class-validator';
 
 import { MessageAddress, MessageContent } from '@api/message/types/message.types';
 
@@ -21,7 +30,7 @@ export class SendMessageDto {
     content!: MessageContent;
 
     /**
-     * The receipient address for a message, which __must__ be an alphanumeric string containing exactly 90 characters (180 bytes in TS).
+     * The receipient address of a message, which __must__ be an alphanumeric string containing exactly 90 characters (180 bytes in TS).
      */
     @MinLength(90)
     @MaxLength(90)
@@ -29,4 +38,10 @@ export class SendMessageDto {
     @IsAlphanumeric()
     @IsNotEmpty()
     recipient_address!: MessageAddress;
+
+    /**
+     * The timestamp that a message was initiated at, ideally set by the client.
+     */
+    @IsDateString()
+    initiated_at?: Date;
 }
