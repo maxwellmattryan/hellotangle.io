@@ -1,14 +1,10 @@
+@import 'animations';
 @import 'variables';
 
 sup {
     font-size: x-small;
 }
 
-.app {
+.web {
     animation: fade-in $app-fade-in-duration;
-}
-
-@keyframes fade-in {
-    from { opacity: 0.0; }
-    to   { opacity: 1.0; }
 }

@@ -16,6 +16,6 @@
     color: $color-white;
     padding: $padding;
     margin: 0 auto;
-    max-width: 1060px;
+    max-width: $page-max-width;
     min-height: $page-height;
 }

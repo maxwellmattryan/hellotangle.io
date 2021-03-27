@@ -5,9 +5,22 @@
     display: flex;
     flex-direction: column;
     height: $page-height;
+    margin-bottom: calc(#{$margin} * 1.5);
     min-height: $page-height;
 
     .msg-result__header {
         margin: $margin 0;
+        text-align: center;
+        width: 100%;
+    }
+}
+
+web-message-display {
+    width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+    .msg-result {
+        margin-bottom: 0;
     }
 }

@@ -1,32 +1,33 @@
 @import 'variables';
 
-.send-msg-container {
+.msg-form-container {
     max-width: $page-max-width;
-    width: $page-width;
+    width: 100%;
 
-    .send-msg-form {
+    .msg-form {
         align-items: center;
         display: flex;
         flex-direction: column;
         width: 100%;
 
-        .send-msg-form__field-container {
+        .msg-form__field-container {
             margin-bottom: $margin;
+            width: 100%;
 
-            .send-msg-form__field-label {
+            .msg-form__field-label {
 
             }
 
-            .send-msg-form__field-input {
+            .msg-form__field-input {
                 padding: $quarter-padding;
                 margin-bottom: $half-margin;
-                width: 60vw;
+                width: 100%;
             }
 
-            .send-msg-form__field-requirement-container {
+            .msg-form__field-requirement-container {
                 margin-top: $quarter-margin;
 
-                .send-msg-form__field-requirement {
+                .msg-form__field-requirement {
                     color: $color-warn;
                     font-size: 80%;
                     margin-bottom: $quarter-margin;
@@ -34,7 +35,7 @@
             }
         }
 
-        .send-msg-form__send-btn {
+        .msg-form__send-btn {
             margin-top: $half-margin;
         }
     }

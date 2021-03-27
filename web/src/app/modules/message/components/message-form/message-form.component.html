@@ -1,33 +1,33 @@
-<div class='send-msg-container'>
-    <form class='form send-msg-form' [formGroup]='messageForm' (ngSubmit)='onSendMessage()'>
-        <div class='form__field-container send-msg-form__field-container'>
-            <label class='form__field-label send-msg-form__field-label'>Recipient Address</label>
+<div class='msg-form-container'>
+    <form class='form msg-form' [formGroup]='messageForm' (ngSubmit)='onSendMessage()'>
+        <div class='form__field-container msg-form__field-container'>
+            <label class='form__field-label msg-form__field-label'>Recipient Address</label>
             <br><br>
             <input
-                class='form__field-input send-msg-form__field-input'
+                class='form__field-input msg-form__field-input'
                 formControlName='recipient_address'
                 required
                 autofocus
                 placeholder='eg. HZYKLMOYJYAYBZRTKAQPUOVUSZTC999JDJCVTXRKOS9WEHR9QEKWBFJRRHVKGXJ9CEZXEPIDLVOBEBD9DCNJNML9PL'
             >
             <div
-                class='form__field-requirement-container send-msg-form__field-requirement-container'
+                class='form__field-requirement-container msg-form__field-requirement-container'
                 *ngIf='recipient_address!.invalid && (recipient_address.dirty || recipient_address.touched)'
             >
                 <div
-                    class='form__field-requirement send-msg-form__field-requirement'
+                    class='form__field-requirement msg-form__field-requirement'
                     *ngIf='recipient_address.errors!.required'
                 >
                     Recipient address is required.
                 </div>
                 <div
-                    class='form__field-requirement send-msg-form__field-requirement'
+                    class='form__field-requirement msg-form__field-requirement'
                     *ngIf='recipient_address.errors!.minlength || recipient_address.errors!.maxlength'
                 >
                     Recipient address must be exactly 90 characters.
                 </div>
                 <div
-                    class='form__field-requirement send-msg-form__field-requirement'
+                    class='form__field-requirement msg-form__field-requirement'
                     *ngIf='recipient_address.errors!.pattern'
                 >
                     Recipient address must consist of only capital letters and the letter 9.
@@ -35,34 +35,34 @@
             </div>
         </div>
 
-        <div class='form__field-container send-msg-form__field-container'>
-            <label class='form__field-label send-msg-form__field-label'>Content</label>
+        <div class='form__field-container msg-form__field-container'>
+            <label class='form__field-label msg-form__field-label'>Content</label>
             <br><br>
             <input
-                class='form__field-input send-msg-form__field-input'
+                class='form__field-input msg-form__field-input'
                 formControlName='content'
                 required
                 autofocus
                 placeholder='eg. "Hello, Tangle!"'
             >
             <div
-                class='form__field-requirement-container send-msg-form__field-requirement-container'
+                class='form__field-requirement-container msg-form__field-requirement-container'
                 *ngIf='content!.invalid && (content.dirty || content.touched)'
             >
                 <div
-                    class='form__field-requirement send-msg-form__field-requirement'
+                    class='form__field-requirement msg-form__field-requirement'
                     *ngIf='content.errors!.required'
                 >
                     Content is required.
                 </div>
                 <div
-                    class='form__field-requirement send-msg-form__field-requirement'
+                    class='form__field-requirement msg-form__field-requirement'
                     *ngIf='content.errors!.maxlength'
                 >
                     Content must not exceed 256 characters.
                 </div>
                 <div
-                    class='form__field-requirement send-msg-form__field-requirement'
+                    class='form__field-requirement msg-form__field-requirement'
                     *ngIf='content.errors!.pattern'
                 >
                     Content must be consist of only ASCII values.
@@ -74,7 +74,7 @@
                 aria-label='Submit form data to send IOTA protocol message'
                 [disabled]='!messageForm.valid || isSendingMessage'
                 [class.spinner]='isSendingMessage'
-                class='form__submit-btn btn send-msg-form__send-btn'
+                class='form__submit-btn btn msg-form__send-btn'
                 mat-flat-button
                 color='primary'
         >

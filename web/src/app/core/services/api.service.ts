@@ -34,7 +34,7 @@ export class ApiService {
      * Sends request to the API's root endpoint.
      * @returns A string `Observable`.
      */
-    public getRoot(): Observable<string> {
-        return this.http.get<string>(`${environment.API_URL}`);
+    public getRoot(): Observable<{ message: string }> {
+        return this.http.get<{ message: string }>(`${environment.API_URL}`);
     }
 }

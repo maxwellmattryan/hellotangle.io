@@ -1,0 +1,31 @@
+/**
+ * This file contains all stylings for animations.
+ */
+
+@import 'variables';
+
+.slide-up {
+    animation: $slide-up-duration slide-up both ease;
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(calc(#{$page-height} * 0.2));
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.fade-in {
+    animation: $fade-in-duration fade-in both ease;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0.0;
+    }
+    100% {
+        opacity: 1.0;
+    }
+}

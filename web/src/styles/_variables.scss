@@ -42,7 +42,7 @@ $page-height: calc(100vh - #{$header-height} - #{$footer-height} * 2.0);
 $half-page-height: calc(#{$page-height} * 0.5);
 
 $page-width: 60vw;
-$page-max-width: 1060px;
+$page-max-width: 940px;
 
 $line-divider-height: 1.5px;
 $section-divider-height: 15vh;
@@ -60,6 +60,9 @@ $extra-small-btn-width: 42px;
 $tiny-btn-width: 32px;
 
 // ANIMATION, TIMING
+$fade-in-duration: 1s;
+$slide-up-duration: 1s;
+
 $app-fade-in-duration: 2s;
 
 $hover-transition-duration: 0.2s;

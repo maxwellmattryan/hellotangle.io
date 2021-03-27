@@ -10,9 +10,6 @@
 .link-item {
 }
 
-.toggle-btn {
-}
-
 .ghost-navbar {
     background-color: $color-dark;
     height: $header-height;
@@ -48,6 +45,13 @@
 
 .navbar__link-container {
     display: none;
+}
+
+.navbar__toggle-btn {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .navbar__logo-icon {

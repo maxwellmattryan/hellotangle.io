@@ -11,7 +11,9 @@
         align-self: center;
         color: $color-primary;
         font-weight: 300;
-        margin-bottom: $margin;
+        margin-bottom: calc(#{$margin} * 2.0);
+        text-align: center;
+        width: 100%;
 
         &--highlight {
             color: $color-white;
@@ -22,6 +24,18 @@
             }
         }
     }
+}
+
+.send-msg__header.slide-up {
+    animation-delay: 1.2s;
+}
+
+web-message-form {
+    width: 100%;
+}
+
+web-message-form.fade-in {
+    animation-delay: 1.6s;
 }
 
 @media only screen and (min-width: 768px) {
