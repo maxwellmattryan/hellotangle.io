@@ -1,6 +1,6 @@
 {
     "name": "hellotangle-web",
-    "version": "1.0.0-alpha",
+    "version": "1.0.0",
     "description": "Web application interface for sending quick messages to the (IOTA) Tangle.",
     "author": "Matthew Maxwell",
     "private": true,
