@@ -1,0 +1,10 @@
+/**
+ * This file contains styling for buttons used application-wide.
+ */
+
+@import 'variables';
+
+.btn {
+    width: $btn-width;
+    min-width: $btn-width;
+}

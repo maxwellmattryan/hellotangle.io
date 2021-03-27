@@ -1,0 +1,10 @@
+@import 'animations';
+@import 'variables';
+
+sup {
+    font-size: x-small;
+}
+
+.web {
+    animation: fade-in $app-fade-in-duration;
+}

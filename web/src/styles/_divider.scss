@@ -1,0 +1,29 @@
+/**
+ * This SCSS file contains all of the styles for dividers, which are used to break sections
+ * of content in pages (`line divider`) or sections themselves (`section divider`).
+ */
+
+@import 'variables';
+
+.line-divider {
+    background: $color-white;
+    height: $line-divider-height;
+    margin: $margin 0;
+    opacity: 0.6;
+    width: 100%;
+}
+
+
+.section-divider,
+.section-divider-half {
+    background: $color-dark;
+    display: inline-block;
+}
+
+.section-divider {
+    height: $section-divider-height;
+}
+
+.section-divider-half {
+    height: calc(#{$section-divider-height} * 0.5);
+}

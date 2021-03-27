@@ -1,0 +1,18 @@
+steps:
+    -   name: gcr.io/cloud-builders/docker
+        args:
+            - build
+            - '--no-cache'
+            - '-t'
+            - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_IMAGE_NAME'
+            - web
+            - '-f'
+            - web/Dockerfile
+        id: Build
+images:
+    - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_IMAGE_NAME'
+timeout: 900s
+options:
+    substitutionOption: ALLOW_LOOSE
+tags:
+    - hellotangle-web

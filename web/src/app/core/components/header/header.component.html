@@ -1,0 +1,46 @@
+<div [ngClass]="{
+    'navbar--show': shouldDisplayNavbar,
+    'navbar--no-show': !shouldDisplayNavbar
+}" class='navbar header'>
+    <a class='navbar__logo-icon' routerLink=''>
+        <h1>
+            <span class='navbar__logo-icon--thin'>H</span>T
+        </h1>
+    </a>
+
+    <span class='fill-space'></span>
+
+    <div class='navbar__link-container'>
+        <a class='link-item navbar__link-item' routerLink='/'>Home</a>
+        <a class='link-item navbar__link-item' routerLink='/about'>About</a>
+    </div>
+
+    <button aria-label='Toggle the sidebar menu' class='navbar__toggle-btn' (click)='toggleSidebar()'>
+        <div class="navbar__menu-icon">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </button>
+</div>
+
+<div class='ghost-navbar'></div>
+
+<div [ngClass]="{
+    'sidebar-fog--show': shouldDisplaySidebar,
+    'sidebar-fog--no-show': !shouldDisplaySidebar
+}" class='sidebar-fog' (click)='toggleSidebar()'></div>
+
+<div [ngClass]="{
+    'sidebar--open': shouldDisplaySidebar,
+    'sidebar--closed': !shouldDisplaySidebar
+}" class='sidebar'>
+    <button class='sidebar__toggle-btn' (click)='toggleSidebar()'>
+        &#10005;
+    </button>
+
+    <div class='sidebar__link-container'>
+        <a class='sidebar__link-item' routerLink='/' (click)='toggleSidebar()'>Home</a>
+        <a class='sidebar__link-item' routerLink='/about' (click)='toggleSidebar()'>About</a>
+    </div>
+</div>

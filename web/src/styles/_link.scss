@@ -1,0 +1,29 @@
+/**
+ * This file contains all of the stylings for links.
+ */
+
+@import 'variables';
+
+.link, .link-inline {
+    color: rgba(233, 236, 239, 0.9);
+}
+
+.link-inline[target='_blank']:after {
+    display: inline-block;
+    font-size: 50%;
+    transform: translate(-0.125rem, -0.375rem);
+}
+
+.link[target='_blank']:after {
+    content: '\f35d';
+    font-family: 'FontAwesome', $font-stack;
+    margin-left: $eighth-margin;
+}
+
+@media only screen and (min-width: 768px) {
+    .link {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

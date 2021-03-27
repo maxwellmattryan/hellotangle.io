@@ -1,0 +1,19 @@
+@import 'variables';
+
+.footer {
+    background-color: $color-dark;
+    height: $footer-height;
+    max-height: $footer-height;
+    opacity: 0.3;
+}
+
+.footer__text {
+    color: $color-primary;
+    font-size: 85%;
+    font-weight: 500;
+    height: $footer-height;
+    line-height: $footer-height;
+    max-height: $footer-height;
+    text-align: center;
+    vertical-align: middle;
+}

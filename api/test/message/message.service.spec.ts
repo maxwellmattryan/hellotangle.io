@@ -1,36 +1,44 @@
+import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
 
-import { IotaService } from '@api/core/iota/iota.service';
+import { IOTA_SERVICE } from '@api/message/interfaces/iota.service.interface';
+import { IotaService } from '@api/message/services/iota.service';
+import { Message } from '@api/message/entities/message.entity';
+import { MESSAGE_REPOSITORY } from '@api/message/interfaces/message.repository.interface';
+import { MESSAGE_SERVICE } from '@api/message/interfaces/message.service.interface';
+import { MessageRepository } from '@api/message/repositories/message.repository';
+import { MessageService } from '@api/message/services/message.service';
 
-import { MessageDto } from '@api/core/message/message.dto';
-import { Message } from '@api/core/message/message.entity';
-import { MessageService } from '@api/core/message/message.service';
-
-const fakeMessage = new MessageDto({
-    id: '8ZHLGUVD3JNM9NVRWND567QLZ0V14PLT0UE93K4SB6BR50MS2B4Z086WD598VHBE',
-    content: 'Hello, Tangle!',
-    address: 'ILOLJ8V08OVJDVJD3PH1KIA2U6XFCZWRNI6KW65E04MBV3G33UUFSY00102QC99Q',
-    hash: 'ZWEIAGQKKDIBZBFQCUSZDNSNVYEBMJXWPLYUEOHVC9L9KSJMHKPW9BOFHO9NQKFQSZXVPQIBH9RJLY999',
-});
+import { FakeMessage, MessageRepositoryMock } from '@test/message/message.repository.mock';
 
 describe('MessageService', () => {
     let service: MessageService;
 
-    beforeEach(async () => {
+    beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({
             imports: [
-                ConfigModule.forRoot()
+                ConfigModule.forRoot(),
             ],
             providers: [
                 IotaService,
+                MessageRepository,
                 MessageService,
                 {
+                    provide: IOTA_SERVICE,
+                    useClass: IotaService
+                },
+                {
+                    provide: MESSAGE_REPOSITORY,
+                    useClass: MessageRepository
+                },
+                {
+                    provide: MESSAGE_SERVICE,
+                    useClass: MessageService
+                },
+                {
                     provide: getRepositoryToken(Message),
-                    useValue: {
-                        create: jest.fn().mockResolvedValue(fakeMessage)
-                    }
+                    useValue: MessageRepositoryMock(FakeMessage)
                 }
             ]
         }).compile();
@@ -43,14 +51,16 @@ describe('MessageService', () => {
     });
 
     it('can send a message to the Tangle', () => {
-        service.sendMessage(fakeMessage.content, fakeMessage.address)
-        .then((data: Message) => {
-            expect(data.hash).not.toEqual(fakeMessage.hash);
+        service.sendMessage(FakeMessage)
+            .then((data: Message | void) => {
+                data = (data as Message);
 
-            expect(data).toHaveProperty('initiated_at');
-            expect(data).toHaveProperty('attached_at');
-            expect(Number(data.attached_at)).toBeGreaterThan(Number(data.initiated_at));
-        })
-        .catch((error) => { });
+                expect(data.hash).not.toEqual(FakeMessage.hash);
+
+                expect(data).toHaveProperty('initiated_at');
+                expect(data).toHaveProperty('attached_at');
+                expect(Number(data.attached_at)).toBeGreaterThan(Number(data.initiated_at));
+            })
+            .catch((error) => { });
     });
 });

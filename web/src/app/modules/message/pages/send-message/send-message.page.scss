@@ -1,0 +1,48 @@
+@import 'variables';
+
+.send-msg {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: $page-height;
+    justify-content: center;
+
+    .send-msg__header {
+        align-self: center;
+        color: $color-primary;
+        font-weight: 300;
+        margin-bottom: 10rem;
+        text-align: left;
+        width: auto;
+
+        &--faded {
+            display: inline-block;
+            margin-bottom: $quarter-margin;
+            opacity: 0.6;
+            font-size: 100%;
+        }
+
+        &--highlight {
+            animation-delay: 0.4s;
+            color: $color-white;
+            font-weight: 700;
+            font-size: 150%;
+
+            &--thin {
+                font-weight: 300;
+            }
+        }
+    }
+}
+
+.send-msg__header.slide-up {
+    animation-delay: $landing-pause-duration;
+}
+
+web-message-form {
+    width: 100%;
+}
+
+web-message-form.fade-in {
+    animation-delay: 1.8s;
+}

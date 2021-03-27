@@ -1,0 +1,20 @@
+@import 'variables';
+
+.msg-result {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: $page-height;
+    margin-bottom: calc(#{$margin} * 1.5);
+    min-height: $page-height;
+}
+
+web-message-display {
+    width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+    .msg-result {
+        margin-bottom: 0;
+    }
+}

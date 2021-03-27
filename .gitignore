@@ -1,8 +1,9 @@
 # Environment variables
 **/*.env
 
-# Confidential stuff
+# Unnecessary files and folders for the repository
 conf
+extras
 
 # IDE-related stuff
 .idea

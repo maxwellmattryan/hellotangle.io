@@ -1,0 +1,51 @@
+@import 'variables';
+
+.msg-display {
+    display: flex;
+    flex-direction: column;
+    max-width: $page-max-width;
+    width: 100%;
+
+    .msg-display__msg-attribute-container {
+        margin-bottom: $margin;
+        width: 100%;
+
+        .msg-display__msg-attribute-key {
+            color: rgba(233, 236, 239, 0.9);
+            font-size: 120%;
+            font-weight: 600;
+            margin-bottom: $quarter-margin;
+            opacity: 0.8;
+        }
+
+        .msg-display__msg-attribute-value {
+            font-size: 90%;
+            margin-bottom: $half-margin;
+            overflow-wrap: break-word;
+        }
+    }
+}
+
+#msg__id {
+    animation-delay: 0.5s;
+}
+
+#msg__hash {
+    animation-delay: 0.6s;
+}
+
+#msg__recipient-address {
+    animation-delay: 0.7s;
+}
+
+#msg__content {
+    animation-delay: 0.9s;
+}
+
+#msg__initiated-at {
+    animation-delay: 1.1s;
+}
+
+#msg__attached-at {
+    animation-delay: 1.4s;
+}

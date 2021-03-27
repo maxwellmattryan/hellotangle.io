@@ -1,24 +1,25 @@
 {
     "name": "hellotangle-api",
-    "version": "0.0.1",
-    "description": "API for sending quick messages to the (IOTA) Tangle.",
+    "version": "1.0.0-alpha",
+    "description": "API for sending quick messages to the IOTA Tangle.",
     "author": "Matthew Maxwell",
-    "private": false,
+    "private": true,
     "license": "MIT",
     "scripts": {
         "prebuild": "rimraf dist",
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-        "start": "nest start",
-        "start:dev": "nest start --watch",
-        "start:debug": "nest start --debug --watch",
-        "start:prod": "node dist/main",
+        "docker": "npm run docker:postgres",
+        "docker:postgres": "docker start postgres || docker run --name postgres -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=hellotangle -d postgres:alpine",
+        "start": "node dist/main",
+        "start:dev": "npm run docker && nest start --watch",
+        "start:debug": "npm run docker && nest start --debug --watch",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-        "test": "jest --force-exit --detectOpenHandles",
-        "test:watch": "jest --watch --detectOpenHandles",
-        "test:cov": "jest --coverage --force-exit --detectOpenHandles",
+        "test": "jest --force-exit --detectOpenHandles --runInBand --setupFiles dotenv/config",
+        "test:watch": "jest --watch --detectOpenHandles --runInBand --setupFiles dotenv/config",
+        "test:cov": "jest --coverage --force-exit --detectOpenHandles --runInBand --setupFiles dotenv/config",
         "test:e2e": "jest --config ./test/jest-e2e.json",
-        "test:ci": "jest --ci --reporters='default' --reporters='./test/utils/github-action.reporter'"
+        "test:ci": "jest --ci --reporters='default' --reporters='test/core/utils/github-action.reporter'"
     },
     "dependencies": {
         "@iota/core": "^1.0.0-beta.30",
@@ -26,7 +27,6 @@
         "@nestjs/config": "^0.6.3",
         "@nestjs/core": "^7.6.13",
         "@nestjs/platform-express": "^7.6.13",
-        "@nestjs/swagger": "^4.8.0",
         "@nestjs/throttler": "^1.1.1",
         "@nestjs/typeorm": "^7.1.5",
         "@sideway/address": "^4.1.1",
@@ -42,7 +42,6 @@
         "reflect-metadata": "^0.1.13",
         "rimraf": "^3.0.2",
         "rxjs": "^6.6.6",
-        "swagger-ui-express": "^4.1.6",
         "typeorm": "^0.2.31",
         "typeorm-naming-strategies": "^2.0.0"
     },
@@ -81,19 +80,26 @@
             "src"
         ],
         "moduleNameMapper": {
-            "^@api/(.*)$": "<rootDir>/src/$1"
+            "^@api/(.*)$": "<rootDir>/src/$1",
+            "^@test/(.*)$": "<rootDir>/test/$1"
         },
         "transform": {
             "^.+\\.ts$": "ts-jest"
         },
         "collectCoverage": true,
         "collectCoverageFrom": [
-            "<rootDir>/src/**/*.(service|repository|util|command|query).ts"
+            "<rootDir>/src/**/*.(service|repository|interface|util|command|query).ts"
         ],
         "coverageDirectory": "./coverage",
         "testMatch": [
-            "<rootDir>/test/**/*.(service|repository|util|command|query).(test|spec).ts"
+            "<rootDir>/test/**/*.(service|repository|interface|util|command|query).(test|spec).ts"
         ],
-        "testEnvironment": "node"
+        "testPathIgnorePatterns": [
+            "<rootDir>/src/core/*.ts"
+        ],
+        "testEnvironment": "node",
+        "setupFiles": [
+            "dotenv/config"
+        ]
     }
 }

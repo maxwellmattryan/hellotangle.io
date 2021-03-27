@@ -1,0 +1,39 @@
+@import 'variables';
+
+.about {
+    height: auto;
+    margin-bottom: calc(#{$margin} * 1.5);
+    min-height: $page-height;
+
+    .about__info {
+        margin-bottom: $margin;
+    }
+
+    .about__info-list {
+        margin-bottom: calc(#{$margin} * 1.5);
+
+        .about__info-list-item {
+            margin-bottom: $half-margin;
+        }
+    }
+}
+
+#about__info-01 {
+    animation-delay: 0.2s;
+}
+
+#about__info-02 {
+    animation-delay: 0.3s;
+}
+
+#about__info-03 {
+    animation-delay: 0.4s;
+}
+
+#about__info-04 {
+    animation-delay: 0.6s;
+}
+
+#about__info-05 {
+    animation-delay: 1.0s;
+}
