@@ -28,12 +28,16 @@ export class MessageService extends BaseAbstractService<Message> implements Mess
      * @returns The resulting message with data from transaction.
      */
     public async sendMessage(messageDto: SendMessageDto): Promise<Message | void> {
-        let message = this.messageRepository.prepare(
+        const messageData = this.messageRepository.prepare(
             new Message({ ...messageDto, initiated_at: new Date(Date.now()) }),
             [messageDto.content as string, messageDto.recipient_address]
         );
-        message = await this.iotaService.sendMessage(message);
+        const message = await this.iotaService.sendMessage(messageData);
 
-        return this.messageRepository.create(message);
+        // NOTE: The result of this is not returned because the client should still receive a
+        // message in the case of a failure to write the data.
+        await this.messageRepository.create(message);
+
+        return message;
     }
 }

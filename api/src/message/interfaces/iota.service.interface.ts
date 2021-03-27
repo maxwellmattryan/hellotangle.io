@@ -20,7 +20,7 @@ export interface IotaServiceInterface extends BaseInterfaceService<IotaService> 
     /**
      * Send a message transaction via the IOTA protocol.
      * @param message The message data to use in the transaction.
-     * @returns The message including newly updated fields (id, hash, attached_at).
+     * @returns The message including newly updated fields `hash` and `attached_at`.
      */
     sendMessage(message: Message): Promise<Message>;
 }

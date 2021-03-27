@@ -81,7 +81,7 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
     /**
      * Sends a message via the IOTA protocol.
      * @param message The message data to use in the transaction.
-     * @returns The message including newly updated fields (id, hash, attached_at).
+     * @returns The message including newly updated fields `hash` and `attached_at`.
      */
     public async sendMessage(message: Message): Promise<Message> {
         const trytes = await this.prepareMessage(message);
