@@ -51,3 +51,4 @@ The spammer is a fun tool to really test the limits of the HelloTangle API. It u
 Parameters:
   - MESSAGE_COUNT*: An integer in the range [1, 10000].
   - NUM_WORKERS*: An integer in the range [1, 1000] and less than or equal to the MESSAGE_COUNT.
+  - API_ENVIRONMENT: A string with the value of either "dev" or "prod".
