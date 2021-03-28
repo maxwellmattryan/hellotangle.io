@@ -29,7 +29,6 @@ export class MessageService extends BaseAbstractService<MessageService> implemen
      */
     public async sendMessage(messageDto: SendMessageDto): Promise<Message | void> {
         const message = await this.iotaService.sendMessage(this.processMessageData(messageDto));
-        console.log(message);
 
         // NOTE: The result of this is not returned because the client should still receive a
         // message in the case of a failure to write the data.

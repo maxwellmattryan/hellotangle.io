@@ -53,6 +53,8 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
     public async sendMessage(message: Message): Promise<Message> {
         const messageId = await this.broadcastMessage(message);
 
+        this.logger.info(`Sent message to IOTA Tangle with hash of ${messageId}`);
+
         return new Message({
             ...message,
             hash: String(messageId),
@@ -86,8 +88,10 @@ export class IotaService extends BaseAbstractService<IotaService> implements Iot
         return new Date(milestone.timestamp * 1000);
     }
 
+    //==========================================================================
     // CAUTION: The code below is for the old IOTA protocol implementation. It will be replaced in due time
     // with a newer implementation for the Chrysalis network.
+    //==========================================================================
 
     /**
      * Refers to the amount of milestones to include in the node's tip-selection algorithm.
