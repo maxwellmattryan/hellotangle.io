@@ -1,6 +1,7 @@
-import { EntityValidationFailedException } from '@api/core/exceptions/base.entity.exceptions';
 import { validateOrReject } from 'class-validator';
 import { BaseEntity, BeforeInsert, BeforeUpdate } from 'typeorm';
+
+import { EntityDataIsInvalidException } from '@api/core/exceptions/base.entity.exceptions';
 
 import { BaseInterfaceEntity } from '@api/core/entities/base.interface.entity';
 
@@ -15,7 +16,7 @@ export abstract class BaseAbstractEntity<T> extends BaseEntity implements BaseIn
     private validate(): Promise<void> {
         return validateOrReject(this)
             .catch((error) => {
-                throw new EntityValidationFailedException();
+                throw new EntityDataIsInvalidException();
             });
     }
 }

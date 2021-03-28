@@ -23,25 +23,35 @@ export class MessageService extends BaseAbstractService<MessageService> implemen
     }
 
     /**
-     * Send message via IOTA protocol with data from request.
+     * Sends message via IOTA protocol with data from request.
      * @param messageDto The message data to use in creating a message.
      * @returns The resulting message with data from transaction.
      */
     public async sendMessage(messageDto: SendMessageDto): Promise<Message | void> {
-        const hasInitializedDate: boolean = 'initiated_at' in messageDto;
-        const messageData = this.messageRepository.prepare(
-            new Message({
-                ...messageDto,
-                initiated_at: hasInitializedDate ? new Date(messageDto.initiated_at as Date) : new Date(Date.now())
-            }),
-            [messageDto.content as string, messageDto.recipient_address]
-        );
-        const message = await this.iotaService.sendMessage(messageData);
+        const message = await this.iotaService.sendMessage(this.processMessageData(messageDto));
+        console.log(message);
 
         // NOTE: The result of this is not returned because the client should still receive a
         // message in the case of a failure to write the data.
         await this.messageRepository.create(message);
 
         return message;
+    }
+
+    /**
+     * Processes data from request and prepares it for broadcasting.
+     * @param messageData The message data to process.
+     * @returns A message containing more necessary necessary data.
+     * @internal
+     */
+    private processMessageData(messageData: SendMessageDto): Message {
+        const hasInitializedDate: boolean = 'initiated_at' in messageData;
+        return this.messageRepository.prepare(
+            new Message({
+                ...messageData,
+                initiated_at: hasInitializedDate ? new Date(messageData.initiated_at as Date) : new Date(Date.now())
+            }),
+            [messageData.content as string, messageData.recipient_address]
+        );
     }
 }
