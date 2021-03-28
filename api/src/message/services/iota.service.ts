@@ -19,7 +19,7 @@ import {
 /**
  * The type definition for the public IOTA protocol networks.
  */
-export type IotaNet = 'mainnet' | 'devnet';
+export type IotaNet = 'mainnet' | 'devnet' | 'chrysalis';
 
 /**
  * The IOTA service interface implementation for using the IOTA API.

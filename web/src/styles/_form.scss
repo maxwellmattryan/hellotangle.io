@@ -22,7 +22,14 @@
         .form__field-input {
             padding: $quarter-padding;
             margin-bottom: $half-margin;
+            max-width: 97.5%;
+            min-width: 97.5%;
             width: 97.5%;
+        }
+
+        textarea.form__field-input {
+            min-height: 6rem;
+            max-height: 6rem;
         }
 
         .form__field-requirement-container {

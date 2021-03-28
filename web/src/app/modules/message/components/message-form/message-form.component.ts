@@ -35,17 +35,20 @@ export class MessageFormComponent implements OnInit {
      * @internal
      */
     private initMessageForm(): FormGroup {
-        const recipientAddressRegex: RegExp = /^[A-Z9]*$/;
+        // NOTE: These regex patterns do NOT contain length matching because that is handled by
+        // Angular's validators. More importantly, it allows for more specific form validation
+        // messages to show the user.
+        const recipientAddressRegex: RegExp = /^atoi[a-z0-9]*$/;
         const contentRegex: RegExp = /^[\x00-\x7F]*$/;
 
         return this.formBuilder.group({
             recipient_address: this.formBuilder.control(
                 '',
-                [Validators.required, Validators.minLength(90), Validators.maxLength(90), Validators.pattern(recipientAddressRegex)]
+                [Validators.required, Validators.minLength(64), Validators.maxLength(64), Validators.pattern(recipientAddressRegex)]
             ),
             content: this.formBuilder.control(
                 '',
-                [Validators.required, Validators.maxLength(256), Validators.pattern(contentRegex)]
+                [Validators.required, Validators.maxLength(512), Validators.pattern(contentRegex)]
             )
         });
     }

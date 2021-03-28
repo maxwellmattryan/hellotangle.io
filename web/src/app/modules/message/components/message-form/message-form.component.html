@@ -15,7 +15,7 @@
                 formControlName='recipient_address'
                 required
                 autofocus
-                placeholder='eg. HZYKLMOYJYAYBZRTKAQPUOVUSZTC999JDJCVTXRKOS9WEHR9QEKWBFJRRHVKGXJ9CEZXEPIDLVOBEBD9DCNJNML9PL'
+                placeholder='eg. atoi1qz3xqrppl4hyf8m2z6v56243lgvmc7w7u6mgunplkacmy2lgr0ks69ynh9a'
             >
             <div
                 class='form__field-requirement-container msg-form__field-requirement-container'
@@ -31,13 +31,13 @@
                     class='form__field-requirement msg-form__field-requirement'
                     *ngIf='recipient_address.errors!.minlength || recipient_address.errors!.maxlength'
                 >
-                    Recipient address must be exactly 90 characters.
+                    Recipient address must be exactly 64 characters.
                 </div>
                 <div
                     class='form__field-requirement msg-form__field-requirement'
                     *ngIf='recipient_address.errors!.pattern'
                 >
-                    Recipient address must consist of only capital letters and the number 9.
+                    Recipient address must be prefixed with "atoi" and contain both numbers and lowercase letters from a-z.
                 </div>
             </div>
         </div>
@@ -52,13 +52,13 @@
                 ></span>
             </label>
             <br><br>
-            <input
+            <textarea
                 class='form__field-input msg-form__field-input'
                 formControlName='content'
                 required
                 autofocus
                 placeholder='eg. Hello, Tangle!'
-            >
+            ></textarea>
             <div
                 class='form__field-requirement-container msg-form__field-requirement-container'
                 *ngIf='content!.invalid && (content.dirty || content.touched)'
@@ -73,7 +73,7 @@
                     class='form__field-requirement msg-form__field-requirement'
                     *ngIf='content.errors!.maxlength'
                 >
-                    Content must not exceed 256 characters.
+                    Content must not exceed 512 characters.
                 </div>
                 <div
                     class='form__field-requirement msg-form__field-requirement'

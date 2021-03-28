@@ -64,7 +64,9 @@ export class MessageDisplayComponent implements OnInit {
      */
     public getIotaExplorerUrl(): string {
         const isProd: boolean = environment.production;
-        return `https://explorer.iota.org/${isProd ? 'mainnet' : 'chrysalis'}/transaction/${this.messageData.hash}`;
+        const iotaNet = isProd ? 'mainnet' : 'chrysalis';
+        const urlPath = isProd ? 'transaction' : 'message';
+        return `https://explorer.iota.org/${iotaNet}/${urlPath}/${this.messageData.hash}`;
     }
 
     /**
