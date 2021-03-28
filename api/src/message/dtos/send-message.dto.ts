@@ -1,10 +1,9 @@
 import {
     IsAlphanumeric,
     IsAscii,
-    IsDate,
-    IsDateString,
+    IsDateString, IsDefined,
     IsNotEmpty, IsOptional,
-    IsString,
+    IsString, Matches,
     MaxLength,
     MinLength
 } from 'class-validator';
@@ -20,29 +19,29 @@ export class SendMessageDto {
     }
 
     /**
-     * The content of a message, which __must__ be an ASCII string of at least one character and no more than 256 (512 bytes in TS).
+     * The content of a message, which __must__ be an ASCII string of at least one character and no more than 512 (1 kilobyte in TS).
      */
-    @MinLength(1)
-    @MaxLength(256)
-    @IsString()
     @IsNotEmpty()
     @IsAscii()
+    @MinLength(1)
+    @MaxLength(512)
     content!: MessageContent;
 
     /**
-     * The receipient address of a message, which __must__ be an alphanumeric string containing exactly 90 characters (180 bytes in TS).
+     * The receipient address of a message, which __must__ be an alphanumeric string containing exactly 64 characters (128 bytes in TS)
+     * and prefixed with "atoi".
      */
-    @MinLength(90)
-    @MaxLength(90)
-    @IsString()
-    @IsAlphanumeric()
     @IsNotEmpty()
+    @IsAlphanumeric()
+    @MinLength(64)
+    @MaxLength(64)
+    @Matches(/^atoi[a-z0-9]{60}$/)
     recipient_address!: MessageAddress;
 
     /**
      * The timestamp that a message was initiated at, ideally set by the client.
      */
-    @IsDateString()
     @IsOptional()
+    @IsDateString()
     initiated_at?: Date;
 }

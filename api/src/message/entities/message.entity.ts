@@ -1,4 +1,12 @@
-import { IsAlphanumeric, IsDate, IsDefined, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+    IsAlphanumeric, IsAscii,
+    IsDate, IsHexadecimal,
+    IsNotEmpty,
+    IsString,
+    Matches,
+    MaxLength,
+    MinLength
+} from 'class-validator';
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
 import { BaseAbstractEntity } from '@api/core/entities/base.abstract.entity';
@@ -18,61 +26,60 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
     }
 
     /**
-     * The ID of a message, which __must__ be a unique alphanumeric string of exactly 64 characters and __must__ exist to be used in code and persisted in the database.
+     * The ID of a message, which __must__ be a unique hexadecimal string of exactly 64 characters and __must__ exist to be used in code and persisted in the database.
      * @property type VARCHAR
      * @property length 64
      * @property unique true
      * @property nullable false
      */
-    @IsString()
-    @IsAlphanumeric()
+    @IsNotEmpty()
+    @IsHexadecimal()
     @MinLength(64)
     @MaxLength(64)
-    @IsDefined()
     @PrimaryColumn({ type: 'varchar', length: 64, unique: true, nullable: false })
     public id: Id = '';
 
     /**
      * The content of a message, which __must__ be an ASCII string of at least one character and no more than 256 characters and __must__ exist to be used in code and persisted in the database.
-     * @property type VARCHAR
-     * @property length 256
+     * @property type TEXT
      * @property unique false
      * @property nullable false
      */
-    @IsString()
-    @MaxLength(256)
-    @IsDefined()
-    @Column({ type: 'varchar', length: 256, unique: false, nullable: false })
+    @IsNotEmpty()
+    @IsAscii()
+    @MinLength(1)
+    @MaxLength(512)
+    @Column({ type: 'text', unique: false, nullable: false })
     public content: MessageContent = '';
 
     /**
-     * The receipient address of a message, which __must__ be an alphanumeric string of exactly 90 characters and __must__ exist to be used in code and persisted in the database.
+     * The receipient address of a message, which __must__ be an alphanumeric string of exactly 64 characters, prefixed with
+     * "atoi", and __must__ exist to be used in code and persisted in the database.
      * @property type VARCHAR
-     * @property length 90
+     * @property length 64
      * @property unique false
      * @property nullable false
      */
-    @IsString()
+    @IsNotEmpty()
     @IsAlphanumeric()
-    @MinLength(90)
-    @MaxLength(90)
-    @IsDefined()
-    @Column({ type: 'varchar', length: 90, unique: false, nullable: false })
+    @MinLength(64)
+    @MaxLength(64)
+    @Matches(/^atoi[a-z0-9]{60}$/)
+    @Column({ type: 'varchar', length: 64, unique: false, nullable: false })
     public recipient_address: MessageAddress = '';
 
     /**
-     * The transaction hash of a message, which __must__ be a unique alphanumeric string of exactly 81 characters and __must__ exist to be persisted in the database.
+     * The transaction hash of a message, which __must__ be a unique hexadecimal string of exactly 64 characters and __must__ exist to be persisted in the database.
      * @property type VARCHAR
-     * @property length 90
+     * @property length 64
      * @property unique true
      * @property nullable false
      */
-    @IsString()
-    @IsAlphanumeric()
-    @MinLength(81)
-    @MaxLength(81)
-    @IsDefined()
-    @Column({ type: 'varchar', length:  81, unique: true, nullable: false })
+    @IsNotEmpty()
+    @IsHexadecimal()
+    @MinLength(64)
+    @MaxLength(64)
+    @Column({ type: 'varchar', length:  64, unique: true, nullable: false })
     public hash?: MessageHash;
 
     /**
@@ -81,8 +88,8 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
      * @property default now
      * @property nullable false
      */
+    @IsNotEmpty()
     @IsDate()
-    @IsDefined()
     @CreateDateColumn({ type: 'timestamp', default: () => 'now()', nullable: false })
     public initiated_at?: Date;
 
@@ -91,8 +98,8 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
      * @property type TIMESTAMP
      * @property nullable false
      */
+    @IsNotEmpty()
     @IsDate()
-    @IsDefined()
     @UpdateDateColumn({ type: 'timestamp', nullable: false })
     public attached_at?: Date;
 }

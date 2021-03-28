@@ -8,7 +8,7 @@ import { BaseInterfaceEntity } from '@api/core/entities/base.interface.entity';
 export abstract class BaseAbstractEntity<T> extends BaseEntity implements BaseInterfaceEntity<T> {
     /**
      * Validates entity data before being inserted or updated.
-     * @throws {@link EntityValidationFailedException} if entity validation fails.
+     * @throws {@link EntityDataIsInvalidException} if entity data validation fails.
      * @internal
      */
     @BeforeInsert()
@@ -16,7 +16,8 @@ export abstract class BaseAbstractEntity<T> extends BaseEntity implements BaseIn
     private validate(): Promise<void> {
         return validateOrReject(this)
             .catch((error) => {
-                throw new EntityDataIsInvalidException();
+                const errorKeys = Object.keys(error[0].constraints);
+                throw new EntityDataIsInvalidException(error[0].constraints[errorKeys[0]]);
             });
     }
 }

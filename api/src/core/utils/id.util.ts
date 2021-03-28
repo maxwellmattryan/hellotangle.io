@@ -3,7 +3,7 @@ import { createHash } from 'crypto';
 import { Id } from '@api/core/types/id.types';
 
 type Digest = 'base64' | 'hex';
-const digest: Digest = 'base64';
+const digest: Digest = 'hex';
 type HashAlgorithm = 'sha256' | 'sha512' | 'md5' | 'RSA-SHA256';
 const hashAlgorithm: HashAlgorithm = 'sha512';
 
@@ -31,7 +31,7 @@ function createStringHashId(identifier: string, length: number = 64): Id {
         .update(identifier + now + generateRandomInt(1_000_000))
         .digest(digest)
         .toString()
-        .replace(/[^A-Z0-9]/g, generateRandomChar)
+        .replace(/[^a-z0-9]/g, generateRandomChar)
         .slice(0, length);
 }
 
@@ -41,7 +41,7 @@ function createStringHashId(identifier: string, length: number = 64): Id {
  */
 function generateRandomChar(): string {
     const randChars: string[] = [
-        String.fromCharCode(generateRandomInt(26) + 65),    // A-Z
+        String.fromCharCode(generateRandomInt(26) + 97),    // a-z
         String.fromCharCode(generateRandomInt(10) + 48)     // 0-9
     ];
 

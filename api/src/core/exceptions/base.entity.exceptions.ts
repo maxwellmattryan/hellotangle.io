@@ -14,8 +14,8 @@ export class EntityAlreadyExistsException extends BadRequestException {
  * fields are missing).
  */
 export class EntityDataIsInvalidException extends BadRequestException {
-    constructor() {
-        super('Entity contains invalid and/or lacks valid data.');
+    constructor(msg: string = '') {
+        super(`Entity contains invalid and/or lacks valid data. The ${msg}.`);
     }
 }
 
