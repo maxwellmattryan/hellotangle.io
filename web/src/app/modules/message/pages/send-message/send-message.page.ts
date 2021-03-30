@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
-import { NotificationService } from '@web/core/services/notification.service';
 import { MessageApiService } from '@web/modules/message/services/message-api.service';
 
 /**
@@ -15,10 +15,12 @@ import { MessageApiService } from '@web/modules/message/services/message-api.ser
 export class SendMessagePage implements OnInit {
     constructor(
         private readonly messageApiService: MessageApiService,
-        private readonly notificationService: NotificationService
+        private readonly title: Title
     ) { }
 
     ngOnInit(): void {
+        this.title.setTitle(`IOTA Message Form | HelloTangle`);
+
         // NOTE: Because of the nature GCP Cloud Run (which hosts this app),
         // there are possibilities for cold starts. This method call is for
         // making sure the server is ready to get when the user sends a message.

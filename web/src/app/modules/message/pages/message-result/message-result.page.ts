@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 /**
  * The page component for displaying the result of a message broadcast.
@@ -10,5 +11,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessageResultPage implements OnInit {
-    ngOnInit(): void { }
+    constructor(private readonly title: Title) { }
+
+    ngOnInit(): void {
+        this.title.setTitle(`IOTA Message Result | HelloTangle`);
+    }
 }
