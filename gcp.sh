@@ -71,6 +71,17 @@ else
     echo -e "\t[✔] Branch is set to \"develop\""
 fi
 
+CURRENT_GCP_PROJECT=$(gcloud config get-value project)
+if [ "$CURRENT_GCP_PROJECT" != "$GCP_PROJECT_ID" ]
+then
+    echo -e "\t[✘] Cloud SDK's configuration is set for $GCP_PROJECT_ID\n"
+    echo -e "To properly configure the SDK for this project, use:\n\n\tgcloud config set project $GCP_PROJECT_ID"
+
+    exit 1;
+else
+    echo -e "\t[✔] Cloud SDK's configuration is set for $GCP_PROJECT_ID"
+fi
+
 CURRENT_GCP_ACCOUNT=$(gcloud config list account --format "value(core.account)")
 if [ "$CURRENT_GCP_ACCOUNT" != "$GCP_SERVICE_ACCOUNT" ]
 then
@@ -82,17 +93,6 @@ then
     exit 1;
 else
     echo -e "\t[✔] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT"
-fi
-
-CURRENT_GCP_PROJECT=$(gcloud config get-value project)
-if [ "$CURRENT_GCP_PROJECT" != "$GCP_PROJECT_ID" ]
-then
-    echo -e "\t[✘] Cloud SDK's configuration is set for $GCP_PROJECT_ID\n"
-    echo -e "To properly configure the SDK for this project, use:\n\n\tgcloud config set project $GCP_PROJECT_ID"
-
-    exit 1;
-else
-    echo -e "\t[✔] Cloud SDK's configuration is set for $GCP_PROJECT_ID"
 fi
 
 if [ "$API_ACTION" = true ]
