@@ -60,7 +60,7 @@
                                     "inlineCritical": true
                                 },
                                 "fonts": {
-                                    "inline": true
+                                    "inline": false
                                 }
                             },
                             "outputHashing": "all",
