@@ -7,10 +7,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { CORE_ROOT_GUARD, coreRootGuardFactory } from '@web/core/guards/core-root.guard';
 import { CoreRoutingModule } from '@web/core/core-routing.module';
-import { HttpErrorInterceptor } from '@web/core/interceptors/http-error.interceptor';
 import { environment } from '@web/environments/environment';
 import { FooterComponent } from '@web/core/components/footer/footer.component';
 import { HeaderComponent } from '@web/core/components/header/header.component';
+import { HttpErrorInterceptor } from '@web/core/interceptors/http-error.interceptor';
+import { HttpRequestInterceptor } from '@web/core/interceptors/http-request.interceptor';
 import { LoadingSpinnerComponent } from '@web/core/components/loading-spinner/loading-spinner.component';
 import { NotificationService } from '@web/core/services/notification.service';
 
@@ -55,6 +56,11 @@ export class CoreModule {
                     deps: [NotificationService],
                     multi: true
                 },
+                {
+                    provide: HTTP_INTERCEPTORS,
+                    useClass: HttpRequestInterceptor,
+                    multi: true
+                }
             ]
         };
     }
