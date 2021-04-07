@@ -8,14 +8,8 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
  * @returns An object usable by the TypeORM registration method in module imports.
  */
 export function typeormConfig(configService: ConfigService): any {
-    const socketPath = configService.get('DB_SOCKET_PATH');
-    const sslOptions = socketPath ? {
-        rejectUnauthorized: false,
-        ca: Buffer.from(String(configService.get('DB_SSL_CA')), 'base64').toString('ascii'),
-        cert: Buffer.from(String(configService.get('DB_SSL_CERT')), 'base64').toString('ascii'),
-        key: Buffer.from(String(configService.get('DB_SSL_KEY')), 'base64').toString('ascii'),
-    } : { };
-    const extraOptions = socketPath ? { socketPath: socketPath, ssl: sslOptions } : { };
+    const isLocal: boolean = Boolean(configService.get('DB_HOST') === 'localhost');
+    const extraOptions = isLocal ? { } : { ssl: { rejectUnauthorized: false }};
 
     return ({
         type: 'postgres',

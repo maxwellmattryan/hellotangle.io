@@ -21,7 +21,7 @@ import { HttpLogger } from '@api/core/http/http.logger';
         }),
         ConfigModule.forRoot({
             validationSchema: Joi.object({
-                IOTA_NET: Joi.string(),
+                IOTA_NET: Joi.string().required(),
                 IOTA_NODE_URL: Joi.string().required(),
                 IOTA_WALLET_SEED: Joi.string().required(),
 
@@ -30,11 +30,6 @@ import { HttpLogger } from '@api/core/http/http.logger';
                 DB_USER: Joi.string().required(),
                 DB_PASS: Joi.string().required(),
                 DB_NAME: Joi.string().required(),
-
-                DB_SOCKET_PATH: Joi.string(),
-                DB_SSL_CA: Joi.string(),
-                DB_SSL_CERT: Joi.string(),
-                DB_SSL_KEY: Joi.string(),
 
                 API_RATE_LIMIT: Joi.string().required()
             })
