@@ -13,8 +13,8 @@ async function bootstrap(): Promise<void> {
     app.useLogger(app.get(ExtendedLogger));
 
     app.enableCors({
-        origin: true,
-        methods: 'GET,POST,PUT,DELETE,BATCH,OPTIONS',
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'BATCH', 'OPTIONS'],
         credentials: true
     });
 

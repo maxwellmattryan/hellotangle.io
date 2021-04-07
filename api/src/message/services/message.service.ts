@@ -40,7 +40,7 @@ export class MessageService extends BaseAbstractService<MessageService> implemen
 
         // NOTE: The result of this is not returned because the client should still receive a
         // message in the case of a failure to write the data.
-        await this.messageRepository.create(message);
+        // await this.messageRepository.create(message);
 
         return message;
     }
