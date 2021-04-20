@@ -15,7 +15,7 @@ async function bootstrap(): Promise<void> {
     app.enableCors({
         origin: true,
         credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'BATCH', 'OPTIONS']
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
     });
 
     app.use(compression());
