@@ -13,9 +13,9 @@ async function bootstrap(): Promise<void> {
     app.useLogger(app.get(ExtendedLogger));
 
     app.enableCors({
-        origin: true,
+        origin: [/http:\/\/localhost/, /https?:\/\/([a-z0-9]+[.])*hellotangle.io/],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
     });
 
     app.use(compression());

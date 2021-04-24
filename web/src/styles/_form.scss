@@ -32,7 +32,29 @@
                 color: $color-warn;
                 font-size: 80%;
                 margin-bottom: $quarter-margin;
+
+                &:before {
+                    content: '\f06a';
+                    font-family: 'FontAwesome', $font-stack;
+                    margin-right: $eighth-margin;
+                }
             }
+        }
+    }
+
+    .form__warning {
+        align-self: flex-start;
+        color: $color-caution;
+        display: flex;
+        flex-direction: row;
+        font-size: 80%;
+        margin-bottom: $margin;
+
+        &:before {
+            align-self: center;
+            content: '\f071';
+            font-family: 'FontAwesome', $font-stack;
+            margin-right: $quarter-margin;
         }
     }
 
@@ -40,10 +62,4 @@
         margin-top: $half-margin;
         align-self: center;
     }
-}
-
-.form__field-requirement:before {
-    content: '\f06a';
-    font-family: 'FontAwesome', $font-stack;
-    margin-right: $eighth-margin;
 }

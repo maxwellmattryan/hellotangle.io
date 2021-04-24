@@ -12,6 +12,7 @@ API_IMAGE=hellotangle-api
 WEB_IMAGE=hellotangle-web
 DOMAIN=hellotangle.io
 
+GCP_CONFIGURATION=hellotangle
 GCP_HOSTNAME=gcr.io
 GCP_PLATFORM=managed
 GCP_PROJECT_ID=hellotangle
@@ -75,7 +76,7 @@ CURRENT_GCP_PROJECT=$(gcloud config get-value project)
 if [ "$CURRENT_GCP_PROJECT" != "$GCP_PROJECT_ID" ]
 then
     echo -e "\t[✘] Cloud SDK's configuration is set for $GCP_PROJECT_ID\n"
-    echo -e "To properly configure the SDK for this project, use:\n\n\tgcloud config set project $GCP_PROJECT_ID"
+    echo -e "To properly configure the SDK for this project, use:\n\n\tgcloud config configurations activate $GCP_CONFIGURATION"
 
     exit 1;
 else

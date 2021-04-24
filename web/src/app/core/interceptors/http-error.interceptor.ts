@@ -16,8 +16,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        req = req.clone({ withCredentials: true });
-
         return next.handle(req).pipe(catchError(err => this.handleHttpError(err)));
     }
 
