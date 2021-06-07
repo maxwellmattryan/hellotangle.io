@@ -66,7 +66,7 @@ then
     echo -e "\t[✘] Branch is set to \"develop\"\n"
     echo -e "To switch to the correct branch, please use:\n\n\tgit checkout develop"
 
-#    exit 1;
+    exit 1;
 else
     echo -e "\t[✔] Branch is set to \"develop\""
 fi
@@ -137,7 +137,7 @@ then
     echo -e "[Success]: Pushed local API image!\n"
 
     echo -e "($(expr $START + 3)/$STEPS) Deploying to Cloud Run service ($GCP_API_SERVICE)...\n"
-    gcloud run deploy "$GCP_API_SERVICE" --image="$GCP_API_IMAGE_PATH" --platform="$GCP_PLATFORM" --vpc-connector="$GCP_VPC_CONNECTOR" --vpc-egress="$GCP_VPC_EGRESS"
+    gcloud run deploy "$GCP_API_SERVICE" --image="$GCP_API_IMAGE_PATH" --platform="$GCP_PLATFORM" --region="$GCP_REGION"
     echo -e "[Success]: Deployed service!\n"
 
     echo -e "($(expr $START + 4)/$STEPS) Removing API images from Docker...\n"
