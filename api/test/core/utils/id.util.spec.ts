@@ -7,6 +7,6 @@ describe('BaseRepository', () => {
         const idStr = String(id);
 
         expect(idStr.length).toEqual(64);
-        expect(idStr).toMatch(/[A-Z0-9]{64}/);
+        expect(idStr).toMatch(/[a-f0-9]{64}/);
     });
 });

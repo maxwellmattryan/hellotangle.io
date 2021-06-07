@@ -27,10 +27,6 @@ describe('IotaService', () => {
         expect(service).toBeDefined();
     });
 
-    it('can connect to a node and gather information', () => {
-        expect(service.connectToNode()).resolves.toHaveProperty('time');
-    });
-
     it('can broadcast message to Tangle and return a non-empty Transaction array', () => {
         service.sendMessage(FakeMessage)
             .then((data: Message) => {
