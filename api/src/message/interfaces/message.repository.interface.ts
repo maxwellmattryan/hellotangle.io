@@ -2,6 +2,9 @@ import { BaseInterfaceRepository } from '@api/core/repositories/base.interface.r
 
 import { Message } from '@api/message/entities/message.entity';
 
+/**
+ * The injection token for an `MessageRepository`.
+ */
 export const MESSAGE_REPOSITORY = 'MessageRepositoryInterface';
 
 /**

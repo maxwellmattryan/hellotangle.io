@@ -5,6 +5,9 @@ import { BaseInterfaceService } from '@api/core/services/base.interface.service'
 import { Message } from '@api/message/entities/message.entity';
 import { IotaService } from '@api/message/services/iota.service';
 
+/**
+ * The injection token for an `IotaService`.
+ */
 export const IOTA_SERVICE = 'IotaServiceInterface';
 
 /**

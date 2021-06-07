@@ -1,6 +1,6 @@
 {
     "name": "hellotangle-api",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "API for sending quick messages to the IOTA Tangle.",
     "author": "Matthew Maxwell",
     "private": true,
@@ -22,7 +22,9 @@
         "test:ci": "jest --ci --reporters='default' --reporters='test/core/utils/github-action.reporter'"
     },
     "dependencies": {
+        "@hapi/joi": "^17.1.1",
         "@iota/core": "^1.0.0-beta.30",
+        "@iota/iota.js": "github:iotaledger/iota.js#chrysalis",
         "@nestjs/common": "^7.6.13",
         "@nestjs/config": "^0.6.3",
         "@nestjs/core": "^7.6.13",

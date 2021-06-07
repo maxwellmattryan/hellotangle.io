@@ -21,7 +21,7 @@ API_URL: str = f'http://{API_HOST}:{API_PORT}/api'
 # Basic message to use in spamming the API and IOTA Tangle.
 MESSAGE: dict = {
     'content': 'Hello, Tangle!',
-    'recipient_address': 'HZYKLMOYJYAYBYRTKAQPUOMUSZTC999JDJCVTXRKOS9WEHR9QEYOBFJRHVXGXJ9CEZPEPIDLVOBBDDCNJXML9GHCYB'
+    'recipient_address': 'atoi1qz3xqrppl4hyf8m2z6v5j743lgvmc7w7u6glsnplkacmy2lgr0ks69ynh9a'
 }
 
 def TimeFn(fn: Callable) -> None:
@@ -116,17 +116,20 @@ def initialize_spammer_parameters() -> bool:
         was_exception_thrown = True
 
     try:
-        API_ENVIRONMENT = str(sys.argv[3])
+        if len(sys.argv) >= 4:
+            API_ENVIRONMENT = str(sys.argv[3])
 
-        if type(API_ENVIRONMENT) is not None:
+        if type(API_ENVIRONMENT) is None:
+            API_ENVIRONMENT = 'dev'
 
-            assert(type(API_ENVIRONMENT) is str)
-            assert(API_ENVIRONMENT == 'dev' or API_ENVIRONMENT == 'prod')
+        assert(type(API_ENVIRONMENT) is str)
+        assert(API_ENVIRONMENT == 'dev' or API_ENVIRONMENT == 'prod')
 
-            if API_ENVIRONMENT == 'prod':
-                API_URL = f'https://api.hellotangle.io/api'
+        if API_ENVIRONMENT == 'prod':
+            API_URL = f'https://api.hellotangle.io/api'
 
     except Exception as e:
+        print(e)
         print_message(api_environment_error)
         was_exception_thrown = True
 
@@ -171,7 +174,7 @@ def spam() -> None:
 
 def main() -> None:
     num_args = len(sys.argv)
-    assert(num_args == 4)
+    assert(num_args >= 3)
 
     if not initialize_spammer_parameters():
         return

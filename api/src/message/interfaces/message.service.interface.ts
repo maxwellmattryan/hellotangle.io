@@ -4,6 +4,9 @@ import { SendMessageDto } from '@api/message/dtos/send-message.dto';
 import { Message } from '@api/message/entities/message.entity';
 import { MessageService } from '@api/message/services/message.service';
 
+/**
+ * The injection token for an `MessageService`.
+ */
 export const MESSAGE_SERVICE = 'MessageServiceInterface';
 
 /**

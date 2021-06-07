@@ -1,11 +1,7 @@
 import { DeleteResult, Repository } from 'typeorm';
 
 import { PostgresErrors } from '@api/core/database/postgres.errors';
-import {
-    EntityAlreadyExistsException,
-    EntityDataIsInvalidException,
-    UnableToCreateEntityException
-} from '@api/core/exceptions/base.entity.exceptions';
+import { EntityAlreadyExistsException, EntityDataIsInvalidException } from '@api/core/exceptions/base.entity.exceptions';
 import { BaseInterfaceRepository } from '@api/core/repositories/base.interface.repository';
 import { Id } from '@api/core/types/id.types';
 import { createId } from '@api/core/utils/id.util';
@@ -47,18 +43,17 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
             data = this.prepare(data, []);
 
         return this.entity.save(data)
-        .catch((error) => {
-            switch(error.code) {
-                default:
-                case PostgresErrors.UNIQUE_VIOLATION:
-                    throw new EntityAlreadyExistsException();
+            .catch((error) => {
+                switch(error.code) {
+                    case PostgresErrors.UNIQUE_VIOLATION:
+                        throw new EntityAlreadyExistsException();
 
-                case PostgresErrors.NOT_NULL_VIOLATION:
-                    throw new EntityDataIsInvalidException();
-            }
+                    case PostgresErrors.NOT_NULL_VIOLATION:
+                        throw new EntityDataIsInvalidException();
+                }
 
-            throw new UnableToCreateEntityException();
-        });
+                throw error;
+            });
     }
 
     /**
