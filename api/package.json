@@ -23,8 +23,7 @@
     },
     "dependencies": {
         "@hapi/joi": "^17.1.1",
-        "@iota/core": "^1.0.0-beta.30",
-        "@iota/iota.js": "github:iotaledger/iota.js#chrysalis",
+        "@iota/client": "^0.6.1",
         "@nestjs/common": "^7.6.13",
         "@nestjs/config": "^0.6.3",
         "@nestjs/core": "^7.6.13",
@@ -36,6 +35,7 @@
         "@sideway/pinpoint": "^2.0.0",
         "@types/hapi__joi": "^17.1.6",
         "cache-manager": "^3.4.1",
+        "class-transformer": "^0.4.0",
         "class-validator": "^0.13.1",
         "compression": "^1.7.4",
         "helmet": "^4.4.1",

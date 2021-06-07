@@ -50,7 +50,7 @@ export class MessageService extends BaseAbstractService<MessageService> implemen
                 ...messageData,
                 initiated_at: hasInitializedDate ? new Date(messageData.initiated_at as Date) : new Date(Date.now())
             }),
-            [messageData.content as string, messageData.recipient_address]
+            [messageData.content, messageData.recipient_address]
         );
     }
 }

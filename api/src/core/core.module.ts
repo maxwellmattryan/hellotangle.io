@@ -21,9 +21,8 @@ import { HttpLogger } from '@api/core/http/http.logger';
         }),
         ConfigModule.forRoot({
             validationSchema: Joi.object({
-                IOTA_NET: Joi.string(),
-                IOTA_NODE_URL: Joi.string().required(),
-                IOTA_WALLET_SEED: Joi.string().required(),
+                NETWORK: Joi.string().required(),
+                NODE_URL: Joi.string().required(),
 
                 DB_HOST: Joi.string().required(),
                 DB_PORT: Joi.number().required(),

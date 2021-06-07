@@ -2,7 +2,6 @@ import {
     IsAlphanumeric, IsAscii,
     IsDate, IsHexadecimal,
     IsNotEmpty,
-    IsString,
     Matches,
     MaxLength,
     MinLength
@@ -13,6 +12,8 @@ import { BaseAbstractEntity } from '@api/core/entities/base.abstract.entity';
 import { MessageHash, MessageContent, MessageAddress } from '@api/message/types/message.types';
 import { MessageEntityInterface } from '@api/message/interfaces/message.entity.interface';
 import { Id } from '@api/core/types/id.types';
+
+const isMainnet: boolean = process.env.NETWORK === 'mainnet';
 
 /**
  * The message entity class containing all relevant properties for IOTA protocol messages.
@@ -64,7 +65,7 @@ export class Message extends BaseAbstractEntity<Message> implements MessageEntit
     @IsAlphanumeric()
     @MinLength(64)
     @MaxLength(64)
-    @Matches(/^atoi[a-z0-9]{60}$/)
+    @Matches(isMainnet ? /^iota[a-z0-9]{60}$/ : /^atoi[a-z0-9]{60}$/)
     @Column({ type: 'varchar', length: 64, unique: false, nullable: false })
     public recipient_address: MessageAddress = '';
 

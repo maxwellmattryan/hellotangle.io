@@ -1,14 +1,17 @@
 import {
     IsAlphanumeric,
     IsAscii,
-    IsDateString, IsDefined,
-    IsNotEmpty, IsOptional,
-    IsString, Matches,
+    IsDateString,
+    IsNotEmpty,
+    IsOptional,
+    Matches,
     MaxLength,
     MinLength
 } from 'class-validator';
 
 import { MessageAddress, MessageContent } from '@api/message/types/message.types';
+
+const isMainnet: boolean = process.env.NETWORK === 'mainnet';
 
 /**
  * The message transfer data object (DTO) for sending messages via the IOTA protocol.
@@ -35,7 +38,7 @@ export class SendMessageDto {
     @IsAlphanumeric()
     @MinLength(64)
     @MaxLength(64)
-    @Matches(/^atoi[a-z0-9]{60}$/)
+    @Matches(isMainnet ? /^iota[a-z0-9]{60}$/ : /^atoi[a-z0-9]{60}$/)
     recipient_address!: MessageAddress;
 
     /**

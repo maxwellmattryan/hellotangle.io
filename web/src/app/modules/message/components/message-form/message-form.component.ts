@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { environment } from '@web/environments/environment';
+
 import { Message } from '@web/modules/message/models/message.model';
 import { MessageApiService } from '@web/modules/message/services/message-api.service';
 import { MessageService } from '@web/modules/message/services/message.service';
@@ -38,8 +40,7 @@ export class MessageFormComponent implements OnInit {
         // NOTE: These regex patterns do NOT contain length matching because that is handled by
         // Angular's validators. More importantly, it allows for more specific form validation
         // messages to show the user.
-        const recipientAddressRegex: RegExp = /^atoi[a-z0-9]*$/;
-        const contentRegex: RegExp = /^[\x00-\x7F]*$/;
+        const recipientAddressRegex: RegExp = environment.production ? /^iota[a-z0-9]{60}$/ : /^atoi[a-z0-9]{60}$/;
 
         return this.formBuilder.group({
             recipient_address: this.formBuilder.control(
@@ -48,7 +49,7 @@ export class MessageFormComponent implements OnInit {
             ),
             content: this.formBuilder.control(
                 '',
-                [Validators.required, Validators.maxLength(512), Validators.pattern(contentRegex)]
+                [Validators.required, Validators.maxLength(512)]
             )
         });
     }
